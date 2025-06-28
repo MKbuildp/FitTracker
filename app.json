@@ -30,7 +30,7 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": false,
-      "package": "com.petrkubes.fittracker",
+      "package": "com.mkbuildp.fittracker",
       "versionCode": 5,
       "permissions": [
         "INTERNET",
