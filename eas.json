@@ -15,9 +15,7 @@
     },
     "production": {
       "android": {
-        "buildType": "app-bundle",
-        "useGoogleServicesJson": true,
-        "googleServicesFile": "./google-services.json"
+        "buildType": "app-bundle"
       }
     }
   },
