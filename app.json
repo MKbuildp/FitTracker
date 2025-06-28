@@ -1,0 +1,61 @@
+{
+  "expo": {
+    "name": "FitTracker",
+    "slug": "fittracker",
+    "version": "1.2.0",
+    "orientation": "portrait",
+    "icon": "./assets/fittracker-icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "description": "Aplikace pro sledování cvičení a pokroku - dva typy měření (opakování/čas) s inteligentním směrováním",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#2563eb"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.yourcompany.fittracker",
+      "buildNumber": "1.0.0"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "edgeToEdgeEnabled": false,
+      "package": "com.yourcompany.fittracker",
+      "versionCode": 1,
+      "permissions": [
+        "INTERNET"
+      ],
+      "allowBackup": false,
+      "statusBarStyle": "light-content",
+      "statusBarBackgroundColor": "#2563eb",
+      "playStoreUrl": "https://play.google.com/store/apps/details?id=com.yourcompany.fittracker",
+      "inAppPurchaseKeys": [
+        "VASE_LICENCE_Z_GOOGLE_PLAY_CONSOLE"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-font",
+      "expo-localization",
+      "expo-in-app-purchases"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "VAS_PROJECT_ID_Z_EAS"
+      }
+    }
+  }
+}
