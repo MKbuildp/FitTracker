@@ -50,7 +50,10 @@
     "plugins": [
       "expo-font",
       "expo-localization",
-      "expo-in-app-purchases"
+      [
+        "expo-in-app-purchases",
+        {}
+      ]
     ],
     "extra": {
       "eas": {
