@@ -15,7 +15,11 @@
     },
     "production": {
       "android": {
-        "buildType": "app-bundle"
+        "buildType": "app-bundle",
+        "credentialsSource": "remote",
+        "appBundle": {
+          "useGooglePlaySigning": true
+        }
       }
     }
   },
