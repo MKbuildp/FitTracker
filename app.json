@@ -30,8 +30,8 @@
         "backgroundColor": "#FFFFFF"
       },
       "edgeToEdgeEnabled": false,
-      "package": "com.yourcompany.fittracker",
-      "versionCode": 1,
+      "package": "com.fittracker.fitness",
+      "versionCode": 2,
       "permissions": [
         "INTERNET"
       ],
