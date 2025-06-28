@@ -16,10 +16,8 @@
     "production": {
       "android": {
         "buildType": "app-bundle",
-        "credentialsSource": "remote",
-        "appBundle": {
-          "useGooglePlaySigning": true
-        }
+        "useGoogleServicesJson": true,
+        "googleServicesFile": "./google-services.json"
       }
     }
   },
