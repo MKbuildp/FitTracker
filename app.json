@@ -40,7 +40,7 @@
       "statusBarBackgroundColor": "#2563eb",
       "playStoreUrl": "https://play.google.com/store/apps/details?id=com.yourcompany.fittracker",
       "inAppPurchaseKeys": [
-        "VASE_LICENCE_Z_GOOGLE_PLAY_CONSOLE"
+        "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0BREKstiixsbYIiZrU97xvv6mSjXPphJKZzEsrs80FGAVVI5iWJWyCbkXYFTnWNGq8AyTni3nCfmlAVJ7HhMmaYe+g5wITmndKkLBIUGw8W1t/xEw0bDhRrs5NjvBh3quyAJzPE5eaUeD2Pl9ejuS3RHflzaL0ddUaO6ZhxvM52wLxHixrPcLHnPmo+ejvOO8kQSsAJ4Cui16PTBXuSfu0J8dZIqv20j40p46Uc206cCxnU5i4Y/nspYAG9giuDjlSOOQOiT+swSDp+6xEoN4XLAKG1oFL6ZnRWLoE/6hCMUcfpguDWi8PwYEiZbvrc19tPU8JrlvUhG5DO5Gx12zwIDAQAB"
       ]
     },
     "web": {
@@ -54,7 +54,7 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "VAS_PROJECT_ID_Z_EAS"
+        "projectId": "5a1020bb-0c33-42f4-82ab-b8920683f55c"
       }
     }
   }
