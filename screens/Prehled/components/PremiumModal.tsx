@@ -14,17 +14,33 @@ import { useTranslation } from '../../../hooks/useTranslation';
 
 /** Props pro PremiumModal */
 interface PremiumModalProps {
-  visible: boolean;
-  onClose: () => void;
+  viditelne: boolean;
+  onZavrit: () => void;
+  onKoupitPremium?: () => void;
+  onObnovitNakupy?: () => void;
 }
 
 /**
  * @description Modální okno pro zobrazení nabídky Premium verze a zahájení nákupu.
  */
-const PremiumModal = ({ visible, onClose }: PremiumModalProps) => {
+const PremiumModal = ({ viditelne, onZavrit, onKoupitPremium, onObnovitNakupy }: PremiumModalProps) => {
   const { t } = useTranslation();
   const { jePremium, produkty, koupitPremium, nacitaSe, inicializovano } = usePlatby();
   const premiumProdukt = produkty.length > 0 ? produkty[0] : null;
+
+  const handleKoupitPremium = async () => {
+    if (onKoupitPremium) {
+      onKoupitPremium();
+    } else {
+      await koupitPremium();
+    }
+  };
+
+  const handleObnovitNakupy = () => {
+    if (onObnovitNakupy) {
+      onObnovitNakupy();
+    }
+  };
 
   const renderContent = () => {
     if (!inicializovano || nacitaSe) {
@@ -72,11 +88,19 @@ const PremiumModal = ({ visible, onClose }: PremiumModalProps) => {
           </View>
         </View>
         
-        <TouchableOpacity style={styles.purchaseButton} onPress={koupitPremium}>
+        <TouchableOpacity style={styles.purchaseButton} onPress={handleKoupitPremium}>
           <Text style={styles.purchaseButtonText}>
             {t('premium_modal_unlock_button')} ({premiumProdukt.price})
           </Text>
         </TouchableOpacity>
+
+        {onObnovitNakupy && (
+          <TouchableOpacity style={styles.restoreButton} onPress={handleObnovitNakupy}>
+            <Text style={styles.restoreButtonText}>
+              {t('premium.restorePurchases')}
+            </Text>
+          </TouchableOpacity>
+        )}
       </View>
     );
   };
@@ -85,12 +109,12 @@ const PremiumModal = ({ visible, onClose }: PremiumModalProps) => {
     <Modal
       animationType="slide"
       transparent={true}
-      visible={visible}
-      onRequestClose={onClose}
+      visible={viditelne}
+      onRequestClose={onZavrit}
     >
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
-          <TouchableOpacity style={styles.closeButton} onPress={onClose}>
+          <TouchableOpacity style={styles.closeButton} onPress={onZavrit}>
             <Ionicons name="close-circle" size={30} color="#9ca3af" />
           </TouchableOpacity>
           {renderContent()}
@@ -168,6 +192,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     elevation: 2,
     width: '100%',
+    marginBottom: 10,
   },
   purchaseButtonText: {
     color: 'white',
@@ -175,6 +200,20 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 18,
   },
+  restoreButton: {
+    backgroundColor: 'transparent',
+    borderRadius: 30,
+    paddingVertical: 10,
+    paddingHorizontal: 30,
+    width: '100%',
+  },
+  restoreButtonText: {
+    color: '#6b7280',
+    fontWeight: '500',
+    textAlign: 'center',
+    fontSize: 16,
+  },
 });
 
+export { PremiumModal };
 export default PremiumModal; 

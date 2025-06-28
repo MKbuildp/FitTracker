@@ -1,6 +1,6 @@
 # Struktura Projektu FitTracker
 
-*Poslední aktualizace: 31. července 2024 - 11:00 (Kompletní aktualizace struktury projektu)*
+*Poslední aktualizace: 17. prosince 2024 - 15:30 (Přidána Cursor Rules)*
 
 ## Hlavní Struktura
 
@@ -21,9 +21,11 @@ CviceniApp/
 ├── context/              # React Context soubory
 │   ├── CviceniContext.tsx # Context pro správu stavu cvičení (324 řádků)
 │   ├── LanguageContext.tsx # Context pro správu jazyka (175 řádků)
-│   └── ObdobniContext.tsx # Context pro správu časových období (70 řádků)
+│   ├── ObdobniContext.tsx # Context pro správu časových období (70 řádků)
+│   └── PlatbyContext.tsx # Context pro správu plateb - MOCK verze (45 řádků)
 ├── docs/                 # Dokumentace projektu
-│   └── project-structure.md # Tento dokument
+│   ├── project-structure.md # Tento dokument
+│   └── cursor-rules.md   # 🆕 Cursor Rules - pravidla pro vývoj (280 řádků)
 ├── hooks/                # Globální React hooks
 │   └── useTranslation.ts # Hook pro překlady (24 řádků)
 ├── screens/              # Obrazovky aplikace
@@ -123,13 +125,23 @@ CviceniApp/
 ├── app.json              # Expo konfigurace (53 řádků)
 ├── BUILD-GUIDE.md        # Návod pro sestavení aplikace (269 řádků)
 ├── create-apk.bat        # Skript pro vytvoření APK (61 řádků)
-├── eas.json              # EAS Build konfigurace (38 řádků)
+├── eas.json              # EAS Build konfigurace (25 řádků)
 ├── index.ts              # Vstupní bod aplikace (9 řádků)
 ├── package.json          # Závislosti a skripty (41 řádků)
 ├── package-lock.json     # Přesné verze závislostí (8753 řádků)
 ├── README.md             # Dokumentace projektu (162 řádků)
 └── tsconfig.json         # TypeScript konfigurace (7 řádků)
 ```
+
+## 📋 Nová Dokumentace
+
+### `/docs/cursor-rules.md` 🆕
+**Kompletní sada pravidel pro vývoj s Cursor AI**
+- **KLÍČOVÉ PRAVIDLO 8:** Správa verzí s Git - kontrola Git operací
+- **KLÍČOVÉ PRAVIDLO 9:** Nastavení vývojového prostředí - konfigurace externích služeb
+- Aktualizované stávající pravidla (1-7)
+- Kontrolní seznamy pro nové projekty
+- Bezpečnostní pokyny pro citlivé údaje
 
 ## Popis Hlavních Složek
 
@@ -173,7 +185,7 @@ Statické soubory - ikony aplikace v různých velikostech a formátech pro růz
 ## Konfigurační Soubory
 
 - `app.json`: Konfigurace Expo aplikace (53 řádků)
-- `eas.json`: Konfigurace pro EAS Build (38 řádků)
+- `eas.json`: Konfigurace pro EAS Build (25 řádků)
 - `tsconfig.json`: TypeScript konfigurace (7 řádků)
 - `package.json`: Seznam závislostí a npm skriptů (41 řádků)
 
@@ -771,4 +783,4 @@ screens/[NazevObrazovky]/
 
 **🚀 Aplikace nyní podporuje pokročilé časové filtrování statistik s intuitivní navigací a trendy analýzou! Uživatelé mohou sledovat svůj pokrok v různých časových obdobích s detailními porovnáními. 📊✨**
 
-*Dokumentace aktualizována 31. července 2024 - 11:00 CET - Kompletní aktualizace struktury projektu a počtu řádků!*
+*Dokumentace aktualizována 17. prosince 2024 - 15:30 CET - Přidána Cursor Rules*

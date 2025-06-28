@@ -17,12 +17,6 @@ jobs:
         with:
           node-version: 18
 
-      - name: Set up Java 17
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-
       - name: Set up Expo and EAS
         uses: expo/expo-github-action@v8
         with:
@@ -32,27 +26,5 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Create Android keystore
-        run: |
-          # Vytvoření keystore pro Android
-          keytool -genkey -v -storetype JKS -keyalg RSA -keysize 2048 -validity 10000 \
-            -storepass android123 -keypass android123 \
-            -alias upload -keystore android-upload-key.keystore \
-            -dname "CN=FitTracker,OU=,O=,L=,S=,C=US"
-          
-          # Vytvoření credentials.json pro EAS
-          cat > credentials.json << EOF
-          {
-            "android": {
-              "keystore": {
-                "keystorePath": "android-upload-key.keystore",
-                "keystorePassword": "android123",
-                "keyAlias": "upload",
-                "keyPassword": "android123"
-              }
-            }
-          }
-          EOF
-
-      - name: Build with EAS
-        run: eas build --platform android --profile production --non-interactive --local 
+      - name: Build with EAS (Cloud)
+        run: eas build --platform android --profile production --non-interactive 
