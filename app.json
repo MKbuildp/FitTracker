@@ -30,8 +30,8 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": false,
-      "package": "com.fittracker.app",
-      "versionCode": 3,
+      "package": "com.mkbuildp.fittracker",
+      "versionCode": 4,
       "permissions": [
         "INTERNET"
       ],
