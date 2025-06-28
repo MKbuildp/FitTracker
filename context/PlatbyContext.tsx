@@ -1,13 +1,18 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import * as InAppPurchases from 'expo-in-app-purchases';
-import { Platform } from 'react-native';
+import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 /**
- * @description Typy pro položky a stav platebního kontextu.
+ * @description Typy pro položky a stav platebního kontextu (dočasná verze bez plateb).
  */
+interface MockIAPItem {
+    productId: string;
+    price: string;
+    title: string;
+    description: string;
+}
+
 interface PlatbyContextState {
     jePremium: boolean;
-    produkty: InAppPurchases.IAPItem[];
+    produkty: MockIAPItem[];
     nacitaSe: boolean;
     inicializovano: boolean;
     koupitPremium: () => Promise<void>;
@@ -16,106 +21,31 @@ interface PlatbyContextState {
 
 const PlatbyContext = createContext<PlatbyContextState | undefined>(undefined);
 
-// ID produktu, které musíte vytvořit v Google Play Console
-const SKU_PREMIUM = Platform.OS === 'android' ? 'premium_unlock' : 'premium_unlock_ios';
-
 /**
- * @description Poskytovatel (Provider) pro správu stavu plateb a nákupů v aplikaci.
+ * @description Dočasný poskytovatel (Provider) pro správu stavu plateb - bez skutečných plateb.
+ * Tato verze je určena pro build bez platebních funkcí.
  */
 export const PlatbyProvider = ({ children }: { children: ReactNode }) => {
     const [jePremium, setJePremium] = useState(false);
-    const [produkty, setProdukty] = useState<InAppPurchases.IAPItem[]>([]);
-    const [nacitaSe, setNacitaSe] = useState(false);
-    const [inicializovano, setInicializovano] = useState(false);
-
-    useEffect(() => {
-        const inicializovatPlatby = async () => {
-            setNacitaSe(true);
-            try {
-                await InAppPurchases.connectAsync();
-                await nacistProdukty();
-                await obnovitNakupy();
-            } catch (e) {
-                console.error("Chyba při inicializaci plateb:", e);
-            } finally {
-                setNacitaSe(false);
-                setInicializovano(true);
-            }
-        };
-
-        inicializovatPlatby();
-
-        return () => {
-            InAppPurchases.disconnectAsync();
-        };
-    }, []);
-
-    useEffect(() => {
-        const purchaseUpdateSubscription = InAppPurchases.setPurchaseListener(async ({ responseCode, results, errorCode }) => {
-            if (responseCode === InAppPurchases.IAPResponseCode.OK) {
-                for (const nakup of results) {
-                    if (!nakup.acknowledged) {
-                        if (nakup.purchaseState === InAppPurchases.PurchaseState.PURCHASED) {
-                            console.log(`Úspěšně zakoupen produkt: ${nakup.productId}`);
-                            if (nakup.productId === SKU_PREMIUM) {
-                                setJePremium(true);
-                            }
-                            // Potvrzení nákupu, aby Google věděl, že jsme produkt doručili
-                            await InAppPurchases.finishTransactionAsync(nakup, true);
-                        }
-                    }
-                }
-            } else if (responseCode === InAppPurchases.IAPResponseCode.USER_CANCELED) {
-                console.log('Uživatel zrušil nákup.');
-            } else {
-                console.warn(`Něco se pokazilo s nákupem. Kód chyby: ${errorCode}`);
-            }
-        });
-
-        return () => {
-            purchaseUpdateSubscription.remove();
-        };
-    }, []);
-
-    const nacistProdukty = async () => {
-        try {
-            const { responseCode, results } = await InAppPurchases.getProductsAsync([SKU_PREMIUM]);
-            if (responseCode === InAppPurchases.IAPResponseCode.OK) {
-                setProdukty(results);
-                console.log("Dostupné produkty:", results);
-            }
-        } catch (e) {
-            console.error("Chyba při načítání produktů:", e);
+    const [produkty] = useState<MockIAPItem[]>([
+        {
+            productId: 'premium_unlock',
+            price: '99 Kč',
+            title: 'Premium Unlock',
+            description: 'Odemkne všechny premium funkce'
         }
-    };
+    ]);
+    const [nacitaSe] = useState(false);
+    const [inicializovano] = useState(true);
 
     const koupitPremium = async () => {
-        if (produkty.length === 0) {
-            console.warn("Žádné produkty k nákupu.");
-            return;
-        }
-        try {
-            await InAppPurchases.purchaseItemAsync(SKU_PREMIUM);
-        } catch (e) {
-            console.error("Chyba při pokusu o nákup:", e);
-        }
+        console.log('Platby jsou dočasně deaktivovány pro build.');
+        // Dočasně můžeme aktivovat premium pro testování
+        setJePremium(true);
     };
 
     const obnovitNakupy = async () => {
-        try {
-            const { responseCode, results } = await InAppPurchases.getPurchaseHistoryAsync();
-            if (responseCode === InAppPurchases.IAPResponseCode.OK) {
-                for (const nakup of results) {
-                    if (nakup.productId === SKU_PREMIUM && nakup.purchaseState === InAppPurchases.PurchaseState.PURCHASED) {
-                        setJePremium(true);
-                        console.log("Nákup premium byl obnoven.");
-                        break;
-                    }
-                }
-            }
-        } catch (e) {
-            console.error("Chyba při obnovování nákupů:", e);
-        }
+        console.log('Obnovení nákupů - dočasně deaktivováno.');
     };
 
     const value = {
