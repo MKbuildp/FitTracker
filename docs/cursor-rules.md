@@ -236,4 +236,65 @@ Při tvorbě nové aplikace nebo nastavování vývojového prostředí je nutn�
 - Vytvořte checklist pro nové projekty
 - Udržujte aktuální dokumentaci všech potřebných konfigurací
 - Zálohujte důležité konfigurace (keystore, certificates)
-- Používejte environment variables pro citlivé údaje 
+- Používejte environment variables pro citlivé údaje
+
+## KLÍČOVÉ PRAVIDLO 10: Checklist pro První Android Build (Expo & EAS)
+
+Tento postup shrnuje všechny kroky potřebné k prvnímu úspěšnému sestavení a nahrání Android aplikace do Google Play Console. Důsledné dodržení pořadí je klíčové.
+
+### Fáze 1: Příprava projektu a účtů
+
+1.  **Unikátní Název Balíčku (`app.json`):**
+    *   V souboru `app.json` nastavte **globálně unikátní** `package` pro Android.
+    *   **Doporučený formát:** `com.jmenovasi_firmy_nebo_vyvojare.nazevaplikace` (např. `com.mkbuildp.fittracker`).
+    *   Tento název je **trvalý** a po prvním nahrání do Google Play ho nelze změnit. Pečlivě ho zkontrolujte.
+    *   Nastavte počáteční `versionCode` na `1`.
+
+2.  **Vytvoření Aplikace v Google Play Console:**
+    *   Přihlaste se do [Google Play Console](https://play.google.com/console/).
+    *   Klikněte na "Vytvořit aplikaci".
+    *   Vyplňte pouze **jméno aplikace pro uživatele** a další základní údaje. **Název balíčku zde nezadáváte!** Vytvoříte pouze prázdnou "schránku".
+
+3.  **Konfigurace EAS Build (`eas.json`):**
+    *   Ujistěte se, že v `eas.json` máte v profilu `production` nastaven build na `app-bundle`:
+      ```json
+      "production": {
+        "android": {
+          "buildType": "app-bundle"
+        }
+      }
+      ```
+
+### Fáze 2: Generování klíčů a první build
+
+4.  **Vygenerování Nahrávacího Klíče (NEJDŮLEŽITĚJŠÍ KROK):**
+    *   Ve svém lokálním terminálu v kořeni projektu spusťte příkaz: `eas credentials`.
+    *   Zvolte platformu `Android`.
+    *   EAS detekuje váš nový, unikátní název balíčku z `app.json`.
+    *   Zvolte možnost **`Set up a new keystore`** a nechte Expo, aby proces automaticky dokončilo.
+    *   Tím se na vašem Expo účtu bezpečně vytvoří a uloží **nahrávací klíč (upload key)** pro vaši aplikaci.
+
+5.  **Spuštění Prvního Buildu:**
+    *   Proveďte `git push` na `main` větev, čímž se spustí automatický build přes GitHub Actions (nebo ho spusťte manuálně).
+    *   Počkejte na dokončení buildu a stáhněte si výsledný `.aab` soubor.
+
+### Fáze 3: Nahrání do Google Play a finální konfigurace
+
+6.  **První Nahrání do Google Play:**
+    *   V Google Play Console přejděte do vaší nové, prázdné aplikace.
+    *   Vytvořte nové vydání (např. pro "Interní testování").
+    *   Dostanete se na obrazovku "Integrita aplikace". Zde vás Google vyzve k nastavení podepisování.
+    *   **Zásadní volba:** Klikněte na "Vybrat podpisový klíč" a zvolte možnost **"Použít klíč vygenerovaný Googlem"** (Use a Google-generated key).
+    *   Tím aktivujete "Podepisování aplikací ve službě Play" (Play App Signing).
+
+7.  **Nahrání `.aab` Souboru:**
+    *   Po potvrzení předchozí volby se odemkne možnost nahrát soubor.
+    *   Nahrajte váš stažený `.aab` soubor.
+    *   Google si z něj přečte název balíčku a otisk vašeho nahrávacího klíče a **natrvalo je spáruje s touto aplikací**.
+
+8.  **Dokončení Vydání:**
+    *   Vyplňte poznámky k vydání.
+    *   Klikněte na "Další" a následně na "Uložit a publikovat" (nebo "Zahájit zavádění...").
+
+### Další aktualizace:
+Pro každou další verzi aplikace stačí v `app.json` zvýšit `versionCode` (např. na `2`), provést `git push` a nahrát nový `.aab` soubor do nového vydání v Google Play Console. Všechny klíče už jsou správně nastavené. 

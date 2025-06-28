@@ -30,15 +30,17 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": false,
-      "package": "com.mkbuildp.fittracker",
-      "versionCode": 4,
+      "package": "com.petrkubes.fittracker",
+      "versionCode": 5,
       "permissions": [
-        "INTERNET"
+        "INTERNET",
+        "com.google.android.gms.permission.AD_ID"
       ],
       "allowBackup": false,
       "statusBarStyle": "light-content",
       "statusBarBackgroundColor": "#2563eb",
-      "playStoreUrl": "https://play.google.com/store/apps/details?id=com.yourcompany.fittracker"
+      "playStoreUrl": "https://play.google.com/store/apps/details?id=com.yourcompany.fittracker",
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "favicon": "./assets/favicon.png",
