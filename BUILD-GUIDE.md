@@ -159,7 +159,7 @@ eas build:list --status=in-progress
     },
     "production": {
       "android": {
-        "buildType": "apk"
+        "buildType": "app-bundle"
       }
     }
   }
@@ -173,8 +173,8 @@ eas build:list --status=in-progress
       "name": "FitTracker",
   "slug": "fittracker",
     "android": {
-              "package": "com.fittracker.fitness",
-      "versionCode": 1
+              "package": "com.mkbuildp.fittracker",
+      "versionCode": 5
     }
   }
 }
@@ -245,6 +245,108 @@ npm audit
   ]
 }
 ```
+
+## 🚀 **Publikace na Google Play Store**
+
+### **Příprava Google Play Console**
+
+1. **Vytvoření účtu Google Play Developer**
+   - Registrujte se na [play.google.com/console](https://play.google.com/console/)
+   - Zaplaťte jednorázový poplatek $25 USD
+   - Vyplňte všechny požadované informace o vývojáři
+
+2. **Vytvoření nové aplikace**
+   - V Google Play Console klikněte na "Vytvořit aplikaci"
+   - Zadejte název aplikace, výchozí jazyk a typ aplikace (Aplikace nebo Hra)
+   - **DŮLEŽITÉ**: V tuto chvíli NEZADÁVEJTE název balíčku (package name)!
+
+### **Nastavení Google Play Android Developer API**
+
+1. **Povolení API**
+   - Přejděte na [Google Cloud Console](https://console.cloud.google.com/)
+   - Vyberte svůj projekt nebo vytvořte nový
+   - V menu vyberte "APIs & Services" > "Library"
+   - Vyhledejte "Google Play Android Developer API"
+   - Klikněte na "Enable" nebo "Povolit"
+   - **POZNÁMKA**: Tento krok je KRITICKÝ pro úspěšné nahrání aplikace!
+
+2. **Vytvoření servisního účtu**
+   - V EAS je tento proces automatizován při prvním pokusu o submit
+   - Při prvním spuštění `eas submit` budete vyzváni k vytvoření servisního účtu
+   - Následujte pokyny v terminálu
+
+### **Konfigurace EAS pro publikaci**
+
+1. **Nastavení `eas.json`**
+   - Pro první publikaci nastavte režim "draft" (koncept):
+   ```json
+   "submit": {
+     "production": {
+       "android": {
+         "releaseStatus": "draft"
+       }
+     }
+   }
+   ```
+   - Po úspěšném nastavení metadat můžete změnit na "completed"
+
+2. **Nastavení credentials**
+   - Spusťte `eas credentials` pro kontrolu nastavení
+   - Ujistěte se, že máte správně nakonfigurovaný keystore
+   - **NIKDY** neztraťte přístup k keystore! Je nezbytný pro všechny budoucí aktualizace!
+
+### **První publikace**
+
+1. **Vytvoření production buildu**
+   ```bash
+   eas build --platform android --profile production
+   ```
+
+2. **Odeslání do Google Play**
+   ```bash
+   eas submit -p android --latest
+   ```
+
+3. **Řešení častých problémů**
+   - **API není povoleno**: Ujistěte se, že jste povolili Google Play Android Developer API
+   - **Chybějící metadata**: Doplňte všechna povinná metadata v Google Play Console nebo použijte `releaseStatus: "draft"`
+   - **Chyba podpisu**: Ujistěte se, že používáte správný keystore
+
+### **Dokončení publikace v Google Play Console**
+
+1. **Doplnění metadat**
+   - Popis aplikace (krátký a dlouhý)
+   - Screenshoty (min. 2 pro telefon, volitelně pro tablet)
+   - Ikona aplikace ve vysokém rozlišení
+   - Grafika pro obchod (feature graphic)
+   - Kategorie a tagy
+   - Kontaktní informace
+
+2. **Nastavení ceny a distribuce**
+   - Zvolte země pro distribuci
+   - Nastavte zdarma nebo placenou aplikaci
+   - Věkové hodnocení (vyplňte dotazník)
+
+3. **Publikace**
+   - Přejděte z režimu konceptu do produkce
+   - Zvolte typ vydání (postupné nebo okamžité)
+   - Potvrďte publikaci
+
+### **Aktualizace aplikace**
+
+1. **Zvýšení `versionCode`**
+   - V `app.json` zvyšte hodnotu `versionCode` o 1
+   - Volitelně aktualizujte `version` pro uživatelsky viditelnou verzi
+
+2. **Vytvoření nového buildu**
+   ```bash
+   eas build --platform android --profile production
+   ```
+
+3. **Odeslání aktualizace**
+   ```bash
+   eas submit -p android --latest
+   ```
 
 ## 📚 **Další Zdroje**
 
