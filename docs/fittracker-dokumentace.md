@@ -198,6 +198,7 @@ CviceniApp/
 - **Konfigurace:** Používá Expo GitHub Action a EAS Build s parametry `--non-interactive --no-wait`
 - **Trigger:** Push do větve main nebo manuální spuštění (workflow_dispatch)
 - **Požadavky:** Nastavený EXPO_TOKEN v GitHub Secrets (https://github.com/MKbuildp/FitTracker/settings/secrets/actions)
+- **Expo Token:** `GitHub_Actions_FitTracker` - bIJBgOzJjTVFlYsOZ-dDPsdDg310VcVM-rrvKLLw
 
 ## Git workflow
 
