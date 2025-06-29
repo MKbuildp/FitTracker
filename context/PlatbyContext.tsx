@@ -23,10 +23,11 @@ const PlatbyContext = createContext<PlatbyContextState | undefined>(undefined);
 
 /**
  * @description Dočasný poskytovatel (Provider) pro správu stavu plateb - bez skutečných plateb.
- * Tato verze je určena pro build bez platebních funkcí.
+ * Tato verze je určena pro build bez platebních funkcí a automaticky aktivuje Premium funkce.
  */
 export const PlatbyProvider = ({ children }: { children: ReactNode }) => {
-    const [jePremium, setJePremium] = useState(false);
+    // Nastavíme jePremium na true, aby byly všechny funkce dostupné bez nutnosti platby
+    const [jePremium, setJePremium] = useState(true);
     const [produkty] = useState<MockIAPItem[]>([
         {
             productId: 'premium_unlock',
@@ -39,13 +40,15 @@ export const PlatbyProvider = ({ children }: { children: ReactNode }) => {
     const [inicializovano] = useState(true);
 
     const koupitPremium = async () => {
-        console.log('Platby jsou dočasně deaktivovány pro build.');
-        // Dočasně můžeme aktivovat premium pro testování
+        console.log('Premium funkce jsou automaticky aktivovány pro testovací build.');
+        // Premium je již aktivováno
         setJePremium(true);
     };
 
     const obnovitNakupy = async () => {
-        console.log('Obnovení nákupů - dočasně deaktivováno.');
+        console.log('Premium funkce jsou automaticky aktivovány pro testovací build.');
+        // Premium je již aktivováno
+        setJePremium(true);
     };
 
     const value = {

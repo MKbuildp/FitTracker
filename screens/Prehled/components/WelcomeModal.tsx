@@ -69,44 +69,11 @@ export const WelcomeModal: React.FC<WelcomeModalProps> = ({
                   </View>
                 </View>
 
-                {/* Premium sekce */}
-                <View style={styly.premiumSekce}>
-                  <View style={styly.premiumHeader}>
-                    <Ionicons name="diamond" size={20} color="#f59e0b" />
-                    <Text style={styly.premiumNadpis}>{t('welcome.unlockPremium')}</Text>
-                  </View>
-                  
-                  <Text style={styly.premiumPopis}>
-                    {t('welcome.premiumDescription')}
-                  </Text>
-                  
-                  <View style={styly.premiumVyhoda}>
-                    <Ionicons name="checkmark-circle" size={20} color="#10b981" />
-                    <Text style={styly.premiumVyhodaText}>
-                      {t('welcome.unlimitedExercises')}
-                    </Text>
-                  </View>
-                </View>
-
-                {/* Premium tlačítko */}
-                <TouchableOpacity
-                  style={styly.premiumTlacitko}
-                  onPress={onUpgradeToPremium}
-                  activeOpacity={0.7}
-                >
-                  <View style={styly.premiumTlacitkoObsah}>
-                    <Text style={styly.premiumTlacitkoText}>
-                      {t('welcome.onlyFreeVersion')}
-                    </Text>
-                    <Text style={styly.premiumTlacitkoSubtext}>
-                      {t('welcome.oneTimePaymentNote')}
-                    </Text>
-                  </View>
-                </TouchableOpacity>
+                {/* Premium sekce a tlačítko jsou skryté v této verzi */}
 
                 {/* Pokračovat tlačítko */}
                 <TouchableOpacity
-                  style={styly.pokracovatTlacitko}
+                  style={[styly.pokracovatTlacitko, { marginTop: 16 }]}
                   onPress={onPokracovat}
                   activeOpacity={0.7}
                 >
@@ -250,17 +217,15 @@ const styly = StyleSheet.create({
     fontWeight: '500',
   },
   pokracovatTlacitko: {
-    backgroundColor: '#f8fafc',
+    backgroundColor: '#f1f5f9',
     borderRadius: 12,
-    paddingVertical: 16,
-    paddingHorizontal: 24,
-    borderWidth: 1,
-    borderColor: '#e2e8f0',
+    padding: 16,
+    marginBottom: 8,
   },
   pokracovatTlacitkoText: {
     fontSize: 16,
-    fontWeight: '500',
-    color: '#6b7280',
+    fontWeight: '600',
+    color: '#475569',
     textAlign: 'center',
   },
 }); 

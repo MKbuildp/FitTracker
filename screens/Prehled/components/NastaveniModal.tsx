@@ -106,22 +106,6 @@ export const NastaveniModal: React.FC<NastaveniModalProps> = ({
               </View>
 
               <View style={styly.sekce}>
-                <Text style={styly.sekceNadpis}>{t('premium.upgradeToPremium')}</Text>
-                <TouchableOpacity
-                  style={styly.premiumTlacitko}
-                  onPress={onUpgradeToPremium}
-                  activeOpacity={0.7}
-                >
-                  <View style={styly.premiumTlacitkoObsah}>
-                    <Ionicons name="diamond" size={20} color="#f59e0b" />
-                    <Text style={styly.premiumTlacitkoText}>
-                      {t('premium.title')}
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              </View>
-
-              <View style={styly.sekce}>
                 <Text style={styly.sekceNadpis}>{t('about.title')}</Text>
                 
                 <Text style={styly.appInfo}>FitTracker 1.0.0</Text>
@@ -249,35 +233,35 @@ const styly = StyleSheet.create({
     borderTopColor: '#f3f4f6',
   },
   popisText: {
-    fontSize: 13,
-    color: '#6b7280',
-    lineHeight: 18,
-    marginTop: 4,
-    textAlign: 'center', // Centrování textu popisu
+    fontSize: 14,
+    lineHeight: 20,
+    color: '#4b5563',
+    textAlign: 'center',
   },
   appInfo: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#1f2937',
+    color: '#374151',
     textAlign: 'center',
-    marginBottom: 12,
+    marginBottom: 8,
   },
   premiumTlacitko: {
-    backgroundColor: '#fef3c7',
-    borderRadius: 12,
-    padding: 16,
+    backgroundColor: '#f8fafc',
     borderWidth: 2,
     borderColor: '#f59e0b',
+    borderRadius: 8,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
   },
   premiumTlacitkoObsah: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 8,
   },
   premiumTlacitkoText: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#92400e',
+    color: '#f59e0b',
+    marginLeft: 8,
   },
 }); 

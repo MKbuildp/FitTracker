@@ -82,6 +82,7 @@ function AppContent() {
   const { isLoading, isFirstTime, showWelcome, markWelcomeShown } = useLanguage();
   const { nacistData } = useCviceni();
   const [showLanguageSelection, setShowLanguageSelection] = useState(false);
+  // Premium modal je skrytý v této verzi
   const [showPremiumModal, setShowPremiumModal] = useState(false);
 
   useEffect(() => {
@@ -99,7 +100,8 @@ function AppContent() {
   };
 
   const handleWelcomePremium = () => {
-    setShowPremiumModal(true);
+    // V této verzi pouze zavřeme welcome modal bez zobrazení premium modalu
+    markWelcomeShown();
   };
 
   const handleWelcomeContinue = async () => {
@@ -111,14 +113,14 @@ function AppContent() {
   };
 
   const handleBuyPremium = () => {
-    // TODO: Implementovat nákup Premium
-    console.log('Koupit Premium z Welcome');
+    // Premium funkce jsou aktivní automaticky
+    console.log('Premium funkce jsou automaticky aktivovány pro testovací build.');
     setShowPremiumModal(false);
   };
 
   const handleRestorePurchases = () => {
-    // TODO: Implementovat obnovení nákupů
-    console.log('Obnovit nákupy z Welcome');
+    // Premium funkce jsou aktivní automaticky
+    console.log('Premium funkce jsou automaticky aktivovány pro testovací build.');
   };
 
   if (isLoading) {
@@ -244,12 +246,15 @@ function AppContent() {
         onPokracovat={handleWelcomeContinue}
       />
       
-      <PremiumModal
-        viditelne={showPremiumModal}
-        onZavrit={handlePremiumClose}
-        onKoupitPremium={handleBuyPremium}
-        onObnovitNakupy={handleRestorePurchases}
-      />
+      {/* Premium modal je skrytý v této verzi */}
+      {false && (
+        <PremiumModal
+          viditelne={showPremiumModal}
+          onZavrit={handlePremiumClose}
+          onKoupitPremium={handleBuyPremium}
+          onObnovitNakupy={handleRestorePurchases}
+        />
+      )}
     </>
   );
 }
@@ -280,22 +285,22 @@ export default function App() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <SafeAreaProvider>
-        <RNStatusBar 
-          backgroundColor="#2563eb" 
-          barStyle="light-content" 
-          translucent={false}
-        />
-        <LanguageProvider>
+    <SafeAreaProvider>
+      <RNStatusBar 
+        backgroundColor="#2563eb" 
+        barStyle="light-content" 
+        translucent={false}
+      />
+      <LanguageProvider>
           <PlatbyProvider>
-            <ObdobniProvider>
-              <CviceniProvider>
-                <AppContent />
-              </CviceniProvider>
-            </ObdobniProvider>
+        <ObdobniProvider>
+          <CviceniProvider>
+            <AppContent />
+          </CviceniProvider>
+        </ObdobniProvider>
           </PlatbyProvider>
-        </LanguageProvider>
-      </SafeAreaProvider>
+      </LanguageProvider>
+    </SafeAreaProvider>
     </GestureHandlerRootView>
   );
 }

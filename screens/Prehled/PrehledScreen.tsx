@@ -23,6 +23,7 @@ const PrehledScreen: React.FC = () => {
   const navigation = useNavigation<NavigationProp>();
   const { t } = useTranslation();
   const [jeNastaveniViditelne, setJeNastaveniViditelne] = useState(false);
+  // Premium modal je skrytý v této verzi
   const [jePremiumViditelne, setJePremiumViditelne] = useState(false);
 
   // Bezpečné nastavení callback funkce pro otevření nastavení
@@ -46,8 +47,10 @@ const PrehledScreen: React.FC = () => {
   };
 
   const otevritPremium = () => {
-    setJeNastaveniViditelne(false); // Zavřít nastavení
-    setJePremiumViditelne(true); // Otevřít Premium
+    // V této verzi pouze zavřeme nastavení bez zobrazení premium modalu
+    setJeNastaveniViditelne(false);
+    // Premium funkce jsou aktivní automaticky
+    console.log('Premium funkce jsou automaticky aktivovány pro testovací build.');
   };
 
   const zavritPremium = () => {
@@ -55,13 +58,13 @@ const PrehledScreen: React.FC = () => {
   };
 
   const koupitPremium = () => {
-    // TODO: Implementovat nákup Premium
-    console.log('Koupit Premium');
+    // Premium funkce jsou aktivní automaticky
+    console.log('Premium funkce jsou automaticky aktivovány pro testovací build.');
   };
 
   const obnovitNakupy = () => {
-    // TODO: Implementovat obnovení nákupů
-    console.log('Obnovit nákupy');
+    // Premium funkce jsou aktivní automaticky
+    console.log('Premium funkce jsou automaticky aktivovány pro testovací build.');
   };
 
   if (stav.nacitaSeData) {
@@ -107,12 +110,15 @@ const PrehledScreen: React.FC = () => {
         onUpgradeToPremium={otevritPremium}
       />
       
-      <PremiumModal
-        viditelne={jePremiumViditelne}
-        onZavrit={zavritPremium}
-        onKoupitPremium={koupitPremium}
-        onObnovitNakupy={obnovitNakupy}
-      />
+      {/* Premium modal je skrytý v této verzi */}
+      {false && (
+        <PremiumModal
+          viditelne={jePremiumViditelne}
+          onZavrit={zavritPremium}
+          onKoupitPremium={koupitPremium}
+          onObnovitNakupy={obnovitNakupy}
+        />
+      )}
     </>
   );
 };
