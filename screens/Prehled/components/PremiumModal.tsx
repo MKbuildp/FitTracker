@@ -116,7 +116,7 @@ const PremiumModal = ({ viditelne, onZavrit, onKoupitPremium, onObnovitNakupy }:
         <View style={styles.modalView}>
           <TouchableOpacity style={styles.closeButton} onPress={onZavrit}>
             <Ionicons name="close-circle" size={30} color="#9ca3af" />
-          </TouchableOpacity>
+              </TouchableOpacity>
           {renderContent()}
         </View>
       </View>
@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 16,
   },
-});
+}); 
 
 export { PremiumModal };
 export default PremiumModal; 
