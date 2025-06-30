@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -7,6 +7,8 @@ import {
   TouchableWithoutFeedback,
   TouchableOpacity,
   ActivityIndicator,
+  TextInput,
+  Alert,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { usePlatby } from '../../../context/PlatbyContext';
@@ -25,8 +27,9 @@ interface PremiumModalProps {
  */
 const PremiumModal = ({ viditelne, onZavrit, onKoupitPremium, onObnovitNakupy }: PremiumModalProps) => {
   const { t } = useTranslation();
-  const { jePremium, produkty, koupitPremium, nacitaSe, inicializovano } = usePlatby();
+  const { jePremium, setJePremium, produkty, koupitPremium, nacitaSe, inicializovano } = usePlatby();
   const premiumProdukt = produkty.length > 0 ? produkty[0] : null;
+  const [promoKod, setPromoKod] = useState('');
 
   const handleKoupitPremium = async () => {
     if (onKoupitPremium) {
@@ -39,6 +42,16 @@ const PremiumModal = ({ viditelne, onZavrit, onKoupitPremium, onObnovitNakupy }:
   const handleObnovitNakupy = () => {
     if (onObnovitNakupy) {
       onObnovitNakupy();
+    }
+  };
+
+  const handleOveritKod = () => {
+    if (promoKod.toUpperCase() === 'GOOGLEPLAYREVIEW') {
+      setJePremium(true);
+      Alert.alert(t('promo_code_success_title'), t('promo_code_success_message'));
+      onZavrit();
+    } else {
+      Alert.alert(t('promo_code_error_title'), t('promo_code_error_message'));
     }
   };
 
@@ -101,6 +114,20 @@ const PremiumModal = ({ viditelne, onZavrit, onKoupitPremium, onObnovitNakupy }:
             </Text>
           </TouchableOpacity>
         )}
+
+        <View style={styles.promoContainer}>
+            <TextInput
+                style={styles.promoInput}
+                placeholder={t('promo_code_placeholder')}
+                placeholderTextColor="#9ca3af"
+                value={promoKod}
+                onChangeText={setPromoKod}
+                autoCapitalize="characters"
+            />
+            <TouchableOpacity style={styles.promoButton} onPress={handleOveritKod}>
+                <Text style={styles.promoButtonText}>{t('promo_code_button')}</Text>
+            </TouchableOpacity>
+        </View>
       </View>
     );
   };
@@ -116,7 +143,7 @@ const PremiumModal = ({ viditelne, onZavrit, onKoupitPremium, onObnovitNakupy }:
         <View style={styles.modalView}>
           <TouchableOpacity style={styles.closeButton} onPress={onZavrit}>
             <Ionicons name="close-circle" size={30} color="#9ca3af" />
-              </TouchableOpacity>
+          </TouchableOpacity>
           {renderContent()}
         </View>
       </View>
@@ -211,6 +238,35 @@ const styles = StyleSheet.create({
     color: '#6b7280',
     fontWeight: '500',
     textAlign: 'center',
+    fontSize: 16,
+  },
+  promoContainer: {
+    marginTop: 20,
+    width: '100%',
+    borderTopWidth: 1,
+    borderTopColor: '#e5e7eb',
+    paddingTop: 15,
+    alignItems: 'center',
+  },
+  promoInput: {
+    backgroundColor: '#f3f4f6',
+    borderRadius: 10,
+    paddingVertical: 12,
+    paddingHorizontal: 15,
+    width: '100%',
+    fontSize: 16,
+    color: '#1f2937',
+    marginBottom: 10,
+  },
+  promoButton: {
+    backgroundColor: '#4b5563',
+    borderRadius: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 25,
+  },
+  promoButtonText: {
+    color: 'white',
+    fontWeight: '600',
     fontSize: 16,
   },
 }); 

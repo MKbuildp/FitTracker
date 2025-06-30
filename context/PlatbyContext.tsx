@@ -12,6 +12,7 @@ interface MockIAPItem {
 
 interface PlatbyContextState {
     jePremium: boolean;
+    setJePremium: React.Dispatch<React.SetStateAction<boolean>>;
     produkty: MockIAPItem[];
     nacitaSe: boolean;
     inicializovano: boolean;
@@ -26,8 +27,8 @@ const PlatbyContext = createContext<PlatbyContextState | undefined>(undefined);
  * Tato verze je určena pro build bez platebních funkcí a automaticky aktivuje Premium funkce.
  */
 export const PlatbyProvider = ({ children }: { children: ReactNode }) => {
-    // Nastavíme jePremium na true, aby byly všechny funkce dostupné bez nutnosti platby
-    const [jePremium, setJePremium] = useState(true);
+    // Nastavíme jePremium na false, aby se zobrazovala platební brána
+    const [jePremium, setJePremium] = useState(false);
     const [produkty] = useState<MockIAPItem[]>([
         {
             productId: 'premium_unlock',
@@ -40,19 +41,18 @@ export const PlatbyProvider = ({ children }: { children: ReactNode }) => {
     const [inicializovano] = useState(true);
 
     const koupitPremium = async () => {
-        console.log('Premium funkce jsou automaticky aktivovány pro testovací build.');
-        // Premium je již aktivováno
-        setJePremium(true);
+        console.log('Pokus o koupi Premium...');
+        // V reálné aplikaci by zde byla logika pro platbu
+        // Prozatím můžeme simulovat úspěch, ale ne automaticky
     };
 
     const obnovitNakupy = async () => {
-        console.log('Premium funkce jsou automaticky aktivovány pro testovací build.');
-        // Premium je již aktivováno
-        setJePremium(true);
+        console.log('Pokus o obnovení nákupů...');
     };
 
     const value = {
         jePremium,
+        setJePremium,
         produkty,
         nacitaSe,
         inicializovano,

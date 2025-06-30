@@ -267,14 +267,24 @@ export const en = {
   'premium.buyPremium': 'Buy Premium for $9.99',
   'premium.restorePurchases': 'Restore Purchases',
   'premium.upgradeToPremium': 'Upgrade to Premium',
-  'premium_modal_owned_title': 'Premium is Active',
-  'premium_modal_owned_description': 'You are enjoying all the benefits of the Premium version. Thank you for your support!',
+  'premium_modal_owned_title': 'You are Premium!',
+  'premium_modal_owned_description': 'All features are fully available to you.',
   'premium_modal_error_title': 'Loading Error',
-  'premium_modal_error_description': 'Could not load products to purchase. Please try again later.',
+  'premium_modal_error_description': 'Could not load product information. Please try again later.',
   'premium_modal_title': 'Get Premium',
   'premium_modal_description': 'Unlock the full potential of the app with a one-time purchase.',
   'premium_feature_1': 'Unlimited exercises',
   'premium_feature_2': 'Advanced statistics and trends',
   'premium_feature_3': 'No ads, ever',
-  'premium_modal_unlock_button': 'Unlock for',
-}; 
+  'premium_modal_unlock_button': 'Unlock Premium for {price}',
+
+  // Translations for promo code
+  'promo_code_placeholder': 'Enter promo code',
+  'promo_code_button': 'Verify Code',
+  'promo_code_success_title': 'Success',
+  'promo_code_success_message': 'Premium features have been successfully activated.',
+  'promo_code_error_title': 'Invalid Code',
+  'promo_code_error_message': 'The entered promo code is not valid. Please try again.',
+};
+
+export default en; 
