@@ -232,6 +232,15 @@ CviceniApp/
   2. Vytvořit nový build pomocí EAS Build
   3. Odeslat na Google Play Console pomocí `eas submit`
 
+### Správa podepisovacího klíče (Keystore) - **DŮLEŽITÉ**
+- **Metoda:** Používáme **remote credentials** spravované přes Expo Application Services (EAS). Buildy na GitHub Actions si klíč berou přímo z Expo serveru.
+- **Aktuální klíč:** Na serveru je nahrán klíč s názvem **"Hlavni product klic"**. Tento klíč byl vygenerován lokálně (`my-release-key.jks`) a nahrán na server 30.06.2025, aby se vyřešily předchozí konflikty a chyby hesel.
+- **Postup při problémech s klíčem:**
+  1. **NEPOUŽÍVAT** `credentialsSource: "local"` v `eas.json` pro buildy na Gitu.
+  2. Pokud je potřeba klíč obnovit, je nutné vygenerovat nový **lokálně** pomocí `keytool`.
+  3. Poté ho nahrát na EAS pomocí příkazu `eas credentials` a nastavit jako výchozí pro `production` profil.
+  4. Následně je nutné aktualizovat otisk klíče (SHA1) v Google Play Console.
+
 ### Testování v Expo Go
 - **Omezení:** Některé nativní funkce nemusí být dostupné v Expo Go
 - **Řešení:** Pro testování plné funkcionality je nutné vytvořit development build pomocí `eas build --profile development` 
