@@ -7,7 +7,6 @@
     "icon": "./assets/fittracker-icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
-    "description": "Aplikace pro sledování cvičení a pokroku - dva typy měření (opakování/čas) s inteligentním směrováním",
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
@@ -37,8 +36,10 @@
         "com.google.android.gms.permission.AD_ID"
       ],
       "allowBackup": false,
-      "statusBarStyle": "light-content",
-      "statusBarBackgroundColor": "#2563eb",
+      "statusBar": {
+        "style": "light-content",
+        "backgroundColor": "#2563eb"
+      },
       "playStoreUrl": "https://play.google.com/store/apps/details?id=com.yourcompany.fittracker",
       "googleServicesFile": "./google-services.json"
     },
