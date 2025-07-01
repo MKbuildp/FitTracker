@@ -1,51 +1,58 @@
-/** Typ měření pro cvičení - buď opakování nebo čas */
+/** Exercise measurement type - either repetitions or time */
 export type TypMereni = 'opakovani' | 'cas';
 
-/** Směrování pro lepší výkon - kratší čas je lepší nebo delší čas je lepší */
-export type Smerovani = 'kratsi_lepsi' | 'delsi_lepsi';
+/** Direction for better performance - shorter time is better or longer time is better */
+export type SmerovaniVykonu = 'kratsi_lepsi' | 'delsi_lepsi';
 
-/** Základní interface pro cvičení */
+/** Basic interface for exercise */
 export interface Cviceni {
   id: string;
   nazev: string;
-  typMereni: TypMereni;
-  smerovani?: Smerovani; // pouze pro typ 'cas'
+  typ: TypMereni;
+  smerovaniVykonu: SmerovaniVykonu;
   vytvorenoKdy: Date;
-  maNastavenCil: boolean; // Nové: Indikuje, zda má cvičení aktivní denní cíl
-  denniCil: number; // Nové: Hodnota denního cíle (opakování nebo sekundy)
-  barva: string; // Nové: Barevný kód pro vizuální odlišení
+  maNastavenCil: boolean; // New: Indicates if exercise has active daily goal
+  denniCil: number; // New: Daily goal value (repetitions or seconds)
+  barva: string; // New: Color code for visual distinction
 }
 
-/** Záznam o výkonu cvičení */
+/** Exercise performance record */
 export interface ZaznamVykonu {
   id: string;
   cviceniId: string;
-  hodnota: number; // počet opakování nebo čas v sekundách
   datumCas: Date;
+  hodnota: number; // number of repetitions or time in seconds
 }
 
-/** Statistiky pro konkrétní cvičení */
+/** Statistics for specific exercise */
 export interface StatistikyCviceni {
-  cviceniId: string;
-  pocetZaznamu: number;
-  nejlepsiVykon: number;
-  prumernyVykon: number;
-  posledniVykon?: number;
-  trend: 'vzestupny' | 'klesajici' | 'stabilni';
+  celkemZaznamu: number;
+  nejlepsiVykon: number | null;
+  posledniVykon: number | null;
+  prumernyVykon: number | null;
+  trentydenZaznamu: number;
+  celkemCasu: number; // v sekundach
+  celkemOpakovani: number;
 }
 
-/** Typy pro parametry v React Navigation */
-
-// Spodní Tab Navigátor
-export type TabParamList = {
+// Navigation types
+export type TabNavigatorParamList = {
+  Prehled: undefined;
   Opakovani: undefined;
   Casovky: undefined;
-  Prehled: undefined;
 };
 
-// Hlavní Stack Navigátor - definuje obrazovky mimo taby
+// Bottom Tab Navigator
+export type BottomTabParamList = {
+  Prehled: undefined;
+  Opakovani: undefined;
+  Casovky: undefined;
+};
+
+// Main Stack Navigator - defines screens outside tabs
 export type RootStackParamList = {
-  HlavniTaby: undefined; // Odkazuje na celý Tab Navigator
-  PridatCviceni: { vychoziTyp: 'opakovani' | 'cas' };
+  HlavniTaby: undefined; // References the entire Tab Navigator
+  PridatCviceni: undefined;
   DetailCviceni: { cviceniId: string };
+  LanguageSelection: undefined;
 }; 

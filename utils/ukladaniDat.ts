@@ -2,13 +2,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Cviceni, ZaznamVykonu } from '../types';
 
 const KLICE = {
-  CVICENI: '@cviceni_app_cviceni',
-  ZAZNAMY: '@cviceni_app_zaznamy',
+  CVICENI: 'cviceni',
+  ZAZNAMY: 'zaznamy'
 };
 
-/** Utility pro ukládání a načítání dat */
+/** Utility for data storage and loading */
 export const ukladaniDat = {
-  /** Uložení seznamu cvičení */
+  /** Save exercise list */
   async ulozitCviceni(cviceni: Cviceni[]): Promise<void> {
     try {
       const cviceniJson = JSON.stringify(cviceni.map(c => ({
@@ -17,12 +17,11 @@ export const ukladaniDat = {
       })));
       await AsyncStorage.setItem(KLICE.CVICENI, cviceniJson);
     } catch (error) {
-      console.error('Chyba při ukládání cvičení:', error);
-      throw error;
+      console.error('Error saving exercises:', error);
     }
   },
 
-  /** Načtení seznamu cvičení */
+  /** Load exercise list */
   async nacistCviceni(): Promise<Cviceni[]> {
     try {
       const cviceniJson = await AsyncStorage.getItem(KLICE.CVICENI);
@@ -34,12 +33,12 @@ export const ukladaniDat = {
         vytvorenoKdy: new Date(c.vytvorenoKdy),
       }));
     } catch (error) {
-      console.error('Chyba při načítání cvičení:', error);
+      console.error('Error loading exercises:', error);
       return [];
     }
   },
 
-  /** Uložení záznamů výkonů */
+  /** Save performance records */
   async ulozitZaznamy(zaznamy: ZaznamVykonu[]): Promise<void> {
     try {
       const zaznamyJson = JSON.stringify(zaznamy.map(z => ({
@@ -48,12 +47,11 @@ export const ukladaniDat = {
       })));
       await AsyncStorage.setItem(KLICE.ZAZNAMY, zaznamyJson);
     } catch (error) {
-      console.error('Chyba při ukládání záznamů:', error);
-      throw error;
+      console.error('Error saving records:', error);
     }
   },
 
-  /** Načtení záznamů výkonů */
+  /** Load performance records */
   async nacistZaznamy(): Promise<ZaznamVykonu[]> {
     try {
       const zaznamyJson = await AsyncStorage.getItem(KLICE.ZAZNAMY);
@@ -65,17 +63,17 @@ export const ukladaniDat = {
         datumCas: new Date(z.datumCas),
       }));
     } catch (error) {
-      console.error('Chyba při načítání záznamů:', error);
+      console.error('Error loading records:', error);
       return [];
     }
   },
 
-  /** Vymazání všech dat */
+  /** Delete all data */
   async vymazatVsechnaData(): Promise<void> {
     try {
       await AsyncStorage.multiRemove([KLICE.CVICENI, KLICE.ZAZNAMY]);
     } catch (error) {
-      console.error('Chyba při mazání dat:', error);
+      console.error('Error deleting data:', error);
       throw error;
     }
   },

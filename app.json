@@ -20,8 +20,8 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.yourcompany.fittracker",
-      "buildNumber": "1.0.0"
+      "bundleIdentifier": "com.mkbuildp.fittracker",
+      "buildNumber": "1.2.1"
     },
     "android": {
       "adaptiveIcon": {
@@ -36,12 +36,7 @@
         "com.google.android.gms.permission.AD_ID"
       ],
       "allowBackup": false,
-      "statusBar": {
-        "style": "light-content",
-        "backgroundColor": "#2563eb"
-      },
-      "playStoreUrl": "https://play.google.com/store/apps/details?id=com.yourcompany.fittracker",
-      "googleServicesFile": "./google-services.json"
+      "playStoreUrl": "https://play.google.com/store/apps/details?id=com.mkbuildp.fittracker"
     },
     "web": {
       "favicon": "./assets/favicon.png",

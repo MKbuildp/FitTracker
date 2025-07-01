@@ -20,5 +20,4 @@ node_modules/
 
 # Citlivá data
 google-services.json
-eas.json
 credentials.json 
