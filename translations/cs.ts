@@ -277,24 +277,14 @@ export const cs = {
   'premium.buyPremium': 'Koupit Premium za $1.99',
   'premium.restorePurchases': 'Obnovit nákupy',
   'premium.upgradeToPremium': 'Upgrade na Premium',
-  premium_modal_owned_title: 'Jste Premium!',
-  premium_modal_owned_description: 'Všechny funkce jsou vám plně k dispozici.',
-  premium_modal_error_title: 'Chyba načítání',
-  premium_modal_error_description: 'Nepodařilo se načíst informace o produktech. Zkuste to prosím později.',
+  premium_modal_owned_title: 'Premium je aktivní',
+  premium_modal_owned_description: 'Užíváte si všechny výhody Premium verze. Děkujeme za vaši podporu!',
+  premium_modal_error_title: 'Chyba načtení',
+  premium_modal_error_description: 'Nepodařilo se načíst produkty k nákupu. Zkuste to prosím později.',
   premium_modal_title: 'Získejte Premium',
   premium_modal_description: 'Odemkněte si plný potenciál aplikace s jednorázovým nákupem.',
   premium_feature_1: 'Neomezený počet cvičení',
   premium_feature_2: 'Pokročilé statistiky a trendy',
   premium_feature_3: 'Žádné reklamy, nikdy',
-  premium_modal_unlock_button: 'Odemknout Premium za {price}',
-
-  // Překlady pro promo kód
-  promo_code_placeholder: 'Zadejte promo kód',
-  promo_code_button: 'Ověřit kód',
-  promo_code_success_title: 'Úspěch',
-  promo_code_success_message: 'Prémium funkce byly úspěšně aktivovány.',
-  promo_code_error_title: 'Neplatný kód',
-  promo_code_error_message: 'Zadaný promo kód není platný. Zkuste to znovu.',
-};
-
-export default cs; 
+  premium_modal_unlock_button: 'Odemknout za',
+}; 

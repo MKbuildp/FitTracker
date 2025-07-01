@@ -2,7 +2,7 @@
   "expo": {
     "name": "FitTracker",
     "slug": "fittracker",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "orientation": "portrait",
     "icon": "./assets/fittracker-icon.png",
     "userInterfaceStyle": "light",
@@ -30,7 +30,7 @@
       },
       "edgeToEdgeEnabled": false,
       "package": "com.mkbuildp.fittracker",
-      "versionCode": 5,
+      "versionCode": 6,
       "permissions": [
         "INTERNET",
         "com.google.android.gms.permission.AD_ID"

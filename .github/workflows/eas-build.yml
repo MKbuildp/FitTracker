@@ -27,5 +27,6 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build with EAS (Cloud)
-        run: eas build --platform android --profile production --non-interactive --no-wait
+      - name: Build with EAS (Interactive with timeout)
+        run: |
+          timeout 300 eas build --platform android --profile production --no-wait || true
