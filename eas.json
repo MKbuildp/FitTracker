@@ -1,50 +1,8 @@
 {
-  "cli": {
-    "version": ">= 7.6.0",
-    "appVersionSource": "remote",
-    "requireCommit": true
-  },
   "build": {
-    "development": {
-      "developmentClient": true,
-      "distribution": "internal",
-      "android": {
-        "credentialsSource": "remote"
-      },
-      "ios": {
-        "credentialsSource": "remote"
-      }
-    },
-    "preview": {
-      "distribution": "internal",
-      "android": {
-        "buildType": "apk",
-        "credentialsSource": "remote"
-      },
-      "ios": {
-        "credentialsSource": "remote"
-      }
-    },
     "production": {
       "android": {
-        "buildType": "aab",
-        "credentialsSource": "remote",
-        "cache": {
-          "disabled": true
-        },
-        "env": {
-          "EXPO_SKIP_DOCTOR_CHECK": "1"
-        }
-      },
-      "ios": {
-        "credentialsSource": "remote"
-      }
-    }
-  },
-  "submit": {
-    "production": {
-      "android": {
-        "releaseStatus": "draft"
+        "buildType": "app-bundle"
       }
     }
   }
