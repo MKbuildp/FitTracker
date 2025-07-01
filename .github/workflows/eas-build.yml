@@ -28,5 +28,4 @@ jobs:
         run: npm install
 
       - name: Build with EAS (Interactive with timeout)
-        run: |
-          timeout 300 eas build --platform android --profile production --no-wait || true
+        run: eas build --platform android --profile production --non-interactive
