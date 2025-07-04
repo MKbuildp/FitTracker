@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from '../../../hooks/useTranslation';
+import PremiumTlacitko from '../../../components/PremiumTlacitko';
 
 
 interface NastaveniModalProps {
@@ -103,6 +104,8 @@ export const NastaveniModal: React.FC<NastaveniModalProps> = ({
                     </Text>
                   </TouchableOpacity>
                 </View>
+                {/* Premium tlačítko pod jazykovými tlačítky */}
+                <PremiumTlacitko onPress={onUpgradeToPremium} />
               </View>
 
               <View style={styly.sekce}>

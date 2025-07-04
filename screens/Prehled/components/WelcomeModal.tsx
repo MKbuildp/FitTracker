@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from '../../../hooks/useTranslation';
+import PremiumTlacitko from '../../../components/PremiumTlacitko';
 
 /** Props pro WelcomeModal */
 interface WelcomeModalProps {
@@ -69,7 +70,10 @@ export const WelcomeModal: React.FC<WelcomeModalProps> = ({
                   </View>
                 </View>
 
-                {/* Premium sekce a tlačítko jsou skryté v této verzi */}
+                {/* Premium sekce a tlačítko – nyní zobrazeno (česká indexace) */}
+                <View style={styly.premiumSekce}>
+                  <PremiumTlacitko onPress={onUpgradeToPremium} />
+                </View>
 
                 {/* Pokračovat tlačítko */}
                 <TouchableOpacity
@@ -162,59 +166,6 @@ const styly = StyleSheet.create({
   },
   premiumSekce: {
     marginBottom: 24,
-  },
-  premiumHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 12,
-  },
-  premiumNadpis: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#1f2937',
-    marginLeft: 8,
-  },
-  premiumPopis: {
-    fontSize: 16,
-    color: '#6b7280',
-    textAlign: 'center',
-    marginBottom: 16,
-    lineHeight: 22,
-  },
-  premiumVyhoda: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 8,
-  },
-  premiumVyhodaText: {
-    fontSize: 16,
-    color: '#374151',
-    marginLeft: 8,
-    fontWeight: '500',
-  },
-  premiumTlacitko: {
-    backgroundColor: '#fef3c7',
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 16,
-    borderWidth: 2,
-    borderColor: '#f59e0b',
-  },
-  premiumTlacitkoObsah: {
-    alignItems: 'center',
-  },
-  premiumTlacitkoText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#92400e',
-    marginBottom: 4,
-  },
-  premiumTlacitkoSubtext: {
-    fontSize: 14,
-    color: '#a16207',
-    fontWeight: '500',
   },
   pokracovatTlacitko: {
     backgroundColor: '#f1f5f9',

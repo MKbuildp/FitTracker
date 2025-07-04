@@ -200,6 +200,14 @@ CviceniApp/
 - **Požadavky:** Nastavený EXPO_TOKEN v GitHub Secrets (https://github.com/MKbuildp/FitTracker/settings/secrets/actions)
 - **Expo Token:** `GitHub_Actions_FitTracker` - bIJBgOzJjTVFlYsOZ-dDPsdDg310VcVM-rrvKLLw
 
+### Podepisování aplikace (Keystore a Upload Key)
+- **App Signing Key (hlavní podpisový klíč)**: Tento klíč přiděluje a spravuje Google Play. Nikdy ho nedostanete do ruky, Google s ním podepisuje všechny verze aplikace, které dostanou uživatelé.
+- **Upload Key (klíč pro nahrávání)**: Tímto klíčem musíte podepisovat všechny buildy (AAB), které nahráváte do Google Play. Google Play build ověří a následně přepodepíše App Signing Key.
+- **Aktuální Upload Key:**
+  - SHA-1: A5:45:27:3E:C5:EF:DD:8A:84:83:A9:78:FB:61:CA:9C:B5:BF:9B:47
+  - MD5: B2:32:A2:97:93:3C:59:11:08:83:4B:D0:58:56:38:50
+- Pokud potřebujete resetovat upload key, použijte sekci "Integrita aplikace" v Google Play Console a postupujte podle instrukcí.
+
 ## Git workflow
 
 - **Hlavní větev:** main
@@ -243,4 +251,11 @@ CviceniApp/
 
 ### Testování v Expo Go
 - **Omezení:** Některé nativní funkce nemusí být dostupné v Expo Go
-- **Řešení:** Pro testování plné funkcionality je nutné vytvořit development build pomocí `eas build --profile development` 
+- **Řešení:** Pro testování plné funkcionality je nutné vytvořit development build pomocí `eas build --profile development`
+
+### Premium verze
+- **Premium verze odemyká pouze jednu výhodu:**
+  - **Neomezený počet vytvořených cvičení.**
+- Všechny ostatní funkce aplikace jsou dostupné i ve free verzi.
+- Ve free verzi je počet cvičení omezen (např. na 3, viz implementace).
+- Platební logika je aktuálně simulovaná, v ostré verzi je možné napojit na Google Play Billing. 

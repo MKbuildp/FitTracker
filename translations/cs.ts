@@ -282,9 +282,18 @@ export const cs = {
   premium_modal_error_title: 'Chyba načtení',
   premium_modal_error_description: 'Nepodařilo se načíst produkty k nákupu. Zkuste to prosím později.',
   premium_modal_title: 'Získejte Premium',
-  premium_modal_description: 'Odemkněte si plný potenciál aplikace s jednorázovým nákupem.',
-  premium_feature_1: 'Neomezený počet cvičení',
+  premium_modal_description: 'Odemkněte si neomezený počet vytvořených cvičení. Vše ostatní je dostupné zdarma.',
+  premium_feature_1: 'Neomezený počet vytvořených cvičení',
   premium_feature_2: 'Pokročilé statistiky a trendy',
   premium_feature_3: 'Žádné reklamy, nikdy',
   premium_modal_unlock_button: 'Odemknout za',
+
+  // Promo kód
+  'promo_code_success_title': 'Úspěch',
+  'promo_code_success_message': 'Premium funkce byly úspěšně aktivovány.',
+  'promo_code_error_title': 'Neplatný kód',
+  'promo_code_error_message': 'Zadaný promo kód není platný. Zkuste to znovu.',
+  'promo_code_placeholder': 'Zadejte promo kód',
+  'promo_code_button': 'Ověřit kód',
+  'cancel': 'Zrušit',
 }; 

@@ -4,7 +4,7 @@ import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useCviceni } from '../../../context/CviceniContext';
 import { useTranslation } from '../../../hooks/useTranslation';
-import { TypMereni, Smerovani, RootStackParamList } from '../../../types';
+import { TypMereni, SmerovaniVykonu, RootStackParamList } from '../../../types';
 import { PridatCviceniHook } from '../types/types';
 import { 
   validateForm, 
@@ -23,12 +23,12 @@ export const usePridatCviceni = (): PridatCviceniHook => {
   const { t } = useTranslation();
   
   // Získání typu cvičení z parametrů navigace
-  const vychoziTyp = route.params.vychoziTyp;
+  const vychoziTyp = route.params?.vychoziTyp ?? 'opakovani';
   
   // Stav formuláře
   const [nazev, setNazev] = useState('');
   const [typMereni] = useState<TypMereni>(vychoziTyp); // Již není možné měnit
-  const [smerovani, setSmerovani] = useState<Smerovani>('kratsi_lepsi');
+  const [smerovani, setSmerovani] = useState<SmerovaniVykonu>('kratsi_lepsi');
   const [ukladaSe, setUkladaSe] = useState(false);
   
   // Stav pro denní cíl
@@ -94,13 +94,17 @@ export const usePridatCviceni = (): PridatCviceniHook => {
         }
       }
 
-      await pridatCviceni({
+      const data = {
         nazev: nazev.trim(),
         typMereni,
-        smerovani: typMereni === 'cas' ? smerovani : undefined,
+        smerovani: typMereni === 'cas' ? smerovani : 'kratsi_lepsi',
         denniCil,
         vybranaBarva,
-      });
+      };
+      console.log('Přidávám cvičení:', data);
+      Alert.alert('DEBUG', 'Přidávám cvičení: ' + JSON.stringify(data));
+      await pridatCviceni(data);
+      Alert.alert('DEBUG', 'Cvičení úspěšně přidáno!');
 
       Alert.alert(
         t('addExercise.successTitle'),

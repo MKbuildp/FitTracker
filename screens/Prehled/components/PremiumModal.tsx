@@ -30,6 +30,7 @@ const PremiumModal = ({ viditelne, onZavrit, onKoupitPremium, onObnovitNakupy }:
   const { jePremium, setJePremium, produkty, koupitPremium, nacitaSe, inicializovano } = usePlatby();
   const premiumProdukt = produkty.length > 0 ? produkty[0] : null;
   const [promoKod, setPromoKod] = useState('');
+  const [jePromoModalViditelny, setJePromoModalViditelny] = useState(false);
 
   const handleKoupitPremium = async () => {
     if (onKoupitPremium) {
@@ -83,21 +84,12 @@ const PremiumModal = ({ viditelne, onZavrit, onKoupitPremium, onObnovitNakupy }:
     return (
       <View style={styles.contentContainer}>
         <Ionicons name="sparkles" size={60} color="#f59e0b" />
-        <Text style={styles.title}>{premiumProdukt.title || t('premium_modal_title')}</Text>
-        <Text style={styles.description}>{premiumProdukt.description || t('premium_modal_description')}</Text>
+        <Text style={styles.title}>{t('premium.title')}</Text>
 
         <View style={styles.featuresContainer}>
           <View style={styles.featureItem}>
             <Ionicons name="checkmark-circle" size={24} color="#059669" />
-            <Text style={styles.featureText}>{t('premium_feature_1')}</Text>
-          </View>
-          <View style={styles.featureItem}>
-            <Ionicons name="checkmark-circle" size={24} color="#059669" />
-            <Text style={styles.featureText}>{t('premium_feature_2')}</Text>
-          </View>
-          <View style={styles.featureItem}>
-            <Ionicons name="checkmark-circle" size={24} color="#059669" />
-            <Text style={styles.featureText}>{t('premium_feature_3')}</Text>
+            <Text style={styles.featureText}>{t('premium.unlimitedExercises')}</Text>
           </View>
         </View>
         
@@ -115,19 +107,19 @@ const PremiumModal = ({ viditelne, onZavrit, onKoupitPremium, onObnovitNakupy }:
           </TouchableOpacity>
         )}
 
-        <View style={styles.promoContainer}>
-            <TextInput
-                style={styles.promoInput}
-                placeholder={t('promo_code_placeholder')}
-                placeholderTextColor="#9ca3af"
-                value={promoKod}
-                onChangeText={setPromoKod}
-                autoCapitalize="characters"
-            />
-            <TouchableOpacity style={styles.promoButton} onPress={handleOveritKod}>
-                <Text style={styles.promoButtonText}>{t('promo_code_button')}</Text>
-            </TouchableOpacity>
-        </View>
+        <TouchableOpacity style={styles.promoOpenButton} onPress={() => setJePromoModalViditelny(true)}>
+          <Text style={styles.promoOpenButtonText}>{t('promo_code_button')}</Text>
+        </TouchableOpacity>
+
+        {jePromoModalViditelny && (
+          <PromoKodModal
+            viditelne={jePromoModalViditelny}
+            onZavrit={() => setJePromoModalViditelny(false)}
+            onOverit={(kod: string) => {
+              setJePromoModalViditelny(false);
+            }}
+          />
+        )}
       </View>
     );
   };
@@ -145,6 +137,66 @@ const PremiumModal = ({ viditelne, onZavrit, onKoupitPremium, onObnovitNakupy }:
             <Ionicons name="close-circle" size={30} color="#9ca3af" />
           </TouchableOpacity>
           {renderContent()}
+        </View>
+      </View>
+    </Modal>
+  );
+};
+
+/**
+ * Modální okno pro zadání promo kódu
+ */
+interface PromoKodModalProps {
+  viditelne: boolean;
+  onZavrit: () => void;
+  onOverit: (kod: string) => void;
+}
+
+const PromoKodModal: React.FC<PromoKodModalProps> = ({ viditelne, onZavrit, onOverit }) => {
+  const { t } = useTranslation();
+  const [kod, setKod] = useState('');
+
+  return (
+    <Modal
+      animationType="fade"
+      transparent={true}
+      visible={viditelne}
+      onRequestClose={onZavrit}
+    >
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.4)' }}>
+        <View style={{ backgroundColor: 'white', borderRadius: 16, padding: 24, width: '85%', alignItems: 'center' }}>
+          <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 12 }}>{t('promo_code_button')}</Text>
+          <TextInput
+            style={{
+              backgroundColor: '#f3f4f6',
+              borderRadius: 10,
+              paddingVertical: 12,
+              paddingHorizontal: 15,
+              width: '100%',
+              fontSize: 16,
+              color: '#1f2937',
+              marginBottom: 16,
+            }}
+            placeholder={t('promo_code_placeholder')}
+            placeholderTextColor="#9ca3af"
+            value={kod}
+            onChangeText={setKod}
+            autoCapitalize="characters"
+          />
+          <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between' }}>
+            <TouchableOpacity
+              style={{ backgroundColor: '#2563eb', borderRadius: 20, paddingVertical: 10, paddingHorizontal: 24, flex: 1, marginRight: 8 }}
+              onPress={() => onOverit(kod)}
+            >
+              <Text style={{ color: 'white', fontWeight: '600', fontSize: 16, textAlign: 'center' }}>{t('promo_code_button')}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{ backgroundColor: '#e5e7eb', borderRadius: 20, paddingVertical: 10, paddingHorizontal: 18, flex: 1, marginLeft: 8 }}
+              onPress={onZavrit}
+            >
+              <Text style={{ color: '#374151', fontWeight: '500', fontSize: 16, textAlign: 'center' }}>{t('cancel')}</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </Modal>
@@ -240,33 +292,18 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 16,
   },
-  promoContainer: {
-    marginTop: 20,
+  promoOpenButton: {
+    backgroundColor: 'transparent',
+    borderRadius: 30,
+    paddingVertical: 10,
+    paddingHorizontal: 30,
     width: '100%',
-    borderTopWidth: 1,
-    borderTopColor: '#e5e7eb',
-    paddingTop: 15,
-    alignItems: 'center',
-  },
-  promoInput: {
-    backgroundColor: '#f3f4f6',
-    borderRadius: 10,
-    paddingVertical: 12,
-    paddingHorizontal: 15,
-    width: '100%',
-    fontSize: 16,
-    color: '#1f2937',
     marginBottom: 10,
   },
-  promoButton: {
-    backgroundColor: '#4b5563',
-    borderRadius: 20,
-    paddingVertical: 10,
-    paddingHorizontal: 25,
-  },
-  promoButtonText: {
-    color: 'white',
-    fontWeight: '600',
+  promoOpenButtonText: {
+    color: '#2563eb',
+    fontWeight: '500',
+    textAlign: 'center',
     fontSize: 16,
   },
 }); 

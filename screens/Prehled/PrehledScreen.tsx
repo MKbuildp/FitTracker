@@ -18,13 +18,11 @@ import { NavigationProp } from './types/types';
 /**
  * Shell komponenta pro obrazovku Přehled.
  */
-const PrehledScreen: React.FC = () => {
+const PrehledScreen: React.FC<{ onOtevritPremium: () => void }> = ({ onOtevritPremium }) => {
   const { stav } = useCviceni();
   const navigation = useNavigation<NavigationProp>();
   const { t } = useTranslation();
   const [jeNastaveniViditelne, setJeNastaveniViditelne] = useState(false);
-  // Premium modal je skrytý v této verzi
-  const [jePremiumViditelne, setJePremiumViditelne] = useState(false);
 
   // Bezpečné nastavení callback funkce pro otevření nastavení
   useFocusEffect(
@@ -41,26 +39,6 @@ const PrehledScreen: React.FC = () => {
       };
     }, [])
   );
-
-  const zavritNastaveni = () => {
-    setJeNastaveniViditelne(false);
-  };
-
-  const otevritPremium = () => {
-    // V této verzi pouze zavřeme nastavení bez zobrazení premium modalu
-    setJeNastaveniViditelne(false);
-    // Premium funkce jsou aktivní automaticky
-    console.log('Premium funkce jsou automaticky aktivovány pro testovací build.');
-  };
-
-  const zavritPremium = () => {
-    setJePremiumViditelne(false);
-  };
-
-  const koupitPremium = () => {
-    // Premium funkce jsou aktivní automaticky
-    console.log('Premium funkce jsou automaticky aktivovány pro testovací build.');
-  };
 
   const obnovitNakupy = () => {
     // Premium funkce jsou aktivní automaticky
@@ -106,19 +84,12 @@ const PrehledScreen: React.FC = () => {
       
       <NastaveniModal
         viditelne={jeNastaveniViditelne}
-        onZavrit={zavritNastaveni}
-        onUpgradeToPremium={otevritPremium}
+        onZavrit={() => setJeNastaveniViditelne(false)}
+        onUpgradeToPremium={() => {
+          setJeNastaveniViditelne(false);
+          onOtevritPremium();
+        }}
       />
-      
-      {/* Premium modal je skrytý v této verzi */}
-      {false && (
-        <PremiumModal
-          viditelne={jePremiumViditelne}
-          onZavrit={zavritPremium}
-          onKoupitPremium={koupitPremium}
-          onObnovitNakupy={obnovitNakupy}
-        />
-      )}
     </>
   );
 };

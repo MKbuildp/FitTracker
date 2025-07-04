@@ -8,8 +8,8 @@ export type SmerovaniVykonu = 'kratsi_lepsi' | 'delsi_lepsi';
 export interface Cviceni {
   id: string;
   nazev: string;
-  typ: TypMereni;
-  smerovaniVykonu: SmerovaniVykonu;
+  typMereni: TypMereni;
+  smerovani: SmerovaniVykonu;
   vytvorenoKdy: Date;
   maNastavenCil: boolean; // New: Indicates if exercise has active daily goal
   denniCil: number; // New: Daily goal value (repetitions or seconds)
@@ -52,7 +52,7 @@ export type BottomTabParamList = {
 // Main Stack Navigator - defines screens outside tabs
 export type RootStackParamList = {
   HlavniTaby: undefined; // References the entire Tab Navigator
-  PridatCviceni: undefined;
+  PridatCviceni: { vychoziTyp: TypMereni };
   DetailCviceni: { cviceniId: string };
   LanguageSelection: undefined;
 }; 
