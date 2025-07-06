@@ -41,13 +41,13 @@ export const PlatbyProvider = ({ children }: { children: ReactNode }) => {
     const [inicializovano] = useState(true);
 
     const koupitPremium = async () => {
-        console.log('Pokus o koupi Premium...');
         // V reálné aplikaci by zde byla logika pro platbu
         // Prozatím můžeme simulovat úspěch, ale ne automaticky
     };
 
     const obnovitNakupy = async () => {
-        console.log('Pokus o obnovení nákupů...');
+        // V reálné aplikaci by zde byla logika pro obnovení nákupů
+        // Prozatím můžeme simulovat úspěch, ale ne automaticky
     };
 
     const value = {

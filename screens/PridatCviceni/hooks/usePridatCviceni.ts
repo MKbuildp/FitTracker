@@ -101,11 +101,9 @@ export const usePridatCviceni = (): PridatCviceniHook => {
         denniCil,
         vybranaBarva,
       };
-      console.log('Přidávám cvičení:', data);
-      Alert.alert('DEBUG', 'Přidávám cvičení: ' + JSON.stringify(data));
-      await pridatCviceni(data);
-      Alert.alert('DEBUG', 'Cvičení úspěšně přidáno!');
 
+      await pridatCviceni(data);
+      
       Alert.alert(
         t('addExercise.successTitle'),
         t('addExercise.successMessage'),

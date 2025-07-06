@@ -116,6 +116,8 @@ const PremiumModal = ({ viditelne, onZavrit, onKoupitPremium, onObnovitNakupy }:
             viditelne={jePromoModalViditelny}
             onZavrit={() => setJePromoModalViditelny(false)}
             onOverit={(kod: string) => {
+              setPromoKod(kod);
+              handleOveritKod();
               setJePromoModalViditelny(false);
             }}
           />

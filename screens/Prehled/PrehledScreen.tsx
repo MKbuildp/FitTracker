@@ -42,7 +42,6 @@ const PrehledScreen: React.FC<{ onOtevritPremium: () => void }> = ({ onOtevritPr
 
   const obnovitNakupy = () => {
     // Premium funkce jsou aktivní automaticky
-    console.log('Premium funkce jsou automaticky aktivovány pro testovací build.');
   };
 
   if (stav.nacitaSeData) {

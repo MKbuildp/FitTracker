@@ -112,19 +112,11 @@ function AppContent() {
 
   const handleBuyPremium = () => {
     // Premium funkce jsou aktivní automaticky
-    console.log('Premium funkce jsou automaticky aktivovány pro testovací build.');
     setShowPremiumModal(false);
   };
 
   const handleRestorePurchases = () => {
     // Premium funkce jsou aktivní automaticky
-    console.log('Premium funkce jsou automaticky aktivovány pro testovací build.');
-  };
-
-  // Dočasné tlačítko pro smazání klíče welcome
-  const smazatWelcomeKey = async () => {
-    await AsyncStorage.removeItem('@cviceni_app_welcome_shown');
-    alert('Klíč @cviceni_app_welcome_shown byl smazán. Restartujte aplikaci nebo změňte jazyk.');
   };
 
   const otevritPremium = () => setShowPremiumModal(true);
@@ -283,14 +275,6 @@ function AppContent() {
         onKoupitPremium={handleBuyPremium}
         onObnovitNakupy={handleRestorePurchases}
       />
-      {/* Dočasné tlačítko pro testování welcome modalu */}
-      <TouchableOpacity
-        onPress={smazatWelcomeKey}
-        style={{ position: 'absolute', bottom: 30, right: 20, backgroundColor: '#f59e0b', padding: 14, borderRadius: 30, elevation: 4 }}
-        activeOpacity={0.8}
-      >
-        <Text style={{ color: 'white', fontWeight: 'bold' }}>Reset Welcome</Text>
-      </TouchableOpacity>
     </>
   );
 }
@@ -309,7 +293,7 @@ export default function App() {
         // Expo vector icons jsou automaticky dostupné
       });
     } catch (error) {
-      console.warn('Chyba při načítání fontů:', error);
+      // Fonty se nepodařilo načíst, ale aplikace může pokračovat
     } finally {
       setFontsLoaded(true);
     }
