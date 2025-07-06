@@ -28,7 +28,7 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": false,
-      "package": "com.mkbuildp.fit.tracker",
+      "package": "com.mkbuildp.fittracker",
       "versionCode": 7,
       "permissions": [
         "INTERNET",
