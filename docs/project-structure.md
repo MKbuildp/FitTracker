@@ -12,7 +12,7 @@ CviceniApp/
 │   ├── adaptive-icon.png # Adaptivní ikona (17KB)
 │   ├── favicon.png       # Favicon (1.4KB)
 │   ├── fittracker-icon.png # Hlavní ikona aplikace (120KB)
-│   ├── icon.png          # Hlavní ikona aplikace (22KB)
+│   ├── icon.png          # Fallback ikona (22KB)
 │   └── splash-icon.png   # Splash screen ikona (17KB)
 ├── components/           # Sdílené komponenty
 │   ├── CviceniKarta.tsx  # Univerzální karta cvičení (318 řádků)
@@ -179,7 +179,7 @@ Statické soubory - ikony aplikace v různých velikostech a formátech pro růz
 - `adaptive-icon.png` - Adaptivní ikona pro Android (17KB)
 - `favicon.png` - Favicon pro web (1.4KB)
 - `fittracker-icon.png` - Hlavní ikona aplikace (120KB)
-- `icon.png` - Základní ikona (22KB)
+- `icon.png` - Fallback ikona (22KB)
 - `splash-icon.png` - Splash screen ikona (17KB)
 
 ## Konfigurační Soubory

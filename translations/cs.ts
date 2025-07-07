@@ -49,7 +49,7 @@ export const cs = {
   'overview.title': 'Přehled',
   'overview.exerciseList': 'Přehled cvičení',
   'overview.totalExercises': 'Celkem cvičení',
-  'overview.goalCompletion': 'Cíle',
+  'overview.goalCompletion': 'Cíl',
   'overview.totalRecords': 'Záznamy',
   'overview.activeDays': 'Aktivita',
   'overview.thisWeek': 'Tento týden',
