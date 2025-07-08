@@ -297,4 +297,82 @@ Tento postup shrnuje všechny kroky potřebné k prvnímu úspěšnému sestaven
     *   Klikněte na "Další" a následně na "Uložit a publikovat" (nebo "Zahájit zavádění...").
 
 ### Další aktualizace:
-Pro každou další verzi aplikace stačí v `app.json` zvýšit `versionCode` (např. na `2`), provést `git push` a nahrát nový `.aab` soubor do nového vydání v Google Play Console. Všechny klíče už jsou správně nastavené. 
+Pro každou další verzi aplikace stačí v `app.json` zvýšit `versionCode` (např. na `2`), provést `git push` a nahrát nový `.aab` soubor do nového vydání v Google Play Console. Všechny klíče už jsou správně nastavené.
+
+## KLÍČOVÉ PRAVIDLO 11: Uložení a Build na Gitu
+### Pravidlo: Standardizovaný postup pro Git operace a automatický build
+Tento postup **VŽDY** používej pro uložení změn a spuštění buildu. Dodržuj **přesné pořadí** kroků a **nikdy** je neprováděj automaticky bez výslovného souhlasu uživatele.
+
+### Sekce 1: Uložení (Commit)
+#### Krok 1: Příprava změn
+```bash
+git add .
+```
+- Přidá všechny změněné soubory do staging area
+- Zobrazí případná upozornění (např. CRLF konverze)
+
+#### Krok 2: Commit se strukturovanou zprávou
+```bash
+git commit -m "Popisný název změny
+
+- Konkrétní změna 1 (např. Update version from 1.2.2 to 1.2.3)
+- Konkrétní změna 2 (např. Fix Android icon configuration)
+- Konkrétní změna 3 (např. Change 'Cíle' to 'Cíl' in translations)
+- Další změny podle potřeby
+- Update documentation (pokud se měnila)"
+```
+
+#### Struktura commit message:
+1. **První řádek:** Krátký, výstižný popis (max 50 znaků)
+2. **Prázdný řádek**
+3. **Detailní seznam změn:** Každá změna na novém řádku s pomlčkou
+4. **Technické detaily:** Verze, konfigurační změny, opravy
+
+### Sekce 2: Spuštění buildu (Push)
+#### Krok 3: Push na GitHub
+```bash
+git push origin main
+```
+- Pushne změny na GitHub main větev
+- **Automaticky spustí GitHub Actions build**
+- Zobrazí informace o pushnutých commitech (např. `54cf527..25dd504`)
+
+#### Krok 4: Ověření buildu
+- GitHub Actions se spustí automaticky po push
+- Build vytvoří nový APK/AAB s aktualizovanou verzí
+- Sleduj progress na GitHub v sekci "Actions"
+
+### Povinné kontroly před Git operacemi:
+1. **Ověř změny:** Zkontroluj, že všechny změny jsou správné
+2. **Verze:** Pokud se jedná o novou verzi, ověř správnost `version` a `versionCode` v `app.json`
+3. **Testy:** Ujisti se, že aplikace funguje správně
+4. **Commit message:** Použij strukturovanou zprávu podle vzoru výše
+
+### Kdy používat tento postup:
+- **Po každé významné změně** v kódu
+- **Před vydáním nové verze** aplikace
+- **Po opravě chyb** nebo přidání funkcí
+- **Na výslovnou žádost uživatele** s formulací typu "ulož změny na Git a spusť build"
+
+### Příklad kompletního postupu:
+```bash
+# 1. Příprava
+git add .
+
+# 2. Commit s popisem
+git commit -m "Bump version to 1.2.3 and fix UI issues
+
+- Update version from 1.2.2 to 1.2.3 (versionCode 7 → 8)
+- Fix Android adaptive icon configuration
+- Change 'Cíle' to 'Cíl' in statistics display
+- Update project documentation"
+
+# 3. Push a spuštění buildu
+git push origin main
+```
+
+### Důležité upozornění:
+- **NIKDY** neprováděj tyto operace automaticky
+- **VŽDY** čekej na explicitní pokyn uživatele
+- **INFORMUJ** uživatele o výsledku každého kroku
+- **OVĚŘ** úspěšnost GitHub Actions buildu 
