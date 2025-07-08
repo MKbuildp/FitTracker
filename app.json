@@ -2,7 +2,7 @@
   "expo": {
     "name": "FitTracker",
     "slug": "fittracker",
-    "version": "1.2.9",
+    "version": "1.3.0",
     "orientation": "portrait",
     "icon": "./assets/fittracker-icon.png",
     "userInterfaceStyle": "light",
@@ -20,7 +20,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.mkbuildp.fittracker",
-      "buildNumber": "1.2.9"
+      "buildNumber": "1.3.0"
     },
     "android": {
       "adaptiveIcon": {
@@ -29,10 +29,9 @@
       },
       "edgeToEdgeEnabled": false,
       "package": "com.mkbuildp.fittracker",
-      "versionCode": 9,
+      "versionCode": 10,
       "permissions": [
-        "INTERNET",
-        "com.google.android.gms.permission.AD_ID"
+        "INTERNET"
       ],
       "allowBackup": false,
       "playStoreUrl": "https://play.google.com/store/apps/details?id=com.mkbuildp.fittracker"
