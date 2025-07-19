@@ -192,6 +192,14 @@ CviceniApp/
 - **Package name:** com.mkbuildp.fittracker
 - **EAS Project ID:** 5a1020bb-0c33-42f4-82ab-b8920683f55c
 
+### Build pro App Store (iOS)
+- **Nástroj:** EAS Build (Expo Application Services)
+- **Konfigurace:** `eas.json`
+- **Bundle Identifier:** `com.mkbuildp.fittracker`
+- **Správa certifikátů:** Veškeré přihlašovací údaje (Distribution Certificate, Provisioning Profile) jsou spravovány automaticky službou EAS. Byl znovupoužit existující distribuční certifikát.
+- **Příkaz pro build:** `eas build --platform ios --profile production`
+- **Příkaz pro nahrání:** `eas submit --platform ios --latest`
+
 ### GitHub Actions workflow
 - **Soubor:** `.github/workflows/eas-build.yml`
 - **Účel:** Automatický build aplikace při push do main větve

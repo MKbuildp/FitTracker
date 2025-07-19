@@ -27,7 +27,7 @@ interface PremiumModalProps {
  */
 const PremiumModal = ({ viditelne, onZavrit, onKoupitPremium, onObnovitNakupy }: PremiumModalProps) => {
   const { t } = useTranslation();
-  const { jePremium, setJePremium, produkty, koupitPremium, nacitaSe, inicializovano } = usePlatby();
+  const { jePremium, setJePremium, produkty, koupitPremium, nacitaSe, inicializovano, aktivovatPremiumPromoKodem } = usePlatby();
   const premiumProdukt = produkty.length > 0 ? produkty[0] : null;
   const [promoKod, setPromoKod] = useState('');
   const [jePromoModalViditelny, setJePromoModalViditelny] = useState(false);
@@ -46,12 +46,17 @@ const PremiumModal = ({ viditelne, onZavrit, onKoupitPremium, onObnovitNakupy }:
     }
   };
 
-  const handleOveritKod = () => {
-    if (promoKod.toUpperCase() === 'GOOGLEPLAYREVIEW') {
-      setJePremium(true);
-      Alert.alert(t('promo_code_success_title'), t('promo_code_success_message'));
-      onZavrit();
-    } else {
+  const handleOveritKod = async () => {
+    try {
+      const uspech = await aktivovatPremiumPromoKodem(promoKod);
+      if (uspech) {
+        Alert.alert(t('promo_code_success_title'), t('promo_code_success_message'));
+        onZavrit();
+      } else {
+        Alert.alert(t('promo_code_error_title'), t('promo_code_error_message'));
+      }
+    } catch (error) {
+      console.error('Chyba při ověřování promo kódu:', error);
       Alert.alert(t('promo_code_error_title'), t('promo_code_error_message'));
     }
   };
@@ -115,9 +120,9 @@ const PremiumModal = ({ viditelne, onZavrit, onKoupitPremium, onObnovitNakupy }:
           <PromoKodModal
             viditelne={jePromoModalViditelny}
             onZavrit={() => setJePromoModalViditelny(false)}
-            onOverit={(kod: string) => {
+            onOverit={async (kod: string) => {
               setPromoKod(kod);
-              handleOveritKod();
+              await handleOveritKod();
               setJePromoModalViditelny(false);
             }}
           />
@@ -151,7 +156,7 @@ const PremiumModal = ({ viditelne, onZavrit, onKoupitPremium, onObnovitNakupy }:
 interface PromoKodModalProps {
   viditelne: boolean;
   onZavrit: () => void;
-  onOverit: (kod: string) => void;
+  onOverit: (kod: string) => Promise<void>;
 }
 
 const PromoKodModal: React.FC<PromoKodModalProps> = ({ viditelne, onZavrit, onOverit }) => {

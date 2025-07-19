@@ -1,10 +1,16 @@
 name: EAS Build
 
 on:
-  workflow_dispatch: {}
-  push:
-    branches:
-      - main
+  workflow_dispatch:
+    inputs:
+      platform:
+        description: 'Platform to build for'
+        required: true
+        default: 'android'
+        type: choice
+        options:
+          - android
+          - ios
 
 jobs:
   build:
@@ -28,4 +34,4 @@ jobs:
         run: npm install
 
       - name: Build with EAS
-        run: eas build --platform android --profile production --non-interactive
+        run: eas build --platform ${{ github.event.inputs.platform }} --profile production --non-interactive

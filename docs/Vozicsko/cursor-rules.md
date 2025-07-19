@@ -468,72 +468,91 @@ Tento dokument slouží jako standardizovaný "checklist" pro nastavení nového
     *   Vytvořit novou verzi a nahrát `.aab` soubor.
     *   Uložit, zkontrolovat a odeslat ke schválení. 
 
-# KLÍČOVÉ PRAVIDLO 13: ZÁKAZ MANIPULACE S PRODUKČNÍM KLÍČEM (FitTracker)
+# KLÍČOVÉ PRAVIDLO 14: ZÁKAZ MANIPULACE S PRODUKČNÍM KLÍČEM
 
 **Princip: Produkční podepisovací klíč pro Android je po schválení Googlem absolutně neměnný. Jakákoliv manipulace s ním je zakázána a vede k selhání uploadu do Google Play.**
 
 **1. Identita Správného Klíče:**
-*   Jediný platný klíč pro podepisování produkčních buildů (`.aab`) je ten, který je na EAS serveru pojmenován **"Hlavni product klic"** (nebo "FitTracker Production Keystore").
-*   Jeho otisk certifikátu **SHA-1** je: `A5:45:27:3E:C5:EF:DD:8A:84:83:A9:78:FB:61:CA:9C:B5:BF:9B:47`
+*   Jediný platný klíč pro podepisování produkčních buildů (`.aab`) je ten, který byl vygenerován **19. července 2024**.
+*   Jeho soubor je `vozicsko-upload.jks` a musí být bezpečně zálohován.
+*   Jeho otisk certifikátu **SHA-1** je: `7A:A8:D1:43:DA:74:B5:D0:C0:D0:E7:E5:F9:91:9E:AE:D9:AF:C7:AD`
 *   Tento otisk **MUSÍ** odpovídat otisku v **Google Play Console** -> **Integrita aplikace** -> **Certifikát klíče pro nahrávání**.
 
 **2. Zakázané Operace:**
 *   Je **STRIKTNĚ ZAKÁZÁNO** v nástroji `eas credentials` pro platformu Android volit následující možnosti:
     *   `Delete your keystore`
-    *   `Set up a new keystore`
+    *   `Set up a new keystore` (pokud již existuje)
     *   `Change default keystore`
-*   Je **ZAKÁZÁNO** měnit jakékoliv hodnoty týkající se `credentials` v souboru `eas.json` pro produkční profil.
+*   Je **ZAKÁZÁNO** měnit jakékoliv hodnoty týkající se `credentials` v souboru `eas.json` pro produkční profil bez explicitního plánu obnovy.
 
 **3. Povolené Operace (Kontrola):**
 *   Jediná povolená operace v `eas credentials` je **ověření**. Slouží ke kontrole, že na serverech Expo je stále nahraný klíč se správným SHA-1 otiskem.
 *   Při jakémkoliv problému s podepisováním je **PRVNÍM KROKEM VŽDY KONTROLA, NIKOLIV ZMĚNA.** Spusťte `eas credentials`, vyberte Android a porovnejte SHA1 Fingerprint s hodnotou uvedenou v tomto pravidle.
 
 **4. Postup při katastrofě (Disaster Recovery):**
-*   Pokud by byl klíč prokazatelně ztracen nebo smazán, je nutné požádat podporu Google o resetování klíče pro nahrávání pomocí nově vygenerovaného `.pem` certifikátu. Toto je krajní řešení.
+*   Pokud by byl klíč prokazatelně ztracen nebo smazán, jediný postup je ten, který byl proveden 19. 7. 2024:
+    1. Vygenerovat zbrusu nový klíč.
+    2. Vyexportovat `upload_certificate.pem`.
+    3. Požádat Google o resetování klíče pro nahrávání.
+    4. Čekat 24-48 hodin na schválení.
+    *   Toto je krajní řešení a je třeba se mu vyhnout za každou cenu. 
 
----
+# KLÍČOVÉ PRAVIDLO 15: Checklist pro První iOS Build (Expo & EAS)
 
-# KLÍČOVÉ PRAVIDLO 14: Checklist pro První iOS Build (Expo & EAS)
+Tento postup shrnuje všechny kroky potřebné k prvnímu úspěšnému sestavení a nahrání iOS aplikace do App Store Connect pro testování přes TestFlight. Důsledné dodržení pořadí je klíčové.
 
-Tento postup shrnuje všechny kroky potřebné k prvnímu úspěšnému sestavení a nahrání iOS aplikace do App Store.
-
-**Fáze 1: Příprava projektu a účtů**
+### Fáze 1: Příprava projektu a účtů
 
 1.  **Unikátní Bundle Identifier (`app.json`):**
-    *   V souboru `app.json` nastavte **globálně unikátní** `bundleIdentifier` pro iOS.
-    *   **Doporučený formát:** `com.jmenovasi_firmy_nebo_vyvojare.nazevaplikace` (např. `com.mkbuildp.fittracker`).
-    *   Tento název je **trvalý** a po prvním nahrání do App Store ho nelze změnit.
+    *   V souboru `app.json` nastavte v sekci `ios` **globálně unikátní** `bundleIdentifier`.
+    *   **Doporučený formát:** `com.jmenovasi-firmy-nebo-vyvojare.nazevaplikace` (např. `com.mkbuildp.vozicsko`).
+    *   Tento identifikátor je **trvalý** a po prvním nahrání do App Storu ho nelze změnit. Pečlivě ho zkontrolujte.
     *   Nastavte počáteční `buildNumber` na `1`.
 
-2.  **Vytvoření App ID v Apple Developer Console:**
-    *   Přihlaste se do [Apple Developer Console](https://developer.apple.com/account/).
-    *   V sekci "Certificates, IDs & Profiles" -> "Identifiers" vytvořte nové App ID odpovídající vašemu `bundleIdentifier`.
-
-3.  **Vytvoření Aplikace v App Store Connect:**
+2.  **Vytvoření Aplikace v App Store Connect:**
     *   Přihlaste se do [App Store Connect](https://appstoreconnect.apple.com/).
-    *   Vytvořte novou aplikaci ("My Apps" -> "+"), vyplňte požadované údaje a přiřaďte jí vytvořené App ID.
+    *   Přejděte do sekce "Aplikace" a klikněte na modré tlačítko `+` -> "Nová aplikace".
+    *   Vyplňte formulář:
+        *   **Název:** Jméno aplikace viditelné pro uživatele.
+        *   **Primární jazyk:** Čeština (Česko).
+        *   **Identifikátor sady (Bundle ID):** Vyberte z nabídky přesně ten `bundleIdentifier`, který jste nastavili v `app.json`. Pokud v nabídce není, je nutné ho nejprve zaregistrovat na [portálu pro vývojáře](https://developer.apple.com/account/resources/identifiers/list). EAS by to ale měl umět zařídit.
+        *   **SKU:** Unikátní identifikátor pro vás, např. `vozicsko-001`.
+    *   Tímto vytvoříte "schránku" pro vaši aplikaci.
 
-**Fáze 2: Generování certifikátů a první build**
+3.  **Konfigurace EAS Build (`eas.json`):**
+    *   Ujistěte se, že máte v `eas.json` profil `production`. Pro iOS není nutné specifikovat `buildType` jako u Androidu. Standardní nastavení je obvykle dostačující.
 
-4.  **Generování Podepisovacích Certifikátů (Doporučený postup):**
-    *   Ve svém lokálním terminálu spusťte `eas credentials`.
+### Fáze 2: Generování certifikátů a první build
+
+4.  **Vygenerování Podepisovacích Certifikátů (NEJDŮLEŽITĚJŠÍ KROK):**
+    *   Ve svém lokálním terminálu v kořeni projektu spusťte příkaz: `eas credentials`.
     *   Zvolte platformu `iOS`.
-    *   Na všechny dotazy ohledně generování certifikátů (Distribution Certificate, Push Notifications Key, Provisioning Profile) odpovězte **ANO**.
-    *   **Nechte EAS, aby za vás spravovalo všechny certifikáty.** EAS je vytvoří, nahraje na váš Apple Developer účet a bezpečně uloží pro budoucí buildy.
+    *   EAS vás vyzve k přihlášení pomocí vašeho Apple Developer účtu (Apple ID a heslo). Může být vyžadováno 2FA.
+    *   Postupujte dle instrukcí a **nechte Expo, aby celý proces řídilo (`Let Expo handle the process`)**. EAS se postará o:
+        *   Vytvoření **Distribučního certifikátu** (Distribution Certificate).
+        *   Vytvoření **Provisioning profilu** (Provisioning Profile).
+    *   Tím se na vašem Expo účtu bezpečně vytvoří a uloží všechny podepisovací klíče, propojené s vaším Apple účtem.
 
-5.  **Spuštění Prvního Buildu:**
-    *   Spusťte build pro iOS: `eas build --platform ios --profile production`.
-    *   EAS použije automaticky spravované certifikáty k podepsání buildu.
+5.  **Spuštění Prvního Buildu a Nahrání:**
+    *   Nejjednodušší metoda je spustit build a nechat EAS, aby ho rovnou nahrál do App Store Connect. Použijte příkaz:
+        ```bash
+        eas build --platform ios --profile production --auto-submit
+        ```
+    *   Alternativně spusťte jen `eas build` a po dokončení si stáhněte `.ipa` soubor a nahrajte ho manuálně pomocí aplikace [Transporter](https://apps.apple.com/us/app/transporter/id1450874784?mt=12) na macOS.
+    *   Po úspěšném nahrání bude build několik minut až desítek minut zpracováván.
 
-**Fáze 3: Nahrání do App Store a TestFlight**
+### Fáze 3: Testování v TestFlight
 
-6.  **Nahrání Buildu do App Store Connect:**
-    *   Po dokončení buildu spusťte: `eas submit --platform ios --latest`
-    *   EAS se vás zeptá na přihlašovací údaje k Apple účtu (můžete použít App-Specific Password) a nahraje build přímo do App Store Connect.
+6.  **Zobrazení Buildu v TestFlight:**
+    *   V App Store Connect přejděte do vaší aplikace -> sekce **TestFlight**.
+    *   Jakmile Apple dokončí zpracování, váš build se zde objeví.
 
-7.  **Testování přes TestFlight:**
-    *   V App Store Connect přejděte k vaší aplikaci do sekce "TestFlight".
-    *   Přidejte nahraný build do testovacích skupin a pozvěte testery.
+7.  **Vyplnění Informací pro Exportní Soulad:**
+    *   U prvního buildu budete muset odpovědět na otázku ohledně **šifrování**. V 99 % případů standardních aplikací (používajících `https`) je správná odpověď **NE** na otázku, zda aplikace používá proprietární nebo nestandardní šifrování.
 
-8.  **Odeslání ke schválení:**
-    *   Po úspěšném otestování vyplňte v App Store Connect všechny požadované informace (popis, screenshoty, informace pro recenzenty) a odešlete build ke schválení Applem. 
+8.  **Zahájení Testování:**
+    *   **Interní testeři:** Můžete okamžitě přidat až 100 testerů, kteří mají roli ve vašem App Store Connect týmu.
+    *   **Externí testeři:** Pro pozvání veřejných testerů (až 10 000) musí váš první build projít krátkou **Beta App Review**. Po schválení můžete vytvořit veřejný odkaz a sdílet ho.
+
+### Další aktualizace:
+Pro každou další verzi aplikace stačí v `app.json` zvýšit `buildNumber` (např. na `2`), provést `git push` a spustit stejný build a upload proces. Nový build automaticky nahradí ten starý v TestFlightu. 

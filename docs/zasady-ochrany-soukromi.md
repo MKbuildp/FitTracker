@@ -118,8 +118,8 @@ Doporučujeme vám pravidelně kontrolovat tyto zásady, abyste byli informován
 ## 11. Právní informace
 
 **Správce dat:**
-- Název: [Název vaší společnosti/jméno]
-- Adresa: [Vaše adresa]
+- Název: Michal Kabelac
+- Adresa: Zizkovo namesti 193, 391 43 Mlada Vozice
 - E-mail: mk4build@gmail.com
 
 **Dozorový úřad:**

@@ -2,8 +2,8 @@
   "expo": {
     "name": "FitTracker",
     "slug": "fittracker",
-    "version": "1.3.1",
-    "orientation": "portrait",
+    "version": "1.3.2",
+    "orientation": "default",
     "icon": "./assets/fittracker-icon.png",
     "userInterfaceStyle": "light",
     "splash": {
@@ -20,16 +20,18 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.mkbuildp.fittracker",
-      "buildNumber": "1.3.1"
+      "buildNumber": "1.3.2"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/fittracker-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": false,
+      "edgeToEdgeEnabled": true,
       "package": "com.mkbuildp.fittracker",
-      "versionCode": 11,
+      "versionCode": 12,
+      "targetSdkVersion": 35,
+      "compileSdkVersion": 35,
       "permissions": [
         "INTERNET"
       ],
@@ -45,7 +47,16 @@
     },
     "plugins": [
       "expo-font",
-      "expo-localization"
+      "expo-localization",
+      [
+        "react-native-edge-to-edge",
+        {
+          "android": {
+            "parentTheme": "Default",
+            "enforceNavigationBarContrast": false
+          }
+        }
+      ]
     ],
     "extra": {
       "eas": {

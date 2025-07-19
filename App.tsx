@@ -13,6 +13,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { RootStackParamList, TypMereni } from './types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { SystemBars } from 'react-native-edge-to-edge';
 
 import { CviceniProvider, useCviceni } from './context/CviceniContext';
 import { LanguageProvider, useLanguage } from './context/LanguageContext';
@@ -306,11 +307,7 @@ export default function App() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
     <SafeAreaProvider>
-      <RNStatusBar 
-        backgroundColor="#2563eb" 
-        barStyle="light-content" 
-        translucent={false}
-      />
+      <SystemBars style="light" />
       <LanguageProvider>
           <PlatbyProvider>
         <ObdobniProvider>
