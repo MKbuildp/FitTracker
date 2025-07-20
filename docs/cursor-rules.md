@@ -493,47 +493,34 @@ Tento dokument slouží jako standardizovaný "checklist" pro nastavení nového
 
 ---
 
-# KLÍČOVÉ PRAVIDLO 14: Checklist pro První iOS Build (Expo & EAS)
+# KLÍČOVÉ PRAVIDLO 14: Ověřený postup pro iOS Build a Nahrání
 
-Tento postup shrnuje všechny kroky potřebné k prvnímu úspěšnému sestavení a nahrání iOS aplikace do App Store.
+Tento postup shrnuje ověřené kroky pro sestavení a nahrání iOS aplikace do App Store Connect pomocí terminálu.
 
-**Fáze 1: Příprava projektu a účtů**
+**Předpoklady:**
+*   V `app.json` je správně nastaven `ios.bundleIdentifier`.
+*   Aplikace je již založena v App Store Connect.
+*   Distribuční certifikáty a profily jsou spravovány přes EAS (viz první spuštění).
 
-1.  **Unikátní Bundle Identifier (`app.json`):**
-    *   V souboru `app.json` nastavte **globálně unikátní** `bundleIdentifier` pro iOS.
-    *   **Doporučený formát:** `com.jmenovasi_firmy_nebo_vyvojare.nazevaplikace` (např. `com.mkbuildp.fittracker`).
-    *   Tento název je **trvalý** a po prvním nahrání do App Store ho nelze změnit.
-    *   Nastavte počáteční `buildNumber` na `1`.
+**Krok 1: Sestavení aplikace (`.ipa`)**
+*   Build se spouští přes GitHub Actions výběrem platformy `ios`.
+*   Alternativně lze spustit lokálně v terminálu:
+    ```bash
+    eas build --platform ios --profile production
+    ```
+*   Tento příkaz vytvoří podepsaný `.ipa` soubor na serverech Expo.
 
-2.  **Vytvoření App ID v Apple Developer Console:**
-    *   Přihlaste se do [Apple Developer Console](https://developer.apple.com/account/).
-    *   V sekci "Certificates, IDs & Profiles" -> "Identifiers" vytvořte nové App ID odpovídající vašemu `bundleIdentifier`.
+**Krok 2: Nahrání buildu do App Store Connect (manuálně z terminálu)**
+*   Po dokončení buildu je nutné spustit nahrávání ručně.
 
-3.  **Vytvoření Aplikace v App Store Connect:**
-    *   Přihlaste se do [App Store Connect](https://appstoreconnect.apple.com/).
-    *   Vytvořte novou aplikaci ("My Apps" -> "+"), vyplňte požadované údaje a přiřaďte jí vytvořené App ID.
+1.  **Příkaz pro nahrání:**
+    *   V terminálu spusťte:
+        ```bash
+        eas submit --platform ios --latest
+        ```
+    *   `--latest` automaticky najde poslední úspěšný build a nahraje ho.
+    *   Při prvním spuštění si EAS vyžádá přihlašovací údaje k Apple účtu.
 
-**Fáze 2: Generování certifikátů a první build**
-
-4.  **Generování Podepisovacích Certifikátů (Doporučený postup):**
-    *   Ve svém lokálním terminálu spusťte `eas credentials`.
-    *   Zvolte platformu `iOS`.
-    *   Na všechny dotazy ohledně generování certifikátů (Distribution Certificate, Push Notifications Key, Provisioning Profile) odpovězte **ANO**.
-    *   **Nechte EAS, aby za vás spravovalo všechny certifikáty.** EAS je vytvoří, nahraje na váš Apple Developer účet a bezpečně uloží pro budoucí buildy.
-
-5.  **Spuštění Prvního Buildu:**
-    *   Spusťte build pro iOS: `eas build --platform ios --profile production`.
-    *   EAS použije automaticky spravované certifikáty k podepsání buildu.
-
-**Fáze 3: Nahrání do App Store a TestFlight**
-
-6.  **Nahrání Buildu do App Store Connect:**
-    *   Po dokončení buildu spusťte: `eas submit --platform ios --latest`
-    *   EAS se vás zeptá na přihlašovací údaje k Apple účtu (můžete použít App-Specific Password) a nahraje build přímo do App Store Connect.
-
-7.  **Testování přes TestFlight:**
-    *   V App Store Connect přejděte k vaší aplikaci do sekce "TestFlight".
-    *   Přidejte nahraný build do testovacích skupin a pozvěte testery.
-
-8.  **Odeslání ke schválení:**
-    *   Po úspěšném otestování vyplňte v App Store Connect všechny požadované informace (popis, screenshoty, informace pro recenzenty) a odešlete build ke schválení Applem. 
+2.  **Ověření úspěšnosti:**
+    *   Terminál vypíše potvrzení `✔ Submitted your app to Apple App Store Connect!`.
+    *   Nový build se objeví v **App Store Connect** v sekci **TestFlight** se statusem "Processing". 

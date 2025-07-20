@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zásady ochrany soukromí - FitTracker</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+        }
+        h3 {
+            color: #34495e;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        .highlight-box {
+            background: #e8f5e8;
+            border: 1px solid #27ae60;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .highlight-box ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        .highlight-box li {
+            margin: 5px 0;
+        }
+        .date {
+            font-weight: bold;
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+        .contact-info {
+            background: #f4f4f4;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        ul {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+        li {
+            margin: 8px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Zásady ochrany soukromí pro aplikaci FitTracker</h1>
+        
+        <div class="date">Datum poslední aktualizace: 30. června 2025</div>
+        
+        <p>Vítejte v aplikaci FitTracker (dále jen "Aplikace"). Vaše soukromí je pro nás důležité. Tyto zásady ochrany soukromí vysvětlují, jaké informace shromažďujeme, jak je používáme a chráníme v souladu s Nařízením EU 2016/679 (GDPR), zákonem č. 110/2019 Sb., o zpracování osobních údajů, a požadavky Apple App Store a Google Play Store.</p>
+
+        <h2>1. Shrnutí</h2>
+        
+        <div class="highlight-box">
+            <strong>Aplikace FitTracker je navržena pro maximální ochranu vašeho soukromí:</strong>
+            <ul>
+                <li>✅ Všechna data jsou ukládána <strong>pouze na vašem zařízení</strong></li>
+                <li>✅ <strong>Žádná data nejsou odesílána na naše servery</strong></li>
+                <li>✅ Aplikace funguje <strong>100% offline</strong></li>
+                <li>✅ <strong>Nepožadujeme registraci ani přihlášení</strong></li>
+                <li>✅ Máte <strong>úplnou kontrolu</strong> nad svými daty</li>
+            </ul>
+        </div>
+
+        <h2>2. Jaké informace shromažďujeme a ukládáme</h2>
+        
+        <p><strong>Právní základ zpracování:</strong> Zpracování vašich osobních údajů je založeno na vašem souhlasu (čl. 6 odst. 1 písm. a) GDPR), který udělujete instalací a používáním aplikace.</p>
+        
+        <p>Aplikace je navržena tak, aby fungovala primárně na vašem zařízení. Shromažďujeme a ukládáme následující typy informací <strong>výhradně lokálně</strong>:</p>
+
+        <h3>2.1 Data o cvičení</h3>
+        <ul>
+            <li>Informace o vašich cvičebních aktivitách (názvy cviků, počet opakování, časové záznamy)</li>
+            <li>Historie cvičení a pokroku</li>
+            <li>Osobní rekordy a statistiky</li>
+        </ul>
+
+        <h3>2.2 Uživatelská nastavení</h3>
+        <ul>
+            <li>Denní cíle a preference cvičení</li>
+            <li>Nastavení vzhledu aplikace (barevná schémata, jazyk)</li>
+            <li>Konfigurace notifikací a připomínek</li>
+        </ul>
+
+        <h3>2.3 Technické údaje</h3>
+        <ul>
+            <li>Nastavení aplikace a uživatelské preference</li>
+            <li>Lokální záznamy o používání funkcí (pouze pro zlepšení výkonu aplikace)</li>
+        </ul>
+
+        <p><strong>Všechna tato data jsou ukládána výhradně lokálně na vašem mobilním zařízení pomocí React Native AsyncStorage. K těmto datům nemáme žádný přístup a nejsou odesílána na žádné servery.</strong></p>
+
+        <h2>3. Jak používáme vaše informace</h2>
+        
+        <p>Vaše data používáme výhradně k zajištění funkčnosti Aplikace na vašem zařízení:</p>
+        <ul>
+            <li><strong>Poskytování základní funkcionality:</strong> Zobrazování vaší historie a statistik cvičení</li>
+            <li><strong>Sledování pokroku:</strong> Monitorování vašeho pokroku vůči stanoveným cílům</li>
+            <li><strong>Personalizace:</strong> Přizpůsobení uživatelského rozhraní podle vašich preferencí</li>
+            <li><strong>Lokální analytika:</strong> Optimalizace výkonu aplikace bez odesílání dat</li>
+            <li><strong>Export dat:</strong> Umožnění exportu vašich dat pro osobní použití</li>
+        </ul>
+
+        <h2>4. Bezpečnost dat</h2>
+
+        <h3>4.1 Technická bezpečnost</h3>
+        <ul>
+            <li><strong>Lokální úložiště:</strong> Data jsou uložena pomocí AsyncStorage s dodatečným šifrováním citlivých údajů</li>
+            <li><strong>Žádný přenos dat:</strong> Vaše osobní data nikdy neopouštějí vaše zařízení</li>
+            <li><strong>Žádné vzdálené přístupy:</strong> Nemáme možnost vzdáleného přístupu k vašim datům</li>
+        </ul>
+
+        <h3>4.2 Doporučení pro uživatele</h3>
+        <ul>
+            <li>Používejte zámek obrazovky na svém zařízení</li>
+            <li>Pravidelně aktualizujte operační systém</li>
+            <li>Na veřejných nebo sdílených zařízeních aplikaci nepoužívajte</li>
+            <li><strong>Zálohy:</strong> Pokud máte zapnutou automatickou zálohu zařízení (iCloud/Google Backup), vaše data aplikace mohou být zahrnuta v těchto zálohách</li>
+        </ul>
+
+        <h2>5. Sdílení informací a třetí strany</h2>
+        
+        <p>Vaše osobní data <strong>nesdílíme</strong> s žádnými třetími stranami. Jelikož jsou data uložena pouze ve vašem zařízení, my ani nikdo jiný k nim nemá přístup.</p>
+
+        <h3>5.1 Platformy distribuce</h3>
+        <p>Aplikace je distribuována přes:</p>
+        <ul>
+            <li><strong>Google Play Store:</strong> Podléhá <a href="https://policies.google.com/privacy" target="_blank">Zásadám ochrany soukromí Google</a></li>
+            <li><strong>Apple App Store:</strong> Podléhá <a href="https://www.apple.com/privacy/" target="_blank">Zásadám ochrany soukromí Apple</a></li>
+        </ul>
+
+        <h3>5.2 Vývojové nástroje</h3>
+        <ul>
+            <li><strong>Expo SDK:</strong> Aplikace může odesílat anonymní telemetrická data o pádech aplikace v souladu se <a href="https://expo.dev/privacy" target="_blank">zásadami Expo</a></li>
+            <li>Tato data neobsahují žádné vaše osobní informace</li>
+        </ul>
+
+        <h2>6. Doba uchovávání dat</h2>
+        <ul>
+            <li><strong>Uživatelská data:</strong> Uchovávána po dobu používání aplikace</li>
+            <li><strong>Nastavení aplikace:</strong> Uchovávána po dobu používání aplikace</li>
+            <li><strong>Automatické mazání:</strong> Všechna data jsou automaticky a trvale smazána při odinstalaci aplikace</li>
+            <li><strong>Manuální mazání:</strong> Kdykoli můžete smazat všechna data pomocí funkce "Smazat všechna data" v nastavení aplikace</li>
+        </ul>
+
+        <h2>7. Vaše práva</h2>
+        
+        <p>Ačkoliv aplikace ukládá data pouze lokálně na vašem zařízení, máte v souladu s GDPR následující práva:</p>
+        <ul>
+            <li><strong>Právo na přístup:</strong> Můžete kdykoli zobrazit svá data přímo v aplikaci</li>
+            <li><strong>Právo na opravu:</strong> Můžete upravovat své údaje přímo v aplikaci</li>
+            <li><strong>Právo na výmaz:</strong> Můžete smazat svá data odinstalováním aplikace nebo použitím funkce "Smazat všechna data" v nastavení</li>
+            <li><strong>Právo na přenositelnost:</strong> Můžete exportovat svá data pomocí funkce "Export dat" v nastavení aplikace</li>
+            <li><strong>Právo vznest námitku:</strong> Můžete nás kontaktovat na mk4build@gmail.com</li>
+            <li><strong>Právo odvolat souhlas:</strong> Můžete kdykoli odvolat svůj souhlas odinstalováním aplikace</li>
+        </ul>
+
+        <p><strong>Jelikož jsou všechna data uložena pouze lokálně, máte plnou kontrolu nad svými údaji.</strong></p>
+
+        <h2>8. Ochrana dětí</h2>
+        
+        <p>Aplikace je určena pro uživatele starší 13 let. Pokud víme, že jsme shromáždili údaje od dítěte mladšího 13 let, tyto údaje okamžitě smažeme. Rodiče nebo zákonní zástupci nás mohou kontaktovat na mk4build@gmail.com.</p>
+        
+        <p>V souladu s českými právními předpisy vyžadujeme souhlas zákonných zástupců pro děti mladší 15 let.</p>
+
+        <h2>9. Mezinárodní přenosy dat</h2>
+        
+        <p><strong>Žádné mezinárodní přenosy dat se neuskutečňují</strong>, protože všechna vaše data zůstávají uložena pouze na vašem zařízení.</p>
+
+        <h2>10. Změny těchto zásad</h2>
+        
+        <p>Tyto zásady ochrany soukromí můžeme čas od času aktualizovat z důvodu:</p>
+        <ul>
+            <li>Změn v legislativě</li>
+            <li>Aktualizací aplikace</li>
+            <li>Zlepšení našich postupů ochrany soukromí</li>
+        </ul>
+
+        <p>O všech podstatných změnách vás budeme informovat:</p>
+        <ul>
+            <li>Aktualizací aplikace s upozorněním</li>
+            <li>Zveřejněním nových zásad na této stránce</li>
+            <li>E-mailovým oznámením (pokud máme váš kontakt)</li>
+        </ul>
+
+        <p>Doporučujeme vám pravidelně kontrolovat tyto zásady, abyste byli informováni o tom, jak chráníme vaše informace.</p>
+
+        <h2>11. Právní informace</h2>
+        
+        <div class="contact-info">
+            <p><strong>Správce dat:</strong></p>
+            <ul>
+                <li>Název: Michal Kabelac</li>
+                <li>Adresa: Zizkovo namesti 193, 391 43 Mlada Vozice</li>
+                <li>E-mail: mk4build@gmail.com</li>
+            </ul>
+
+            <p><strong>Dozorový úřad:</strong></p>
+            <ul>
+                <li>Úřad pro ochranu osobních údajů</li>
+                <li>Pplk. Sochora 27, 170 00 Praha 7</li>
+                <li>Tel.: +420 234 665 111</li>
+                <li>E-mail: posta@uoou.cz</li>
+            </ul>
+        </div>
+
+        <h2>12. Kontaktujte nás</h2>
+        
+        <p>Pokud máte jakékoli dotazy ohledně těchto zásad ochrany soukromí, zpracování vašich osobních údajů, nebo chcete uplatnit svá práva, můžete nás kontaktovat:</p>
+        
+        <div class="contact-info">
+            <p><strong>E-mail:</strong> mk4build@gmail.com</p>
+            <p><strong>Předmět e-mailu:</strong> "Ochrana soukromí - FitTracker"</p>
+            <p>Odpovíme vám do 30 dnů od obdržení vašeho dotazu.</p>
+        </div>
+
+        <div class="footer">
+            <p>Tyto zásady jsou v souladu s požadavky GDPR, českými právními předpisy a požadavky Apple App Store a Google Play Store pro aplikace, které ukládají data pouze lokálně.</p>
+        </div>
+    </div>
+</body>
+</html> 
