@@ -344,7 +344,10 @@ git push origin main
 
 ### Povinné kontroly před Git operacemi:
 1. **Ověř změny:** Zkontroluj, že všechny změny jsou správné
-2. **Verze:** Pokud se jedná o novou verzi, ověř správnost `version` a `versionCode` v `app.json`
+2. **Verze:** PŘED KAŽDÝM COMMITEM se MUSÍŠ zeptat uživatele, zda není potřeba zvýšit verzi v `app.json`. Pokud ano:
+   - Zvýšit `version` (např. z "1.2.2" na "1.2.3")
+   - Zvýšit `android.versionCode` (např. z 7 na 8)
+   - Přidat informaci o změně verze do commit message
 3. **Testy:** Ujisti se, že aplikace funguje správně
 4. **Commit message:** Použij strukturovanou zprávu podle vzoru výše
 
