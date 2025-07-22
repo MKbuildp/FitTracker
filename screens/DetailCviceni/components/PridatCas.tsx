@@ -156,7 +156,7 @@ export const PridatCas: React.FC<PridatCasProps> = ({ onUlozit, style, cviceni, 
               styly.spodniTlacitkoText,
               cas > 0 && styly.ulozitTextAktivni
             ]}>
-{t('detail.saveRecord')}
+              {t('detail.saveRecord')}
             </Text>
           </TouchableOpacity>
         </View>

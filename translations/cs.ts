@@ -188,6 +188,11 @@ export const cs = {
   'detail.exerciseColor': 'Barva cvičení',
   'detail.dailyOverview': 'Denní přehled',
   'detail.aktualniPrehled': 'Aktuální přehled',
+  'detail.addNewRecord': 'Přidat nový záznam',
+  'detail.history': 'Historie',
+  'detail.saveRecord': 'Uložit',
+  'detail.manualTime': 'Ručně',
+  'detail.deleteExercise': 'Smazat cvičení',
   
   // Delete exercise
   'delete.confirmTitle': 'Smazat cvičení',

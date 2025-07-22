@@ -121,7 +121,7 @@ export const PridatOpakovani: React.FC<PridatOpakovaniProps> = ({ onUlozit, styl
               styly.spodniTlacitkoText,
               pocet > 0 && styly.ulozitTextAktivni
             ]}>
-{t('detail.saveRecord')}
+              {t('detail.saveRecord')}
             </Text>
           </TouchableOpacity>
         </View>

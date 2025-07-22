@@ -188,6 +188,11 @@ export const en = {
   'detail.exerciseColor': 'Exercise Color',
   'detail.dailyOverview': 'Daily Overview',
   'detail.aktualniPrehled': 'Current Overview',
+  'detail.addNewRecord': 'Add New Record',
+  'detail.history': 'History',
+  'detail.saveRecord': 'Save',
+  'detail.manualTime': 'Manual',
+  'detail.deleteExercise': 'Delete Exercise',
   
   // Delete exercise
   'delete.confirmTitle': 'Delete Exercise',
