@@ -8,7 +8,6 @@ import {
   PrazdnyStav,
   CelkovyProgressBar,
   NastaveniModal,
-  PremiumModal,
 } from './components';
 import { ObdobniSelektor } from '../../components/ObdobniSelektor';
 import { TeckovanyVzor } from '../../components/PozadiVzory';
@@ -18,7 +17,7 @@ import { NavigationProp } from './types/types';
 /**
  * Shell komponenta pro obrazovku Přehled.
  */
-const PrehledScreen: React.FC<{ onOtevritPremium: () => void }> = ({ onOtevritPremium }) => {
+const PrehledScreen: React.FC = () => {
   const { stav } = useCviceni();
   const navigation = useNavigation<NavigationProp>();
   const { t } = useTranslation();
@@ -84,10 +83,6 @@ const PrehledScreen: React.FC<{ onOtevritPremium: () => void }> = ({ onOtevritPr
       <NastaveniModal
         viditelne={jeNastaveniViditelne}
         onZavrit={() => setJeNastaveniViditelne(false)}
-        onUpgradeToPremium={() => {
-          setJeNastaveniViditelne(false);
-          onOtevritPremium();
-        }}
       />
     </>
   );

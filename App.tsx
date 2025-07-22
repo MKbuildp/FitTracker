@@ -18,7 +18,6 @@ import { SystemBars } from 'react-native-edge-to-edge';
 import { CviceniProvider, useCviceni } from './context/CviceniContext';
 import { LanguageProvider, useLanguage } from './context/LanguageContext';
 import { ObdobniProvider } from './context/ObdobniContext';
-import { PlatbyProvider, usePlatby } from './context/PlatbyContext';
 
 // Importy obrazovek
 import OpakovaniScreen from './screens/Opakovani/OpakovaniScreen';
@@ -27,13 +26,12 @@ import PrehledScreen from './screens/Prehled/PrehledScreen';
 import PridatCviceniScreen from './screens/PridatCviceni/PridatCviceniScreen';
 import DetailCviceniScreen from './screens/DetailCviceni/DetailCviceniScreen';
 import LanguageSelectionScreen from './screens/LanguageSelection/LanguageSelectionScreen';
-import { WelcomeModal, PremiumModal } from './screens/Prehled/components';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 /** Spodní Tab navigace */
-function HlavniTaby({ onOtevritPremium }: { onOtevritPremium: () => void }) {
+function HlavniTaby() {
   const { t } = useTranslation();
   
   return (
@@ -67,7 +65,7 @@ function HlavniTaby({ onOtevritPremium }: { onOtevritPremium: () => void }) {
       />
       <Tab.Screen 
         name="Prehled" 
-        children={() => <PrehledScreen onOtevritPremium={onOtevritPremium} />}
+        component={PrehledScreen}
         options={{ title: t('nav.overview') }}
       />
       <Tab.Screen 
@@ -82,11 +80,9 @@ function HlavniTaby({ onOtevritPremium }: { onOtevritPremium: () => void }) {
 /** Komponenta s překladovým kontextem pro Stack Navigator */
 function AppContent() {
   const { t } = useTranslation();
-  const { isLoading, isFirstTime, showWelcome, markWelcomeShown } = useLanguage();
+  const { isLoading, isFirstTime, markWelcomeShown } = useLanguage();
   const { nacistData, stav } = useCviceni();
-  const { jePremium } = usePlatby();
   const [showLanguageSelection, setShowLanguageSelection] = useState(false);
-  const [showPremiumModal, setShowPremiumModal] = useState(false);
 
   useEffect(() => {
     if (!isLoading && isFirstTime) {
@@ -100,37 +96,7 @@ function AppContent() {
     setShowLanguageSelection(false);
     // Po výběru jazyka načti data s ukázkovými cvičeními
     await nacistData();
-  };
-
-  const handleWelcomePremium = () => {
-    markWelcomeShown();
-    setShowPremiumModal(true);
-  };
-
-  const handleWelcomeContinue = async () => {
     await markWelcomeShown();
-  };
-
-  const handleBuyPremium = () => {
-    // Premium funkce jsou aktivní automaticky
-    setShowPremiumModal(false);
-  };
-
-  const handleRestorePurchases = () => {
-    // Premium funkce jsou aktivní automaticky
-  };
-
-  const otevritPremium = () => setShowPremiumModal(true);
-
-  // Handler pro přidání cvičení s omezením free verze
-  const handleAddExercise = (typ: TypMereni) => {
-    const pocet = stav.cviceni.filter(c => c.typMereni === typ).length;
-    if (!jePremium && pocet >= 2) {
-      setShowPremiumModal(true);
-    } else {
-      // navigation je dostupné v options, proto použijeme closure
-      return (navigation: any) => navigation.navigate('PridatCviceni', { vychoziTyp: typ });
-    }
   };
 
   if (isLoading) {
@@ -180,7 +146,7 @@ function AppContent() {
         >
         <Stack.Screen 
           name="HlavniTaby"
-          children={() => <HlavniTaby onOtevritPremium={otevritPremium} />}
+          component={HlavniTaby}
           options={({ route, navigation }) => {
             // Získáme název aktuální tab obrazovky
             const routeName = getFocusedRouteNameFromRoute(route) ?? 'Prehled';
@@ -194,12 +160,7 @@ function AppContent() {
               headerRight = () => (
                 <TouchableOpacity
                   onPress={() => {
-                    const pocet = stav.cviceni.filter(c => c.typMereni === 'cas').length;
-                    if (!jePremium && pocet >= 2) {
-                      setShowPremiumModal(true);
-                    } else {
-                      navigation.navigate('PridatCviceni', { vychoziTyp: 'cas' });
-                    }
+                    navigation.navigate('PridatCviceni', { vychoziTyp: 'cas' });
                   }}
                   style={{ marginRight: 8, padding: 8 }}
                   activeOpacity={0.7}
@@ -212,12 +173,7 @@ function AppContent() {
               headerRight = () => (
                 <TouchableOpacity
                   onPress={() => {
-                    const pocet = stav.cviceni.filter(c => c.typMereni === 'opakovani').length;
-                    if (!jePremium && pocet >= 2) {
-                      setShowPremiumModal(true);
-                    } else {
-                      navigation.navigate('PridatCviceni', { vychoziTyp: 'opakovani' });
-                    }
+                    navigation.navigate('PridatCviceni', { vychoziTyp: 'opakovani' });
                   }}
                   style={{ marginRight: 8, padding: 8 }}
                   activeOpacity={0.7}
@@ -262,20 +218,6 @@ function AppContent() {
         />
         </Stack.Navigator>
       </NavigationContainer>
-      
-      <WelcomeModal
-        viditelne={showWelcome}
-        onZavrit={handleWelcomeContinue}
-        onUpgradeToPremium={handleWelcomePremium}
-        onPokracovat={handleWelcomeContinue}
-      />
-      
-      <PremiumModal
-        viditelne={showPremiumModal}
-        onZavrit={() => setShowPremiumModal(false)}
-        onKoupitPremium={handleBuyPremium}
-        onObnovitNakupy={handleRestorePurchases}
-      />
     </>
   );
 }
@@ -309,13 +251,11 @@ export default function App() {
     <SafeAreaProvider>
       <SystemBars style="light" />
       <LanguageProvider>
-          <PlatbyProvider>
         <ObdobniProvider>
           <CviceniProvider>
             <AppContent />
           </CviceniProvider>
         </ObdobniProvider>
-          </PlatbyProvider>
       </LanguageProvider>
     </SafeAreaProvider>
     </GestureHandlerRootView>

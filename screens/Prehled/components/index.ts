@@ -1,9 +1,7 @@
 // Export všech komponent pro PrehledScreen
 export { CelkoveStatistiky } from './CelkoveStatistiky';
+export { PrehledCviceni } from './PrehledCviceni';
+export { PrazdnyStav } from './PrazdnyStav';
 export { CelkovyProgressBar } from './CelkovyProgressBar';
 export { NastaveniModal } from './NastaveniModal';
-export { PrazdnyStav } from './PrazdnyStav';
-export { PrehledCviceni } from './PrehledCviceni';
-export { ZjednodusenaKarta } from './ZjednodusenaKarta';
-export { PremiumModal } from './PremiumModal';
-export { WelcomeModal } from './WelcomeModal'; 
+export { ZjednodusenaKarta } from './ZjednodusenaKarta'; 

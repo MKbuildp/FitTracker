@@ -23,6 +23,7 @@ export const en = {
   'common.confirm': 'Confirm',
   'common.yes': 'Yes',
   'common.no': 'No',
+  'common.exerciseNotFound': 'Exercise not found',
 
   // Settings
   'settings.title': 'Settings',
@@ -42,18 +43,8 @@ export const en = {
 
   // Welcome modal
   'welcome.title': 'Welcome to FitTracker!',
-  'welcome.subtitle': 'Your journey to better fitness starts here',
-  'welcome.freeVersion': 'FREE VERSION',
-  'welcome.freeDescription': 'You can start completely free with the following limitations:',
-  'welcome.repetitionExercises': '2 repetition exercises',
-  'welcome.timeExercises': '2 time exercises',
-  'welcome.unlockPremium': 'Unlock Premium',
-  'welcome.premiumDescription': 'Get unlimited access with a one-time payment:',
-  'welcome.unlimitedExercises': 'Unlimited exercises',
-  'welcome.upgradeToPremium': 'Upgrade to Premium',
-  'welcome.continueWithFree': 'Continue with free version',
-  'welcome.onlyFreeVersion': 'Only $1.99 one-time',
-  'welcome.oneTimePaymentNote': 'One-time payment, no subscription',
+  'welcome.description': 'Your new personal fitness tracking assistant. Start by adding your first exercise.',
+  'welcome.continue': 'Continue',
 
   // Overview screen
   'overview.title': 'Overview',
@@ -91,7 +82,6 @@ export const en = {
   'addExercise.title': 'Add Exercise',
   'addExercise.name': 'Exercise Name',
   'addExercise.namePlaceholder': 'Enter exercise name',
-  'addExercise.nameRequired': 'Name is required',
   'addExercise.measurement': 'Measurement Type',
   'addExercise.repetitions': 'Repetitions',
   'addExercise.time': 'Time',
@@ -110,7 +100,12 @@ export const en = {
   'addExercise.create': 'Create Exercise',
   'addExercise.saveExercise': 'Save Exercise',
   'addExercise.saving': 'Saving...',
-
+  'addExercise.successTitle': 'Success',
+  'addExercise.successMessage': 'Exercise was successfully added!',
+  'addExercise.errorTitle': 'Error',
+  'addExercise.nameRequiredError': 'Exercise name is required',
+  'addExercise.saveError': 'Failed to save exercise',
+  
   // Exercise detail
   'exerciseDetail.settings': 'Settings',
   'exerciseDetail.addRecord': 'Add Record',
@@ -159,8 +154,7 @@ export const en = {
   'error.saveFailed': 'Failed to save',
   'error.loadFailed': 'Failed to load data',
   'error.deleteFailed': 'Failed to delete',
-  'common.exerciseNotFound': 'Exercise not found',
-
+  
   // Motivational messages
   'motivation.keepGoing': 'Keep going!',
   'motivation.newRecord': 'New record!',
@@ -181,32 +175,20 @@ export const en = {
   'detail.repetitionsCount': 'Repetition Count',
   'detail.repetitionsUnit': 'repetitions',
   'detail.deleteRecord': 'Delete Record',
-  'detail.deleteRecordConfirm': 'Do you really want to delete this record?',
+  'detail.confirmDeleteRecord': 'Do you really want to delete this record?',
+  'detail.noRecords': 'No records',
+  'detail.noRecordsDescription': 'You have no records to display yet',
   'detail.minutes': 'Minutes',
   'detail.seconds': 'Seconds',
-  'detail.enterTime': 'Enter Time',
-  'detail.addRecord': 'Add Record',
-  'detail.manualTime': 'Manual',
-  'detail.noGoalSet': 'No goal set',
-  'detail.addNewRecord': 'New Record',
-  'detail.saveRecord': 'Save',
-  'detail.saveTime': 'Save Time',
-  'detail.history': 'History',
+  'detail.today': 'Today',
+  'detail.yesterday': 'Yesterday',
   'detail.historyRecords': 'Record History',
   'detail.lastFiveRecords': 'Last 5 Records',
-  'detail.deleteExercise': 'Delete Exercise',
   'detail.exerciseSettings': 'Exercise Settings',
   'detail.exerciseColor': 'Exercise Color',
   'detail.dailyOverview': 'Daily Overview',
   'detail.aktualniPrehled': 'Current Overview',
-
-  // Add exercise messages
-  'addExercise.successTitle': 'Success',
-  'addExercise.successMessage': 'Exercise was successfully added!',
-  'addExercise.errorTitle': 'Error',
-  'addExercise.nameRequiredError': 'Exercise name is required',
-  'addExercise.saveError': 'Failed to save exercise',
-
+  
   // Delete exercise
   'delete.confirmTitle': 'Delete Exercise',
   'delete.confirmMessage': 'Do you really want to delete this exercise? This action cannot be undone.',
@@ -251,40 +233,12 @@ export const en = {
   'trend.insufficient': 'Insufficient data for trend',
   'trend.soFar': 'so far',
 
-  // Ukázková cvičení pro první instalaci
+  // Sample exercises
   'sample.squats': 'Squats',
   'sample.plank': 'Plank',
 
-  // History modal
-  'detail.noRecords': 'No Records',
-  'detail.noRecordsDescription': 'You have no records to display yet',
-
-  // Premium modal
-  'premium.title': 'Unlock Premium',
-  'premium.unlimitedExercises': 'Unlimited Exercises',
-  'premium.noLimits': 'No limits for your progress.',
-  'premium.oneTimePayment': 'One-time payment for lifetime access.',
-  'premium.buyPremium': 'Buy Premium for $9.99',
-  'premium.restorePurchases': 'Restore Purchases',
-  'premium.upgradeToPremium': 'Upgrade to Premium',
-  'premium_modal_owned_title': 'You are Premium!',
-  'premium_modal_owned_description': 'All features are fully available to you.',
-  'premium_modal_error_title': 'Loading Error',
-  'premium_modal_error_description': 'Could not load product information. Please try again later.',
-  'premium_modal_title': 'Get Premium',
-  'premium_modal_description': 'Unlock the full potential of the app with a one-time purchase.',
-  'premium_feature_1': 'Unlimited exercises',
-  'premium_feature_2': 'Advanced statistics and trends',
-  'premium_feature_3': 'No ads, ever',
-  'premium_modal_unlock_button': 'Unlock Premium for {price}',
-
-  // Translations for promo code
-  'promo_code_placeholder': 'Enter promo code',
-  'promo_code_button': 'Verify Code',
-  'promo_code_success_title': 'Success',
-  'promo_code_success_message': 'Premium features have been successfully activated.',
-  'promo_code_error_title': 'Invalid Code',
-  'promo_code_error_message': 'The entered promo code is not valid. Please try again.',
-};
-
-export default en; 
+  // Backup
+  'backup.successMessage': 'Data has been successfully restored.',
+  'backup.errorMessage': 'Failed to restore data.',
+  'backup.noFile': 'No backup file selected.',
+}; 

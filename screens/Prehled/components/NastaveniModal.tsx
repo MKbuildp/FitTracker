@@ -10,13 +10,11 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from '../../../hooks/useTranslation';
-import PremiumTlacitko from '../../../components/PremiumTlacitko';
 
 
 interface NastaveniModalProps {
   viditelne: boolean;
   onZavrit: () => void;
-  onUpgradeToPremium: () => void;
 }
 
 /**
@@ -25,7 +23,6 @@ interface NastaveniModalProps {
 export const NastaveniModal: React.FC<NastaveniModalProps> = ({
   viditelne,
   onZavrit,
-  onUpgradeToPremium,
 }) => {
   const { t, currentLanguage, setLanguage } = useTranslation();
 
@@ -104,8 +101,6 @@ export const NastaveniModal: React.FC<NastaveniModalProps> = ({
                     </Text>
                   </TouchableOpacity>
                 </View>
-                {/* Premium tlačítko pod jazykovými tlačítky */}
-                <PremiumTlacitko onPress={onUpgradeToPremium} />
               </View>
 
               <View style={styly.sekce}>
@@ -247,24 +242,5 @@ const styly = StyleSheet.create({
     color: '#374151',
     textAlign: 'center',
     marginBottom: 8,
-  },
-  premiumTlacitko: {
-    backgroundColor: '#f8fafc',
-    borderWidth: 2,
-    borderColor: '#f59e0b',
-    borderRadius: 8,
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-  },
-  premiumTlacitkoObsah: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  premiumTlacitkoText: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#f59e0b',
-    marginLeft: 8,
   },
 }); 
