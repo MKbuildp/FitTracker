@@ -8,7 +8,7 @@ import { useTranslation } from '../../../hooks/useTranslation';
 
 /** Kontejner pro přidávání záznamu času pomocí stopek */
 export const PridatCas: React.FC<PridatCasProps> = ({ onUlozit, style, cviceni, zaznamy, onSmazatZaznam }) => {
-  const { t } = useTranslation();
+  const { safeT } = useTranslation();
   const [cas, setCas] = useState(0);
   const [jeBezi, setJeBezi] = useState(false);
   const [zobrazitHistorii, setZobrazitHistorii] = useState(false);
@@ -78,7 +78,9 @@ export const PridatCas: React.FC<PridatCasProps> = ({ onUlozit, style, cviceni, 
               color="white" 
             />
           </View>
-          <Text style={styly.headerText}>{t('detail.addNewRecord')}</Text>
+          <Text style={styly.headerText}>
+            {safeT('detail.addNewRecord', 'Přidat nový záznam')}
+          </Text>
           <View style={styly.headerPrava} />
         </View>
       </View>
@@ -127,7 +129,9 @@ export const PridatCas: React.FC<PridatCasProps> = ({ onUlozit, style, cviceni, 
             onPress={() => setZobrazitHistorii(true)}
           >
             <Ionicons name="time" size={16} color="#3730a3" />
-            <Text style={styly.spodniTlacitkoText}>{t('detail.history')}</Text>
+            <Text style={styly.spodniTlacitkoText}>
+              {safeT('detail.history', 'Historie')}
+            </Text>
           </TouchableOpacity>
           
           <TouchableOpacity 
@@ -135,7 +139,9 @@ export const PridatCas: React.FC<PridatCasProps> = ({ onUlozit, style, cviceni, 
             onPress={() => setZobrazitRucniCas(true)}
           >
             <Ionicons name="create" size={16} color="#6b46c1" />
-            <Text style={styly.spodniTlacitkoText}>{t('detail.manualTime')}</Text>
+            <Text style={styly.spodniTlacitkoText}>
+              {safeT('detail.manualTime', 'Ručně')}
+            </Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -156,7 +162,7 @@ export const PridatCas: React.FC<PridatCasProps> = ({ onUlozit, style, cviceni, 
               styly.spodniTlacitkoText,
               cas > 0 && styly.ulozitTextAktivni
             ]}>
-              {t('detail.saveRecord')}
+              {safeT('detail.saveRecord', 'Uložit')}
             </Text>
           </TouchableOpacity>
         </View>

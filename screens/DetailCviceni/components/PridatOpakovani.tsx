@@ -7,7 +7,7 @@ import { useTranslation } from '../../../hooks/useTranslation';
 
 /** Kontejner pro přidávání záznamu opakování pomocí počítadla */
 export const PridatOpakovani: React.FC<PridatOpakovaniProps> = ({ onUlozit, style, cviceni, zaznamy, onSmazatZaznam }) => {
-  const { t } = useTranslation();
+  const { safeT } = useTranslation();
   const [pocet, setPocet] = useState(0);
   const [zobrazitHistorii, setZobrazitHistorii] = useState(false);
 
@@ -51,7 +51,9 @@ export const PridatOpakovani: React.FC<PridatOpakovaniProps> = ({ onUlozit, styl
               color="white" 
             />
           </View>
-          <Text style={styly.headerText}>{t('detail.addNewRecord')}</Text>
+          <Text style={styly.headerText}>
+            {safeT('detail.addNewRecord', 'Přidat nový záznam')}
+          </Text>
           <View style={styly.headerPrava} />
         </View>
       </View>
@@ -74,7 +76,9 @@ export const PridatOpakovani: React.FC<PridatOpakovaniProps> = ({ onUlozit, styl
             
             <View style={styly.pocetDisplay}>
               <Text style={styly.pocetHodnota}>{formatovatHodnotu(pocet)}</Text>
-              <Text style={styly.pocetJednotka}>{t('detail.repetitionsUnit')}</Text>
+              <Text style={styly.pocetJednotka}>
+                {safeT('detail.repetitionsUnit', 'opakování')}
+              </Text>
             </View>
             
             <TouchableOpacity 
@@ -93,7 +97,9 @@ export const PridatOpakovani: React.FC<PridatOpakovaniProps> = ({ onUlozit, styl
             onPress={() => setZobrazitHistorii(true)}
           >
             <Ionicons name="time" size={16} color="#3730a3" />
-            <Text style={styly.spodniTlacitkoText}>{t('detail.history')}</Text>
+            <Text style={styly.spodniTlacitkoText}>
+              {safeT('detail.history', 'Historie')}
+            </Text>
           </TouchableOpacity>
           
           <TouchableOpacity 
@@ -121,7 +127,7 @@ export const PridatOpakovani: React.FC<PridatOpakovaniProps> = ({ onUlozit, styl
               styly.spodniTlacitkoText,
               pocet > 0 && styly.ulozitTextAktivni
             ]}>
-              {t('detail.saveRecord')}
+              {safeT('detail.saveRecord', 'Uložit')}
             </Text>
           </TouchableOpacity>
         </View>

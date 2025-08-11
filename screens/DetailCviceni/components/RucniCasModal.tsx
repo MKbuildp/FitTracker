@@ -26,7 +26,7 @@ export const RucniCasModal: React.FC<RucniCasModalProps> = ({
   cviceni,
   onUlozit,
 }) => {
-  const { t } = useTranslation();
+  const { safeT } = useTranslation();
   const [minuty, setMinuty] = useState(0);
   const [sekundy, setSekundy] = useState(0);
 
@@ -75,7 +75,9 @@ export const RucniCasModal: React.FC<RucniCasModalProps> = ({
           <TouchableWithoutFeedback>
             <View style={styly.modalObsah}>
               <View style={styly.modalHeader}>
-                <Text style={styly.modalNadpis}>{t('detail.enterTime')}</Text>
+                <Text style={styly.modalNadpis}>
+                  {safeT('detail.enterTime', 'Zadejte čas')}
+                </Text>
                 <TouchableOpacity onPress={onZavrit} style={styly.zavritTlacitko}>
                   <Ionicons name="close" size={24} color="#6b7280" />
                 </TouchableOpacity>
@@ -87,7 +89,9 @@ export const RucniCasModal: React.FC<RucniCasModalProps> = ({
               <View style={styly.casKontrolKontejner}>
                 {/* Minuty */}
                 <View style={styly.casSloupec}>
-                  <Text style={styly.casLabel}>{t('detail.minutes')}</Text>
+                  <Text style={styly.casLabel}>
+                    {safeT('detail.minutes', 'Minuty')}
+                  </Text>
                   <TouchableOpacity 
                     style={styly.tlacitkoZmeny}
                     onPress={() => zmenitMinuty(1)}
@@ -117,7 +121,9 @@ export const RucniCasModal: React.FC<RucniCasModalProps> = ({
 
                 {/* Sekundy */}
                 <View style={styly.casSloupec}>
-                  <Text style={styly.casLabel}>{t('detail.seconds')}</Text>
+                  <Text style={styly.casLabel}>
+                    {safeT('detail.seconds', 'Sekundy')}
+                  </Text>
                   <TouchableOpacity 
                     style={styly.tlacitkoZmeny}
                     onPress={() => zmenitSekundy(1)}
@@ -163,7 +169,7 @@ export const RucniCasModal: React.FC<RucniCasModalProps> = ({
                   styly.ulozitText,
                   (minuty === 0 && sekundy === 0) && styly.ulozitTextNeaktivni
                 ]}>
-                  {t('detail.saveTime')}
+                  {safeT('detail.saveTime', 'Uložit čas')}
                 </Text>
               </TouchableOpacity>
             </View>

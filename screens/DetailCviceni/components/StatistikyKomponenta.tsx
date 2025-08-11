@@ -14,7 +14,7 @@ export const StatistikyKomponenta: React.FC<StatistikyKomponentaProps> = ({
   formatovatHodnotu,
   zaznamy
 }) => {
-  const { t } = useTranslation();
+  const { safeT } = useTranslation();
   const { globalniObdobi } = useObdobniContext();
   
   // Filtrované záznamy podle období
@@ -93,7 +93,9 @@ export const StatistikyKomponenta: React.FC<StatistikyKomponentaProps> = ({
           <View style={[styly.statistikaPolozkaVyrazna, { borderColor: cviceni.barva || '#9ca3af' }]}>
             <View style={styly.statistikaHeader}>
               <Ionicons name="today" size={16} color="#ef4444" />
-              <Text style={styly.statistikaNazevVetsi}>{t('stats.today')}</Text>
+              <Text style={styly.statistikaNazevVetsi}>
+                {safeT('stats.today', 'Dnes')}
+              </Text>
             </View>
             <Text style={styly.statistikaHodnota}>{formatovatHodnotu(obdobiStatistiky.dnesniVykon)}</Text>
           </View>
@@ -101,7 +103,9 @@ export const StatistikyKomponenta: React.FC<StatistikyKomponentaProps> = ({
           <View style={[styly.statistikaPolozkaVyrazna, { borderColor: cviceni.barva || '#9ca3af' }]}>
             <View style={styly.statistikaHeader}>
               <Ionicons name="trophy" size={16} color="#10b981" />
-              <Text style={styly.statistikaNazevVetsi}>{t('stats.dailyGoal')}</Text>
+              <Text style={styly.statistikaNazevVetsi}>
+                {safeT('stats.dailyGoal', 'Denní cíl')}
+              </Text>
             </View>
             <Text style={styly.statistikaHodnota}>
               {cviceni.denniCil ? formatovatHodnotu(cviceni.denniCil) : '-'}
@@ -123,7 +127,7 @@ export const StatistikyKomponenta: React.FC<StatistikyKomponentaProps> = ({
             />
           </View>
           <Text style={styly.progressBarText}>
-            {cviceni.denniCil ? `${skutecnaProcenta}%` : t('detail.noGoalSet')}
+            {cviceni.denniCil ? `${skutecnaProcenta}%` : safeT('detail.noGoalSet', 'Není nastaven cíl')}
           </Text>
         </View>
       </View>

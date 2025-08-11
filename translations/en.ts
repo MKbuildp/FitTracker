@@ -193,6 +193,9 @@ export const en = {
   'detail.saveRecord': 'Save',
   'detail.manualTime': 'Manual',
   'detail.deleteExercise': 'Delete Exercise',
+  'detail.noGoalSet': 'No goal set',
+  'detail.enterTime': 'Enter time',
+  'detail.saveTime': 'Save time',
   
   // Delete exercise
   'delete.confirmTitle': 'Delete Exercise',

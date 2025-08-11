@@ -123,18 +123,34 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
    * Funkce pro překlad textu
    */
   const t = (key: TranslationKey): string => {
-    const translation = (translations as any)[currentLanguage][key];
-    
-    // Pokud překlad neexistuje, zkus najít v defaultním jazyce
-    if (!translation && currentLanguage !== DEFAULT_LANGUAGE) {
-      const fallbackTranslation = (translations as any)[DEFAULT_LANGUAGE][key];
-      if (fallbackTranslation) {
-        return fallbackTranslation;
+    try {
+      const translation = (translations as any)[currentLanguage][key];
+      
+      // Debug logging pro build problémy
+      if (!translation) {
+        console.warn(`Translation missing for key: ${key} in language: ${currentLanguage}`);
       }
+      
+      // Pokud překlad neexistuje, zkus najít v defaultním jazyce
+      if (!translation && currentLanguage !== DEFAULT_LANGUAGE) {
+        const fallbackTranslation = (translations as any)[DEFAULT_LANGUAGE][key];
+        if (fallbackTranslation) {
+          console.log(`Using fallback translation for: ${key}`);
+          return fallbackTranslation;
+        }
+      }
+      
+      // Pokud ani fallback neexistuje, vrať klíč
+      if (!translation) {
+        console.error(`No translation found for key: ${key} in any language`);
+        return key;
+      }
+      
+      return translation;
+    } catch (error) {
+      console.error(`Translation error for key: ${key}:`, error);
+      return key;
     }
-    
-    // Pokud ani fallback neexistuje, vrať klíč
-    return translation || key;
   };
 
   /**

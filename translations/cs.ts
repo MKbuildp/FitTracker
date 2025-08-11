@@ -193,6 +193,9 @@ export const cs = {
   'detail.saveRecord': 'Uložit',
   'detail.manualTime': 'Ručně',
   'detail.deleteExercise': 'Smazat cvičení',
+  'detail.noGoalSet': 'Není nastaven cíl',
+  'detail.enterTime': 'Zadejte čas',
+  'detail.saveTime': 'Uložit čas',
   
   // Delete exercise
   'delete.confirmTitle': 'Smazat cvičení',

@@ -68,7 +68,7 @@ export const HistorieModal: React.FC<HistorieModalProps> = ({
   onSmazatZaznam,
   formatovatHodnotu,
 }) => {
-  const { t } = useTranslation();
+  const { safeT } = useTranslation();
   
   // Posledních 5 záznamů seřazených podle data
   const posledniZaznamy = zaznamy
@@ -87,7 +87,9 @@ export const HistorieModal: React.FC<HistorieModalProps> = ({
           <TouchableWithoutFeedback>
             <View style={styly.modalObsah}>
               <View style={styly.modalHeader}>
-                <Text style={styly.modalNadpis}>{t('detail.lastFiveRecords')}</Text>
+                <Text style={styly.modalNadpis}>
+                  {safeT('detail.lastFiveRecords', 'Posledních 5 záznamů')}
+                </Text>
                 <TouchableOpacity onPress={onZavrit} style={styly.zavritTlacitko}>
                   <Ionicons name="close" size={24} color="#6b7280" />
                 </TouchableOpacity>
@@ -96,9 +98,11 @@ export const HistorieModal: React.FC<HistorieModalProps> = ({
               {posledniZaznamy.length === 0 ? (
                 <View style={styly.zadneZaznamyKontejner}>
                   <Ionicons name="document-outline" size={48} color="#9ca3af" />
-                  <Text style={styly.zadneZaznamyText}>{t('detail.noRecords')}</Text>
+                  <Text style={styly.zadneZaznamyText}>
+                    {safeT('detail.noRecords', 'Žádné záznamy')}
+                  </Text>
                   <Text style={styly.zadneZaznamyPopis}>
-                    {t('detail.noRecordsDescription')}
+                    {safeT('detail.noRecordsDescription', 'Zatím nemáte žádné záznamy k zobrazení')}
                   </Text>
                 </View>
               ) : (
