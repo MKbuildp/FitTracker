@@ -55,4 +55,5 @@ export type RootStackParamList = {
   PridatCviceni: { vychoziTyp: TypMereni };
   DetailCviceni: { cviceniId: string };
   LanguageSelection: undefined;
+  MesicniPrehled: undefined;
 }; 

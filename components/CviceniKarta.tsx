@@ -133,9 +133,7 @@ const KruhovyProgresbar = React.memo<{ procenta: number; barva: string }>(({ pro
           transform={`rotate(-90 ${velikost / 2} ${velikost / 2})`}
         />
       </Svg>
-      <Text style={[styly.procentaText, { color: barvaKruhu }]}>
-        {procenta}%
-      </Text>
+
     </View>
   );
 });
@@ -303,11 +301,7 @@ const styly = StyleSheet.create({
     gap: 4,
     marginTop: 1,
   },
-  procentaText: {
-    position: 'absolute',
-    fontSize: 12,
-    fontWeight: '800',
-  },
+
   pravySloupec: {
     alignItems: 'center',
   },

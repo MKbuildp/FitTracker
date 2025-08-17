@@ -4,24 +4,19 @@ import { Ionicons } from '@expo/vector-icons';
 import { TydenKontejnerProps } from '../types/types';
 import { ZaznamVykonu } from '../../../types';
 import { useTranslation } from '../../../hooks/useTranslation';
-import { useObdobniContext } from '../../../context/ObdobniContext';
 import { 
-  filtrovatZaznamyPodleObdobi,
-  aktivniDnyFormat,
-  plneniCiluProcenta
-} from '../../Prehled/utils/obdobiUtils';
-import { ObdobniSelektor } from '../../../components/ObdobniSelektor';
+  getPocetAktivnichDni,
+  getPocetDniVMesici,
+  getPlneniCiluProcenta
+} from '../../Prehled/utils/datumUtils';
+
 
 /** Komponenta pro zobrazení statistik a měsíčního přehledu cvičení */
 export const TydenKontejner: React.FC<TydenKontejnerProps> = ({ zaznamy, cviceni, style, statistiky, formatovatHodnotu, vsechnaCviceni }) => {
   const { t } = useTranslation();
-  const { globalniObdobi } = useObdobniContext();
 
-  // Filtrované záznamy podle období pro statistiky
-  const filtrovaneZaznamy = filtrovatZaznamyPodleObdobi(
-    zaznamy.filter((z: ZaznamVykonu) => z.cviceniId === cviceni.id), 
-    globalniObdobi
-  );
+  // Filtrované záznamy pro aktuální týden
+  const filtrovaneZaznamy = zaznamy.filter((z: ZaznamVykonu) => z.cviceniId === cviceni.id);
   
   // Přepočítané statistiky pro vybrané období
   const obdobiStatistiky = React.useMemo(() => {
@@ -54,15 +49,18 @@ export const TydenKontejner: React.FC<TydenKontejnerProps> = ({ zaznamy, cviceni
   }, [filtrovaneZaznamy, cviceni]);
 
   // Výpočet nových statistik pro aktuální období
-  const aktivniDnyText = aktivniDnyFormat(
-    zaznamy.filter((z: ZaznamVykonu) => z.cviceniId === cviceni.id), 
-    globalniObdobi
+  const vybranyDatum = new Date(); // Použijeme aktuální datum
+  const aktivniDny = getPocetAktivnichDni(
+    zaznamy.filter((z: ZaznamVykonu) => z.cviceniId === cviceni.id),
+    vybranyDatum
   );
+  const celkemDni = getPocetDniVMesici(vybranyDatum);
+  const aktivniDnyText = `${aktivniDny}/${celkemDni}`;
   
-  const plneniCilu = plneniCiluProcenta(
+  const plneniCilu = getPlneniCiluProcenta(
     zaznamy.filter((z: ZaznamVykonu) => z.cviceniId === cviceni.id),
     [cviceni], // Předáváme pouze aktuální cvičení
-    globalniObdobi
+    vybranyDatum
   );
 
   const getZaznamyProDen = (den: Date) => {
@@ -79,20 +77,19 @@ export const TydenKontejner: React.FC<TydenKontejnerProps> = ({ zaznamy, cviceni
 
 
 
-  // Generování všech dní vybraného měsíce
+  // Generování všech dní aktuálního měsíce
   const dnyMesice = React.useMemo(() => {
-    const vybranyMesic = globalniObdobi.datum;
-    const rok = vybranyMesic.getFullYear();
-    const mesic = vybranyMesic.getMonth();
+    const rok = vybranyDatum.getFullYear();
+    const mesic = vybranyDatum.getMonth();
     
     // Počet dní v měsíci
-    const pocetDni = new Date(rok, mesic + 1, 0).getDate();
+    const pocetDni = getPocetDniVMesici(vybranyDatum);
     
     // Vytvoření pole všech dní měsíce (od 1. do posledního dne)
     return Array.from({ length: pocetDni }, (_, index) => {
       return new Date(rok, mesic, index + 1);
     });
-  }, [globalniObdobi.datum]);
+  }, [vybranyDatum]);
 
   /** Formátování názvu dne a datumu */
   const getDenADatum = (den: Date) => {
@@ -359,11 +356,6 @@ export const TydenKontejner: React.FC<TydenKontejnerProps> = ({ zaznamy, cviceni
           </View>
         </View>
 
-        {/* Selektor období */}
-        <View style={styly.selektorObdobni}>
-          <ObdobniSelektor borderColor={cviceni.barva || '#2563eb'} />
-        </View>
-
         {/* Tabulka dnů bez scrollování */}
         <View style={styly.tabulka}>
           {dnyMesice.map((den: Date, index: number) => (
@@ -559,8 +551,5 @@ const styly = StyleSheet.create({
     color: '#1e40af',
     textAlign: 'center',
   },
-  selektorObdobni: {
-    marginBottom: 16,
-    paddingHorizontal: 0, // Odstraněn padding pro celou šířku
-  },
+
 }); 

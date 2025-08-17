@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, ScrollView } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { useTranslation } from '../../hooks/useTranslation';
 import {
-  CelkoveStatistiky,
   PrehledCviceni,
   PrazdnyStav,
-  CelkovyProgressBar,
   NastaveniModal,
+  DenniAktivita,
 } from './components';
-import { ObdobniSelektor } from '../../components/ObdobniSelektor';
+import { KalendarHeader, KalendarTyden } from './components/Kalendar';
 import { TeckovanyVzor } from '../../components/PozadiVzory';
 import { useCviceni } from '../../context/CviceniContext';
+import { useKalendarData } from './hooks/useKalendarData';
 import { NavigationProp } from './types/types';
 
 /**
@@ -43,6 +43,8 @@ const PrehledScreen: React.FC = () => {
     // Premium funkce jsou aktivní automaticky
   };
 
+  const kalendarData = useKalendarData();
+
   if (stav.nacitaSeData) {
     return (
       <View style={styly.nacitaniKontejner}>
@@ -55,26 +57,30 @@ const PrehledScreen: React.FC = () => {
   if (stav.cviceni.length === 0) {
     return <PrazdnyStav navigation={navigation} />;
   }
-
+  
   return (
     <>
       <View style={styly.kontejner}>
         <TeckovanyVzor />
+        
         <PrehledCviceni
           zaznamy={stav.zaznamy}
           cviceni={stav.cviceni}
           navigation={navigation}
           statistiky={
-            <View>
-              <View style={styly.statistikyKontejner}>
-                <CelkoveStatistiky zaznamy={stav.zaznamy} cviceni={stav.cviceni} />
-              </View>
-              <View style={styly.selektorKontejner}>
-                <ObdobniSelektor borderColor="#2563eb" />
-              </View>
-              <View style={styly.cileKontejner}>
-                <CelkovyProgressBar zaznamy={stav.zaznamy} cviceni={stav.cviceni} />
-              </View>
+            <View style={styly.kalendarKontejner}>
+              <KalendarHeader
+                vybranyDatum={kalendarData.vybranyDatum}
+                onDatumZmena={kalendarData.setVybranyDatum}
+              />
+              
+              <KalendarTyden
+                data={kalendarData.obdobiData}
+                vybranyDatum={kalendarData.vybranyDatum}
+                onDatumZmena={kalendarData.setVybranyDatum}
+              />
+              
+              <DenniAktivita data={kalendarData.denniData} />
             </View>
           }
         />
@@ -93,26 +99,18 @@ const styly = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f8fafc',
   },
-  statistikyKontejner: {
-    paddingTop: 16,
-    paddingBottom: 0,
+
+  kalendarKontejner: {
+    backgroundColor: 'white',
+    borderBottomWidth: 1,
+    borderBottomColor: '#e2e8f0',
+    marginBottom: 8,
   },
-  selektorKontejner: {
-    paddingHorizontal: 16,
-    paddingTop: 0,
-    paddingBottom: 0,
+  bottomPadding: {
+    height: 24,
   },
-  cileKontejner: {
-    paddingTop: 16,
-    paddingBottom: 0,
-  },
-  obsah: {
-    paddingTop: 16,
-    paddingBottom: 16,
-  },
-  sekce: {
-    marginBottom: 12,
-  },
+
+
   nacitaniKontejner: {
     flex: 1,
     justifyContent: 'center',

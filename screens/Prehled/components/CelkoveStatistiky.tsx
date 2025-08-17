@@ -2,31 +2,44 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { CelkoveStatistikyProps } from '../types/types';
-import { useObdobniContext } from '../../../context/ObdobniContext';
-import { 
-  filtrovatZaznamyPodleObdobi, 
-  pocetAktivnichDni, 
-  aktivniDnyFormat,
-  dennyPrumer,
-  porovnaniSPredchozimObdobim,
-  nejaktivnejsiPerioda,
-  splneneCile,
-  plneniCiluProcenta
-} from '../utils/obdobiUtils';
+import { getDatyTydne } from '../utils/datumUtils';
 import { useTranslation } from '../../../hooks/useTranslation';
 
 /** Komponenta pro zobrazení celkových statistik */
 export const CelkoveStatistiky: React.FC<CelkoveStatistikyProps> = ({ zaznamy, cviceni }) => {
   const { t } = useTranslation();
-  const { globalniObdobi } = useObdobniContext();
+  // Získáme data pro aktuální týden
+  const datyTydne = getDatyTydne(new Date());
   
-  // Filtrované statistiky podle období
-  const filtrovaneZaznamy = filtrovatZaznamyPodleObdobi(zaznamy, globalniObdobi);
-  const pocetZaznamu = filtrovaneZaznamy.length;
-  const aktivniDnyText = aktivniDnyFormat(zaznamy, globalniObdobi);
-  const plneniCilu = plneniCiluProcenta(zaznamy, cviceni, globalniObdobi);
+  // Spočítáme statistiky pro aktuální týden
+  const pocetZaznamu = zaznamy.filter(zaznam => 
+    datyTydne.some(datum => 
+      new Date(zaznam.datum).toDateString() === datum.toDateString()
+    )
+  ).length;
+
+  // Počet aktivních dní v týdnu
+  const aktivniDny = new Set(
+    zaznamy
+      .filter(zaznam => 
+        datyTydne.some(datum => 
+          new Date(zaznam.datum).toDateString() === datum.toDateString()
+        )
+      )
+      .map(zaznam => new Date(zaznam.datum).toDateString())
+  ).size;
+
+  // Plnění cílů - procento splněných denních cílů
+  const splneneCile = zaznamy.filter(zaznam => 
+    datyTydne.some(datum => 
+      new Date(zaznam.datum).toDateString() === datum.toDateString() && 
+      zaznam.splnenDenniCil
+    )
+  ).length;
   
-  // Původní obecné texty
+  const celkoveCile = cviceni.reduce((acc, cv) => acc + (cv.denniCil ? 1 : 0), 0) * 7;
+  const plneniCilu = celkoveCile > 0 ? Math.round((splneneCile / celkoveCile) * 100) : 0;
+  
   const textZaznamu = t('overview.totalRecords');
   const textAktivnichDni = t('overview.activeDays');
   
@@ -43,7 +56,7 @@ export const CelkoveStatistiky: React.FC<CelkoveStatistikyProps> = ({ zaznamy, c
           </View>
           <View style={styly.obsah}>
             <Ionicons name="calendar" size={22} color="#dc2626" />
-            <Text style={styly.statistikaCislo}>{aktivniDnyText}</Text>
+            <Text style={styly.statistikaCislo}>{aktivniDny}</Text>
           </View>
         </View>
         

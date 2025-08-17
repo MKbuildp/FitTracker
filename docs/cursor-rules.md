@@ -299,18 +299,28 @@ Tento postup shrnuje všechny kroky potřebné k prvnímu úspěšnému sestaven
 ### Další aktualizace:
 Pro každou další verzi aplikace stačí v `app.json` zvýšit `versionCode` (např. na `2`), provést `git push` a nahrát nový `.aab` soubor do nového vydání v Google Play Console. Všechny klíče už jsou správně nastavené.
 
-## KLÍČOVÉ PRAVIDLO 11: Uložení a Build na Gitu
-### Pravidlo: Standardizovaný postup pro Git operace a automatický build
+## KLÍČOVÉ PRAVIDLO 11: Univerzální Git Workflow - Commit a Push
+### Pravidlo: Standardizovaný postup pro Git operace použitelný pro všechny projekty
 Tento postup **VŽDY** používej pro uložení změn a spuštění buildu. Dodržuj **přesné pořadí** kroků a **nikdy** je neprováděj automaticky bez výslovného souhlasu uživatele.
 
-### Sekce 1: Uložení (Commit)
+### Sekce 1: Diagnostika a příprava
+#### Krok 0: Kontrola aktuálního stavu
+```bash
+git status
+```
+- **VŽDY** začni kontrolou stavu repozitáře
+- Identifikuj staged, unstaged a untracked soubory
+- Ověř, že jsi ve správné větvi (obvykle `main`)
+
 #### Krok 1: Příprava změn
 ```bash
 git add .
 ```
 - Přidá všechny změněné soubory do staging area
 - Zobrazí případná upozornění (např. CRLF konverze)
+- **POZOR:** Pokud se terminál "zasekne", počkej a zkus znovu
 
+### Sekce 2: Commit s robustní zprávou
 #### Krok 2: Commit se strukturovanou zprávou
 ```bash
 git commit -m "Popisný název změny
@@ -328,26 +338,51 @@ git commit -m "Popisný název změny
 3. **Detailní seznam změn:** Každá změna na novém řádku s pomlčkou
 4. **Technické detaily:** Verze, konfigurační změny, opravy
 
-### Sekce 2: Spuštění buildu (Push)
-#### Krok 3: Push na GitHub
+#### Ověření commitu:
+```bash
+git log --oneline -1
+```
+- Zobrazí poslední commit a ověří, že se podařil
+
+### Sekce 3: Push a ověření
+#### Krok 3: Push na vzdálený repozitář
 ```bash
 git push origin main
 ```
-- Pushne změny na GitHub main větev
-- **Automaticky spustí GitHub Actions build**
-- Zobrazí informace o pushnutých commitech (např. `54cf527..25dd504`)
+- Pushne změny na vzdálený repozitář
+- **Automaticky spustí GitHub Actions build** (pokud je nakonfigurován)
+- Zobrazí informace o pushnutých commitech
 
-#### Krok 4: Ověření buildu
-- GitHub Actions se spustí automaticky po push
-- Build vytvoří nový APK/AAB s aktualizovanou verzí
-- Sleduj progress na GitHub v sekci "Actions"
+#### Krok 4: Ověření push
+```bash
+git status
+```
+- Mělo by zobrazit "Your branch is up to date with 'origin/main'"
+- Pokud ne, push se nepodařil
+
+### Sekce 4: Řešení problémů
+#### Problém: Terminál se "zasekne"
+1. **Nepanikař** - často se jen zpracovávají velké soubory
+2. **Počkej** alespoň 30-60 sekund
+3. **Zkus Ctrl+C** pro přerušení
+4. **Zkontroluj stav** pomocí `git status`
+
+#### Problém: Commit se nepodařil
+```bash
+git status
+git add .
+git commit -m "Zpráva"
+```
+
+#### Problém: Push se nepodařil
+```bash
+git status
+git push origin main
+```
 
 ### Povinné kontroly před Git operacemi:
 1. **Ověř změny:** Zkontroluj, že všechny změny jsou správné
-2. **Verze:** PŘED KAŽDÝM COMMITEM se MUSÍŠ zeptat uživatele, zda není potřeba zvýšit verzi v `app.json`. Pokud ano:
-   - Zvýšit `version` (např. z "1.2.2" na "1.2.3")
-   - Zvýšit `android.versionCode` (např. z 7 na 8)
-   - Přidat informaci o změně verze do commit message
+2. **Verze:** Pokud se jedná o novou verzi, ověř správnost verzí v konfiguračních souborech
 3. **Testy:** Ujisti se, že aplikace funguje správně
 4. **Commit message:** Použij strukturovanou zprávu podle vzoru výše
 
@@ -359,6 +394,9 @@ git push origin main
 
 ### Příklad kompletního postupu:
 ```bash
+# 0. Diagnostika
+git status
+
 # 1. Příprava
 git add .
 
@@ -370,15 +408,22 @@ git commit -m "Bump version to 1.2.3 and fix UI issues
 - Change 'Cíle' to 'Cíl' in statistics display
 - Update project documentation"
 
-# 3. Push a spuštění buildu
+# 3. Ověření commitu
+git log --oneline -1
+
+# 4. Push a spuštění buildu
 git push origin main
+
+# 5. Finální kontrola
+git status
 ```
 
 ### Důležité upozornění:
 - **NIKDY** neprováděj tyto operace automaticky
 - **VŽDY** čekej na explicitní pokyn uživatele
 - **INFORMUJ** uživatele o výsledku každého kroku
-- **OVĚŘ** úspěšnost GitHub Actions buildu
+- **OVĚŘ** úspěšnost každé operace
+- **PŘIPRAV SE** na řešení problémů s terminálem
 
 # KLÍČOVÉ PRAVIDLO 12: Workflow pro Nový Projekt (Git, EAS, Google Play)
 
@@ -471,59 +516,91 @@ Tento dokument slouží jako standardizovaný "checklist" pro nastavení nového
     *   Vytvořit novou verzi a nahrát `.aab` soubor.
     *   Uložit, zkontrolovat a odeslat ke schválení. 
 
-# KLÍČOVÉ PRAVIDLO 13: ZÁKAZ MANIPULACE S PRODUKČNÍM KLÍČEM (FitTracker)
+# KLÍČOVÉ PRAVIDLO 14: ZÁKAZ MANIPULACE S PRODUKČNÍM KLÍČEM
 
 **Princip: Produkční podepisovací klíč pro Android je po schválení Googlem absolutně neměnný. Jakákoliv manipulace s ním je zakázána a vede k selhání uploadu do Google Play.**
 
 **1. Identita Správného Klíče:**
-*   Jediný platný klíč pro podepisování produkčních buildů (`.aab`) je ten, který je na EAS serveru pojmenován **"Hlavni product klic"** (nebo "FitTracker Production Keystore").
-*   Jeho otisk certifikátu **SHA-1** je: `A5:45:27:3E:C5:EF:DD:8A:84:83:A9:78:FB:61:CA:9C:B5:BF:9B:47`
+*   Jediný platný klíč pro podepisování produkčních buildů (`.aab`) je ten, který byl vygenerován **19. července 2024**.
+*   Jeho soubor je `vozicsko-upload.jks` a musí být bezpečně zálohován.
+*   Jeho otisk certifikátu **SHA-1** je: `7A:A8:D1:43:DA:74:B5:D0:C0:D0:E7:E5:F9:91:9E:AE:D9:AF:C7:AD`
 *   Tento otisk **MUSÍ** odpovídat otisku v **Google Play Console** -> **Integrita aplikace** -> **Certifikát klíče pro nahrávání**.
 
 **2. Zakázané Operace:**
 *   Je **STRIKTNĚ ZAKÁZÁNO** v nástroji `eas credentials` pro platformu Android volit následující možnosti:
     *   `Delete your keystore`
-    *   `Set up a new keystore`
+    *   `Set up a new keystore` (pokud již existuje)
     *   `Change default keystore`
-*   Je **ZAKÁZÁNO** měnit jakékoliv hodnoty týkající se `credentials` v souboru `eas.json` pro produkční profil.
+*   Je **ZAKÁZÁNO** měnit jakékoliv hodnoty týkající se `credentials` v souboru `eas.json` pro produkční profil bez explicitního plánu obnovy.
 
 **3. Povolené Operace (Kontrola):**
 *   Jediná povolená operace v `eas credentials` je **ověření**. Slouží ke kontrole, že na serverech Expo je stále nahraný klíč se správným SHA-1 otiskem.
 *   Při jakémkoliv problému s podepisováním je **PRVNÍM KROKEM VŽDY KONTROLA, NIKOLIV ZMĚNA.** Spusťte `eas credentials`, vyberte Android a porovnejte SHA1 Fingerprint s hodnotou uvedenou v tomto pravidle.
 
 **4. Postup při katastrofě (Disaster Recovery):**
-*   Pokud by byl klíč prokazatelně ztracen nebo smazán, je nutné požádat podporu Google o resetování klíče pro nahrávání pomocí nově vygenerovaného `.pem` certifikátu. Toto je krajní řešení.
+*   Pokud by byl klíč prokazatelně ztracen nebo smazán, jediný postup je ten, který byl proveden 19. 7. 2024:
+    1. Vygenerovat zbrusu nový klíč.
+    2. Vyexportovat `upload_certificate.pem`.
+    3. Požádat Google o resetování klíče pro nahrávání.
+    4. Čekat 24-48 hodin na schválení.
+    *   Toto je krajní řešení a je třeba se mu vyhnout za každou cenu. 
 
----
+# KLÍČOVÉ PRAVIDLO 15: Checklist pro První iOS Build (Expo & EAS)
 
-# KLÍČOVÉ PRAVIDLO 14: Ověřený postup pro iOS Build a Nahrání
+Tento postup shrnuje všechny kroky potřebné k prvnímu úspěšnému sestavení a nahrání iOS aplikace do App Store Connect pro testování přes TestFlight. Důsledné dodržení pořadí je klíčové.
 
-Tento postup shrnuje ověřené kroky pro sestavení a nahrání iOS aplikace do App Store Connect pomocí terminálu.
+### Fáze 1: Příprava projektu a účtů
 
-**Předpoklady:**
-*   V `app.json` je správně nastaven `ios.bundleIdentifier`.
-*   Aplikace je již založena v App Store Connect.
-*   Distribuční certifikáty a profily jsou spravovány přes EAS (viz první spuštění).
+1.  **Unikátní Bundle Identifier (`app.json`):**
+    *   V souboru `app.json` nastavte v sekci `ios` **globálně unikátní** `bundleIdentifier`.
+    *   **Doporučený formát:** `com.jmenovasi-firmy-nebo-vyvojare.nazevaplikace` (např. `com.mkbuildp.vozicsko`).
+    *   Tento identifikátor je **trvalý** a po prvním nahrání do App Storu ho nelze změnit. Pečlivě ho zkontrolujte.
+    *   Nastavte počáteční `buildNumber` na `1`.
 
-**Krok 1: Sestavení aplikace (`.ipa`)**
-*   Build se spouští přes GitHub Actions výběrem platformy `ios`.
-*   Alternativně lze spustit lokálně v terminálu:
-    ```bash
-    eas build --platform ios --profile production
-    ```
-*   Tento příkaz vytvoří podepsaný `.ipa` soubor na serverech Expo.
+2.  **Vytvoření Aplikace v App Store Connect:**
+    *   Přihlaste se do [App Store Connect](https://appstoreconnect.apple.com/).
+    *   Přejděte do sekce "Aplikace" a klikněte na modré tlačítko `+` -> "Nová aplikace".
+    *   Vyplňte formulář:
+        *   **Název:** Jméno aplikace viditelné pro uživatele.
+        *   **Primární jazyk:** Čeština (Česko).
+        *   **Identifikátor sady (Bundle ID):** Vyberte z nabídky přesně ten `bundleIdentifier`, který jste nastavili v `app.json`. Pokud v nabídce není, je nutné ho nejprve zaregistrovat na [portálu pro vývojáře](https://developer.apple.com/account/resources/identifiers/list). EAS by to ale měl umět zařídit.
+        *   **SKU:** Unikátní identifikátor pro vás, např. `vozicsko-001`.
+    *   Tímto vytvoříte "schránku" pro vaši aplikaci.
 
-**Krok 2: Nahrání buildu do App Store Connect (manuálně z terminálu)**
-*   Po dokončení buildu je nutné spustit nahrávání ručně.
+3.  **Konfigurace EAS Build (`eas.json`):**
+    *   Ujistěte se, že máte v `eas.json` profil `production`. Pro iOS není nutné specifikovat `buildType` jako u Androidu. Standardní nastavení je obvykle dostačující.
 
-1.  **Příkaz pro nahrání:**
-    *   V terminálu spusťte:
+### Fáze 2: Generování certifikátů a první build
+
+4.  **Vygenerování Podepisovacích Certifikátů (NEJDŮLEŽITĚJŠÍ KROK):**
+    *   Ve svém lokálním terminálu v kořeni projektu spusťte příkaz: `eas credentials`.
+    *   Zvolte platformu `iOS`.
+    *   EAS vás vyzve k přihlášení pomocí vašeho Apple Developer účtu (Apple ID a heslo). Může být vyžadováno 2FA.
+    *   Postupujte dle instrukcí a **nechte Expo, aby celý proces řídilo (`Let Expo handle the process`)**. EAS se postará o:
+        *   Vytvoření **Distribučního certifikátu** (Distribution Certificate).
+        *   Vytvoření **Provisioning profilu** (Provisioning Profile).
+    *   Tím se na vašem Expo účtu bezpečně vytvoří a uloží všechny podepisovací klíče, propojené s vaším Apple účtem.
+
+5.  **Spuštění Prvního Buildu a Nahrání:**
+    *   Nejjednodušší metoda je spustit build a nechat EAS, aby ho rovnou nahrál do App Store Connect. Použijte příkaz:
         ```bash
-        eas submit --platform ios --latest
+        eas build --platform ios --profile production --auto-submit
         ```
-    *   `--latest` automaticky najde poslední úspěšný build a nahraje ho.
-    *   Při prvním spuštění si EAS vyžádá přihlašovací údaje k Apple účtu.
+    *   Alternativně spusťte jen `eas build` a po dokončení si stáhněte `.ipa` soubor a nahrajte ho manuálně pomocí aplikace [Transporter](https://apps.apple.com/us/app/transporter/id1450874784?mt=12) na macOS.
+    *   Po úspěšném nahrání bude build několik minut až desítek minut zpracováván.
 
-2.  **Ověření úspěšnosti:**
-    *   Terminál vypíše potvrzení `✔ Submitted your app to Apple App Store Connect!`.
-    *   Nový build se objeví v **App Store Connect** v sekci **TestFlight** se statusem "Processing". 
+### Fáze 3: Testování v TestFlight
+
+6.  **Zobrazení Buildu v TestFlight:**
+    *   V App Store Connect přejděte do vaší aplikace -> sekce **TestFlight**.
+    *   Jakmile Apple dokončí zpracování, váš build se zde objeví.
+
+7.  **Vyplnění Informací pro Exportní Soulad:**
+    *   U prvního buildu budete muset odpovědět na otázku ohledně **šifrování**. V 99 % případů standardních aplikací (používajících `https`) je správná odpověď **NE** na otázku, zda aplikace používá proprietární nebo nestandardní šifrování.
+
+8.  **Zahájení Testování:**
+    *   **Interní testeři:** Můžete okamžitě přidat až 100 testerů, kteří mají roli ve vašem App Store Connect týmu.
+    *   **Externí testeři:** Pro pozvání veřejných testerů (až 10 000) musí váš první build projít krátkou **Beta App Review**. Po schválení můžete vytvořit veřejný odkaz a sdílet ho.
+
+### Další aktualizace:
+Pro každou další verzi aplikace stačí v `app.json` zvýšit `buildNumber` (např. na `2`), provést `git push` a spustit stejný build a upload proces. Nový build automaticky nahradí ten starý v TestFlightu. 

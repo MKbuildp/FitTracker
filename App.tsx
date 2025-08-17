@@ -17,7 +17,7 @@ import { SystemBars } from 'react-native-edge-to-edge';
 
 import { CviceniProvider, useCviceni } from './context/CviceniContext';
 import { LanguageProvider, useLanguage } from './context/LanguageContext';
-import { ObdobniProvider } from './context/ObdobniContext';
+
 
 // Importy obrazovek
 import OpakovaniScreen from './screens/Opakovani/OpakovaniScreen';
@@ -26,6 +26,7 @@ import PrehledScreen from './screens/Prehled/PrehledScreen';
 import PridatCviceniScreen from './screens/PridatCviceni/PridatCviceniScreen';
 import DetailCviceniScreen from './screens/DetailCviceni/DetailCviceniScreen';
 import LanguageSelectionScreen from './screens/LanguageSelection/LanguageSelectionScreen';
+import MesicniPrehledScreen from './screens/MesicniPrehled/MesicniPrehledScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -183,19 +184,30 @@ function AppContent() {
               );
             } else if (routeName === 'Prehled') {
               headerRight = () => (
-                <TouchableOpacity
-                  onPress={() => {
-                    // Bezpečné volání global funkce
-                    const otevritNastaveni = (global as any).otevritNastaveni;
-                    if (typeof otevritNastaveni === 'function') {
-                      otevritNastaveni();
-                    }
-                  }}
-                  style={{ marginRight: 8, padding: 8 }}
-                  activeOpacity={0.7}
-                >
-                  <Ionicons name="settings-outline" size={24} color="#fff" />
-                </TouchableOpacity>
+                <View style={{ flexDirection: 'row' }}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      navigation.navigate('MesicniPrehled');
+                    }}
+                    style={{ marginRight: 8, padding: 8 }}
+                    activeOpacity={0.7}
+                  >
+                    <Ionicons name="calendar-outline" size={24} color="#fff" />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => {
+                      // Bezpečné volání global funkce
+                      const otevritNastaveni = (global as any).otevritNastaveni;
+                      if (typeof otevritNastaveni === 'function') {
+                        otevritNastaveni();
+                      }
+                    }}
+                    style={{ marginRight: 8, padding: 8 }}
+                    activeOpacity={0.7}
+                  >
+                    <Ionicons name="settings-outline" size={24} color="#fff" />
+                  </TouchableOpacity>
+                </View>
               );
             }
             
@@ -215,6 +227,11 @@ function AppContent() {
           name="DetailCviceni" 
           component={DetailCviceniScreen}
           options={{ title: '' }} // Dynamicky nastaveno v komponentě
+        />
+        <Stack.Screen 
+          name="MesicniPrehled" 
+          component={MesicniPrehledScreen}
+          options={{ title: t('nav.monthlyOverview') }}
         />
         </Stack.Navigator>
       </NavigationContainer>
@@ -251,11 +268,9 @@ export default function App() {
     <SafeAreaProvider>
       <SystemBars style="light" />
       <LanguageProvider>
-        <ObdobniProvider>
-          <CviceniProvider>
-            <AppContent />
-          </CviceniProvider>
-        </ObdobniProvider>
+        <CviceniProvider>
+          <AppContent />
+        </CviceniProvider>
       </LanguageProvider>
     </SafeAreaProvider>
     </GestureHandlerRootView>

@@ -8,6 +8,7 @@ export const cs = {
   'nav.timers': 'Časovky',
   'nav.addExercise': 'Přidat cvičení',
   'nav.exerciseDetail': 'Detail cvičení',
+  'nav.monthlyOverview': 'Měsíční přehled',
 
   // Common
   'common.loading': 'Načítání...',
@@ -59,6 +60,8 @@ export const cs = {
   'overview.empty.subtitle': 'Začněte přidáním svého prvního cvičení',
   'overview.empty.action': 'Přidat cvičení',
   'overview.loadingStats': 'Načítání statistik...',
+  'overview.completedExercises': 'Dokončená cvičení',
+  'overview.totalRepetitions': 'Celkem opakování',
 
   // Repetitions screen
   'repetitions.title': 'Opakování',
@@ -161,6 +164,10 @@ export const cs = {
   'motivation.wellDone': 'Výborně!',
   'motivation.almostThere': 'Skoro tam!',
 
+  // Calendar
+  'calendar.month': 'Měsíc',
+  'calendar.week': 'Týden',
+  
   // Days of week
   'days.short.mon': 'Po',
   'days.short.tue': 'Út',
@@ -212,6 +219,7 @@ export const cs = {
   'period.thisYear': 'Tento rok',
   'period.lastYear': 'Minulý rok',
   'period.monthlyAverage': 'Měsíční průměr',
+  'period.monthlyStats': 'Měsíční statistiky',
   'period.dailyAverage': 'Denní průměr',
   'period.totalThisMonth': 'Celkem tento měsíc',
   'period.totalThisYear': 'Celkem tento rok',

@@ -42,7 +42,7 @@ const formatovatHodnotu = (hodnota: number, typ: 'opakovani' | 'cas'): string =>
 /** Kruhový progresbar pro cíle */
 const MiniProgresbar = React.memo<{ procenta: number; barva: string }>(({ procenta, barva }) => {
   const velikost = 36;
-  const sirkaCary = 3;
+  const sirkaCary = 5;
   const polomer = (velikost - sirkaCary) / 2;
   const obvod = 2 * Math.PI * polomer;
   
@@ -74,9 +74,6 @@ const MiniProgresbar = React.memo<{ procenta: number; barva: string }>(({ procen
           transform={`rotate(-90 ${velikost / 2} ${velikost / 2})`}
         />
       </Svg>
-      <Text style={[styly.procentaText, { color: barvaKruhu }]}>
-        {procenta}%
-      </Text>
     </View>
   );
 });

@@ -4,8 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { StatistikyKomponentaProps } from '../types/types';
 import { ZaznamVykonu } from '../../../types';
 import { useTranslation } from '../../../hooks/useTranslation';
-import { useObdobniContext } from '../../../context/ObdobniContext';
-import { filtrovatZaznamyPodleObdobi } from '../../Prehled/utils/obdobiUtils';
+
 
 /** Komponenta pro zobrazení aktuálního přehledu cvičení (pracovní název: aktualni_prehled) */
 export const StatistikyKomponenta: React.FC<StatistikyKomponentaProps> = ({ 
@@ -15,13 +14,9 @@ export const StatistikyKomponenta: React.FC<StatistikyKomponentaProps> = ({
   zaznamy
 }) => {
   const { safeT } = useTranslation();
-  const { globalniObdobi } = useObdobniContext();
   
-  // Filtrované záznamy podle období
-  const filtrovaneZaznamy = filtrovatZaznamyPodleObdobi(
-    zaznamy.filter((z: ZaznamVykonu) => z.cviceniId === cviceni.id), 
-    globalniObdobi
-  );
+  // Filtrované záznamy pro aktuální cvičení
+  const filtrovaneZaznamy = zaznamy.filter((z: ZaznamVykonu) => z.cviceniId === cviceni.id);
   
   // Přepočítané statistiky pro vybrané období
   const obdobiStatistiky = React.useMemo(() => {

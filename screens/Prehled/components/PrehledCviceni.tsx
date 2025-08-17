@@ -50,6 +50,7 @@ const styly = StyleSheet.create({
   statistikyWrapper: {
     marginBottom: 0,
     zIndex: 1,
+    marginHorizontal: -16, // Kompenzace paddingu seznamu
   },
   flatList: {
     flex: 1,
