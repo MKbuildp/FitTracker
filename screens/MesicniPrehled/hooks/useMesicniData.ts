@@ -1,14 +1,14 @@
-import { useState, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useCviceni } from '../../../context/CviceniContext';
-import { DenniData } from '../types/types';
-import { getDatyTydne, jeStejenDen } from '../utils/datumUtils';
+import { DenniData } from '../../Prehled/types/types';
+import { jeStejenDen } from '../../Prehled/utils/datumUtils';
+import { getDnyMesice } from '../utils/kalendarUtils';
 
 /**
- * Hook pro práci s daty kalendáře
+ * Hook pro práci s měsíčními daty kalendáře
  */
-export const useKalendarData = () => {
+export const useMesicniData = (vybranyDatum: Date) => {
   const { stav } = useCviceni();
-  const [vybranyDatum, setVybranyDatum] = useState(new Date());
 
   /**
    * Výpočet denních dat pro konkrétní datum
@@ -61,19 +61,15 @@ export const useKalendarData = () => {
     };
   };
 
-  // Memoizované denní data pro vybraný datum
-  const denniData = useMemo(() => getDenniData(vybranyDatum), [vybranyDatum, stav]);
-
-  // Získání dat pro aktuální období (týden)
-  const obdobiData = useMemo(() => {
-    const datyTydne = getDatyTydne(vybranyDatum);
-    return datyTydne.map(datum => getDenniData(datum));
+  // Získání dat pro celý měsíc
+  const mesicniData = useMemo(() => {
+    const dnyMesice = getDnyMesice(vybranyDatum);
+    // Filtrujeme pouze skutečné dny (ne null hodnoty pro prázdná místa)
+    const skutecneDny = dnyMesice.filter(den => den !== null) as Date[];
+    return skutecneDny.map(datum => getDenniData(datum));
   }, [vybranyDatum, stav]);
 
   return {
-    vybranyDatum,
-    setVybranyDatum,
-    denniData,
-    obdobiData
+    mesicniData
   };
 };
