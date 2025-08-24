@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { Alert } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useCviceni } from '../../../context/CviceniContext';
@@ -166,6 +166,11 @@ export const useDetailCviceni = (): UseDetailCviceniReturn => {
     }
   };
 
+  /** Otevře nastavení modal pro úpravu denního cíle */
+  const otevritNastaveniModal = useCallback(() => {
+    setJeModalViditelny(true);
+  }, []);
+
   return {
     jeModalViditelny,
     setJeModalViditelny,
@@ -178,5 +183,6 @@ export const useDetailCviceni = (): UseDetailCviceniReturn => {
     formatovatHodnotu,
     smazatZaznamSPotvrzenim,
     vsechnaCviceni: stav.cviceni,
+    otevritNastaveniModal, // Nový handler
   };
 }; 

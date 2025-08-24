@@ -30,6 +30,12 @@ export const en = {
   'settings.language': 'Language',
   'settings.czech': 'Czech',
   'settings.english': 'English',
+  'settings.progressGoals': 'Progress Bar Goals',
+  'settings.repetitionsGoal': 'Daily Repetitions Goal',
+  'settings.completedExercisesGoal': 'Completed Exercises Goal',
+  'settings.repetitionsGoalDescription': 'Set your daily goal for the total number of repetitions across all exercises. This goal is displayed in the red progress bar.',
+  'settings.completedExercisesGoalDescription': 'Set your daily goal for the number of completed exercises (exercises with at least one record). This goal is displayed in the blue progress bar.',
+  'settings.configureGoals': 'Configure Goals',
 
   // About App
   'about.title': 'About',

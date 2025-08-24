@@ -48,9 +48,10 @@ export interface DetailStatistiky {
 
 export interface StatistikyKomponentaProps {
   cviceni: Cviceni;
-  statistiky: DetailStatistiky;
+  statistiky: StatistikyCviceni;
   formatovatHodnotu: (hodnota: number) => string;
   zaznamy: ZaznamVykonu[];
+  onDenniCilPress: () => void; // Nový prop pro kliknutí na denní cíl
 }
 
 export interface UseDetailCviceniState {

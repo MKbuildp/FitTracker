@@ -31,6 +31,12 @@ export const cs = {
   'settings.language': 'Jazyk',
   'settings.czech': 'Čeština',
   'settings.english': 'Angličtina',
+  'settings.progressGoals': 'Cíle pro progress bary',
+  'settings.repetitionsGoal': 'Cíl denních opakování',
+  'settings.completedExercisesGoal': 'Cíl dokončených cvičení',
+  'settings.repetitionsGoalDescription': 'Nastavte si denní cíl pro celkový počet opakování všech cvičení. Tento cíl se zobrazuje v červeném progress baru.',
+  'settings.completedExercisesGoalDescription': 'Nastavte si denní cíl pro počet dokončených cvičení (cvičení s alespoň jedním záznamem). Tento cíl se zobrazuje v modrém progress baru.',
+  'settings.configureGoals': 'Konfigurovat cíle',
 
   // About App
   'about.title': 'O aplikaci',

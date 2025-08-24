@@ -37,6 +37,19 @@ export const KalendarHeader: React.FC<KalendarHeaderProps> = ({
     onDatumZmena(novyDatum);
   };
 
+  // Kontrola, zda je další týden v budoucnosti
+  const jeDalsiTydenVBudoucnosti = () => {
+    const dnes = new Date();
+    const dalsiTydenStart = new Date(vybranyDatum);
+    dalsiTydenStart.setDate(dalsiTydenStart.getDate() + 7);
+    
+    // Nastavíme čas na začátek dne pro správné porovnání
+    dnes.setHours(0, 0, 0, 0);
+    dalsiTydenStart.setHours(0, 0, 0, 0);
+    
+    return dalsiTydenStart > dnes;
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.navigace}>
@@ -48,8 +61,19 @@ export const KalendarHeader: React.FC<KalendarHeaderProps> = ({
           <Text style={styles.datumText}>{formatujDatum(vybranyDatum)}</Text>
         </View>
 
-        <TouchableOpacity onPress={dalsiTyden} style={styles.tlacitko}>
-          <Ionicons name="chevron-forward" size={24} color="#1f2937" />
+        <TouchableOpacity 
+          onPress={dalsiTyden} 
+          style={[
+            styles.tlacitko,
+            jeDalsiTydenVBudoucnosti() && styles.tlacitkoDeaktivovane
+          ]}
+          disabled={jeDalsiTydenVBudoucnosti()}
+        >
+          <Ionicons 
+            name="chevron-forward" 
+            size={24} 
+            color={jeDalsiTydenVBudoucnosti() ? "#9ca3af" : "#1f2937"} 
+          />
         </TouchableOpacity>
       </View>
     </View>
@@ -71,6 +95,10 @@ const styles = StyleSheet.create({
   tlacitko: {
     padding: 4,  // Zmenšeno z 8 na 4
     borderRadius: 8,
+  },
+  tlacitkoDeaktivovane: {
+    opacity: 0.5,
+    backgroundColor: '#f9fafb',
   },
   datumKontejner: {
     flex: 1,

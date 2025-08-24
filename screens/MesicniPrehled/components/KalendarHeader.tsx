@@ -38,6 +38,17 @@ export const KalendarHeader: React.FC<KalendarHeaderProps> = ({
     onDatumZmena(novyDatum);
   };
 
+  // Kontrola, zda je další měsíc v budoucnosti
+  const jeDalsiMesicVBudoucnosti = () => {
+    const dnes = new Date();
+    const dalsiMesic = new Date(vybranyDatum);
+    dalsiMesic.setMonth(dalsiMesic.getMonth() + 1);
+    
+    // Porovnáváme měsíc a rok
+    return dalsiMesic.getFullYear() > dnes.getFullYear() || 
+           (dalsiMesic.getFullYear() === dnes.getFullYear() && dalsiMesic.getMonth() > dnes.getMonth());
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.navigace}>
@@ -49,8 +60,19 @@ export const KalendarHeader: React.FC<KalendarHeaderProps> = ({
           <Text style={styles.datumText}>{formatujDatum(vybranyDatum)}</Text>
         </View>
 
-        <TouchableOpacity onPress={dalsiMesic} style={styles.tlacitko}>
-          <Ionicons name="chevron-forward" size={24} color="#1f2937" />
+        <TouchableOpacity 
+          onPress={dalsiMesic} 
+          style={[
+            styles.tlacitko,
+            jeDalsiMesicVBudoucnosti() && styles.tlacitkoDeaktivovane
+          ]}
+          disabled={jeDalsiMesicVBudoucnosti()}
+        >
+          <Ionicons 
+            name="chevron-forward" 
+            size={24} 
+            color={jeDalsiMesicVBudoucnosti() ? "#9ca3af" : "#1f2937"} 
+          />
         </TouchableOpacity>
       </View>
     </View>
@@ -71,6 +93,10 @@ const styles = StyleSheet.create({
   tlacitko: {
     padding: 8,
     borderRadius: 8,
+  },
+  tlacitkoDeaktivovane: {
+    opacity: 0.5,
+    backgroundColor: '#f9fafb',
   },
   datumKontejner: {
     flex: 1,

@@ -19,6 +19,19 @@ export const KalendarTyden: React.FC<KalendarTydenProps> = ({
   onDatumZmena,
   data
 }) => {
+  // Kontrola, zda je další týden v budoucnosti
+  const jeDalsiTydenVBudoucnosti = () => {
+    const dnes = new Date();
+    const dalsiTydenStart = new Date(vybranyDatum);
+    dalsiTydenStart.setDate(dalsiTydenStart.getDate() + 7);
+    
+    // Nastavíme čas na začátek dne pro správné porovnání
+    dnes.setHours(0, 0, 0, 0);
+    dalsiTydenStart.setHours(0, 0, 0, 0);
+    
+    return dalsiTydenStart > dnes;
+  };
+
   // Gesto pro přejetí doleva/doprava
   const swipeGesture = Gesture.Pan()
     .onEnd((event) => {
@@ -28,11 +41,21 @@ export const KalendarTyden: React.FC<KalendarTydenProps> = ({
       if (event.velocityX > 0) {
         // Swipe doprava - předchozí týden
         novyDatum.setDate(novyDatum.getDate() - 7);
+        onDatumZmena(novyDatum);
       } else {
         // Swipe doleva - další týden
-        novyDatum.setDate(novyDatum.getDate() + 7);
+        const dalsiTyden = new Date(vybranyDatum);
+        dalsiTyden.setDate(dalsiTyden.getDate() + 7);
+        
+        // Kontrola, zda není další týden v budoucnosti
+        const dnes = new Date();
+        dnes.setHours(0, 0, 0, 0);
+        dalsiTyden.setHours(0, 0, 0, 0);
+        
+        if (dalsiTyden <= dnes) {
+          onDatumZmena(dalsiTyden);
+        }
       }
-      onDatumZmena(novyDatum);
     });
 
   // Funkce pro vykreslení kruhového progress baru

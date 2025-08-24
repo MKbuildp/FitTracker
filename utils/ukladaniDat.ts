@@ -3,7 +3,8 @@ import { Cviceni, ZaznamVykonu } from '../types';
 
 const KLICE = {
   CVICENI: 'cviceni',
-  ZAZNAMY: 'zaznamy'
+  ZAZNAMY: 'zaznamy',
+  NASTAVENI_CILU: 'nastaveni_cilu'
 };
 
 /** Utility for data storage and loading */
@@ -71,10 +72,43 @@ export const ukladaniDat = {
   /** Delete all data */
   async vymazatVsechnaData(): Promise<void> {
     try {
-      await AsyncStorage.multiRemove([KLICE.CVICENI, KLICE.ZAZNAMY]);
+      await AsyncStorage.multiRemove([KLICE.CVICENI, KLICE.ZAZNAMY, KLICE.NASTAVENI_CILU]);
     } catch (error) {
       console.error('Error deleting data:', error);
       throw error;
+    }
+  },
+
+  /** Save progress bar goals settings */
+  async ulozitNastaveniCilu(nastaveni: { cilOpakovani: number; cilDokoncenaCviceni: number }): Promise<void> {
+    try {
+      const nastaveniJson = JSON.stringify(nastaveni);
+      await AsyncStorage.setItem(KLICE.NASTAVENI_CILU, nastaveniJson);
+    } catch (error) {
+      console.error('Error saving goals settings:', error);
+    }
+  },
+
+  /** Load progress bar goals settings */
+  async nacistNastaveniCilu(): Promise<{ cilOpakovani: number; cilDokoncenaCviceni: number }> {
+    try {
+      const nastaveniJson = await AsyncStorage.getItem(KLICE.NASTAVENI_CILU);
+      if (!nastaveniJson) {
+        // Výchozí hodnoty
+        return {
+          cilOpakovani: 50,
+          cilDokoncenaCviceni: 3
+        };
+      }
+      
+      return JSON.parse(nastaveniJson);
+    } catch (error) {
+      console.error('Error loading goals settings:', error);
+      // Výchozí hodnoty při chybě
+      return {
+        cilOpakovani: 50,
+        cilDokoncenaCviceni: 3
+      };
     }
   },
 }; 

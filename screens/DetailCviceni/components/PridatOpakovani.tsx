@@ -161,7 +161,7 @@ const styly = StyleSheet.create({
     overflow: 'hidden',
   },
   barevnyHeader: {
-    paddingVertical: 7,
+    paddingVertical: 5, // Zmenšeno z 7 na 5
     paddingHorizontal: 16,
   },
   headerObsah: {
@@ -189,12 +189,12 @@ const styly = StyleSheet.create({
     textAlign: 'center',
   },
   obsah: {
-    padding: 12, // Zmenšeno z 16 na 12 pro kompaktnější rozložení
+    padding: 8, // Zmenšeno z 12 na 8
   },
   pocitadloKontejner: {
     backgroundColor: 'transparent', // Odstraněno pozadí
     borderRadius: 12,
-    padding: 10.5, // Zmenšeno z 14 na 10.5 (další 25% redukce)
+    padding: 8, // Zmenšeno z 10.5 na 8
     marginBottom: 0, // Odstraněn margin
     borderWidth: 0, // Odstraněn border
     borderColor: 'transparent',
@@ -207,7 +207,7 @@ const styly = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f8fafc',
     borderRadius: 8,
-    padding: 12,
+    padding: 10, // Zmenšeno z 12 na 10
     borderWidth: 1,
     borderColor: '#e5e7eb',
     flexDirection: 'row',
@@ -248,7 +248,7 @@ const styly = StyleSheet.create({
   pocetJednotka: {
     fontSize: 14,
     color: '#6b7280',
-    marginTop: 2, // Zmenšeno z 4 na 2 (poloviční mezera)
+    marginTop: 1, // Zmenšeno z 2 na 1
     margin: 0, // Odstraněn margin (kromě marginTop)
     padding: 0, // Odstraněn padding
   },

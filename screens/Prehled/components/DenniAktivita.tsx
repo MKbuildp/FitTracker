@@ -1,39 +1,42 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Svg, Circle } from 'react-native-svg';
 import { DenniData } from '../types/types';
 import { useTranslation } from '../../../hooks/useTranslation';
+import { useCviceni } from '../../../context/CviceniContext';
 
 interface DenniAktivitaProps {
   data: DenniData;
+  onProgressPress?: () => void; // Callback pro klik na progress bar
 }
 
 /** Komponenta pro zobrazení denní aktivity s trojitým kruhovým progress barem */
-export const DenniAktivita: React.FC<DenniAktivitaProps> = ({ data }) => {
+export const DenniAktivita: React.FC<DenniAktivitaProps> = ({ data, onProgressPress }) => {
   const { t } = useTranslation();
+  const { nastaveniCilu } = useCviceni();
 
   // Velikost SVG
   const size = 100;
   const strokeWidth = 6;
   const center = size / 2;
 
-      // Poloměry pro jednotlivé kruhy s mezerami
-    const gap = 1; // 1px mezera mezi kruhy
-    const radius3 = (size - strokeWidth) / 2;                    // Vnější kruh
-    const radius2 = radius3 - strokeWidth - gap;                 // Prostřední kruh
-    const radius1 = radius2 - strokeWidth - gap;                 // Vnitřní kruh
+  // Poloměry pro jednotlivé kruhy s mezerami
+  const gap = 2; // 2px mezera mezi kruhy
+  const radius3 = (size - strokeWidth) / 2;                    // Vnější kruh
+  const radius2 = radius3 - strokeWidth - gap;                 // Prostřední kruh
+  const radius1 = radius2 - strokeWidth - gap;                 // Vnitřní kruh
 
   // Výpočet procent pro každou metriku
   const procentaCilu = data.celkoveCile > 0
     ? Math.min(100, (data.splneneCile / data.celkoveCile) * 100)
     : 0;
 
-  const procentaCviceni = data.celkoveCile > 0
-    ? Math.min(100, (data.dokoncenaCviceni / data.celkoveCile) * 100)
+  const procentaCviceni = nastaveniCilu.cilDokoncenaCviceni > 0
+    ? Math.min(100, (data.dokoncenaCviceni / nastaveniCilu.cilDokoncenaCviceni) * 100)
     : 0;
 
-  const procentaOpakovani = data.celkoveCile > 0
-    ? Math.min(100, (data.celkovaOpakovani / (data.celkoveCile * 10)) * 100)
+  const procentaOpakovani = nastaveniCilu.cilOpakovani > 0
+    ? Math.min(100, (data.celkovaOpakovani / nastaveniCilu.cilOpakovani) * 100)
     : 0;
 
   // Výpočet délky oblouku pro každý kruh
@@ -47,8 +50,12 @@ export const DenniAktivita: React.FC<DenniAktivitaProps> = ({ data }) => {
   return (
     <View style={styly.kontejner}>
       <View style={styly.obsahKontejner}>
-        {/* Progress bar vlevo */}
-        <View style={styly.kruhKontejner}>
+        {/* Progress bar vlevo - klikací */}
+        <TouchableOpacity 
+          style={styly.kruhKontejner} 
+          onPress={onProgressPress}
+          activeOpacity={0.7}
+        >
           <Svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
             {/* Pozadí kruhů */}
             <Circle
@@ -111,7 +118,7 @@ export const DenniAktivita: React.FC<DenniAktivitaProps> = ({ data }) => {
               strokeLinecap="round"
             />
           </Svg>
-        </View>
+        </TouchableOpacity>
 
         {/* Metriky napravo */}
         <View style={styly.metriky}>
@@ -130,7 +137,7 @@ export const DenniAktivita: React.FC<DenniAktivitaProps> = ({ data }) => {
               <View style={[styly.metrikaTecka, { backgroundColor: '#dc2626' }]} />
               <Text style={styly.metrikaPopisek}>{t('overview.totalRepetitions')}</Text>
               <Text style={[styly.metrikaHodnota, { color: '#dc2626' }]}>
-                {data.celkovaOpakovani}
+                {data.celkovaOpakovani}/{nastaveniCilu.cilOpakovani}
               </Text>
             </View>
           </View>
@@ -140,7 +147,7 @@ export const DenniAktivita: React.FC<DenniAktivitaProps> = ({ data }) => {
               <View style={[styly.metrikaTecka, { backgroundColor: '#3b82f6' }]} />
               <Text style={styly.metrikaPopisek}>{t('overview.completedExercises')}</Text>
               <Text style={[styly.metrikaHodnota, { color: '#3b82f6' }]}>
-                {data.dokoncenaCviceni}
+                {data.dokoncenaCviceni}/{nastaveniCilu.cilDokoncenaCviceni}
               </Text>
             </View>
           </View>

@@ -8,6 +8,10 @@ interface CviceniStav {
   cviceni: Cviceni[];
   zaznamy: ZaznamVykonu[];
   nacitaSeData: boolean;
+  nastaveniCilu: {
+    cilOpakovani: number;      // Cíl pro celkový počet opakování za den
+    cilDokoncenaCviceni: number; // Cíl pro počet dokončených cvičení za den
+  };
 }
 
 /** Akce pro reducer */
@@ -22,13 +26,19 @@ type CviceniAkce =
   | { typ: 'NASTAVIT_NACITANI'; nacita: boolean }
   | { typ: 'NASTAV_DENNI_CIL'; payload: { cviceniId: string; cil: number } }
   | { typ: 'UPRAVIT_BARVU_CVICENI'; payload: { cviceniId: string; barva: string } }
-  | { typ: 'NACIST_DATA'; cviceni: Cviceni[]; zaznamy: ZaznamVykonu[] };
+  | { typ: 'NACIST_DATA'; cviceni: Cviceni[]; zaznamy: ZaznamVykonu[] }
+  | { typ: 'NASTAVIT_CIL_OPAKOVANI'; cil: number }
+  | { typ: 'NASTAVIT_CIL_DOKONCENA_CVICENI'; cil: number };
 
 /** Počáteční stav */
 const pocatecniStav: CviceniStav = {
   cviceni: [],
   zaznamy: [],
-  nacitaSeData: true,
+  nacitaSeData: false,
+  nastaveniCilu: {
+    cilOpakovani: 50,      // Výchozí cíl: 50 opakování za den
+    cilDokoncenaCviceni: 3, // Výchozí cíl: 3 cvičení za den
+  },
 };
 
 /**
@@ -115,6 +125,23 @@ function cviceniReducer(stav: CviceniStav, akce: CviceniAkce): CviceniStav {
       return { ...stav, nacitaSeData: akce.nacita };
     case 'NACIST_DATA':
       return { ...stav, cviceni: akce.cviceni, zaznamy: akce.zaznamy, nacitaSeData: false };
+    case 'NASTAVIT_CIL_OPAKOVANI':
+      return {
+        ...stav,
+        nastaveniCilu: {
+          ...stav.nastaveniCilu,
+          cilOpakovani: akce.cil,
+        },
+      };
+      
+    case 'NASTAVIT_CIL_DOKONCENA_CVICENI':
+      return {
+        ...stav,
+        nastaveniCilu: {
+          ...stav.nastaveniCilu,
+          cilDokoncenaCviceni: akce.cil,
+        },
+      };
     default:
       return stav;
   }
@@ -133,6 +160,15 @@ interface CviceniContextInterface {
   upravitBarvuCviceni: (cviceniId: string, barva: string) => Promise<void>;
   resetovatData: () => Promise<void>;
   nacistData: () => Promise<void>;
+  
+  // Nové nastavení cílů
+  nastaveniCilu: {
+    cilOpakovani: number;      // Cíl pro celkový počet opakování za den
+    cilDokoncenaCviceni: number; // Cíl pro počet dokončených cvičení za den
+  };
+  
+  nastavitCilOpakovani: (cil: number) => Promise<void>;
+  nastavitCilDokoncenaCviceni: (cil: number) => Promise<void>;
 }
 
 /** Kontext */
@@ -167,8 +203,11 @@ export const CviceniProvider: React.FC<{ children: React.ReactNode }> = ({ child
   const nacistData = useCallback(async () => {
     dispatch({ typ: 'NASTAVIT_NACITANI', nacita: true });
     try {
-      const cviceni = await ukladaniDat.nacistCviceni();
-      const zaznamy = await ukladaniDat.nacistZaznamy();
+      const [cviceni, zaznamy, nastaveniCilu] = await Promise.all([
+        ukladaniDat.nacistCviceni(),
+        ukladaniDat.nacistZaznamy(),
+        ukladaniDat.nacistNastaveniCilu()
+      ]);
       
       // Pokud není žádné cvičení, vytvořit ukázková podle jazyka
       if (cviceni.length === 0) {
@@ -178,6 +217,10 @@ export const CviceniProvider: React.FC<{ children: React.ReactNode }> = ({ child
       } else {
         dispatch({ typ: 'NACIST_DATA', cviceni, zaznamy });
       }
+      
+      // Nastavit načtené cíle
+      dispatch({ typ: 'NASTAVIT_CIL_OPAKOVANI', cil: nastaveniCilu.cilOpakovani });
+      dispatch({ typ: 'NASTAVIT_CIL_DOKONCENA_CVICENI', cil: nastaveniCilu.cilDokoncenaCviceni });
     } catch (error) {
       console.error('Chyba při načítání dat:', error);
       // Fallback na ukázková cvičení při chybě
@@ -309,6 +352,26 @@ export const CviceniProvider: React.FC<{ children: React.ReactNode }> = ({ child
     upravitBarvuCviceni,
     resetovatData,
     nacistData,
+    
+    // Nové nastavení cílů
+    nastaveniCilu: stav.nastaveniCilu,
+    
+    nastavitCilOpakovani: async (cil) => {
+      dispatch({ typ: 'NASTAVIT_CIL_OPAKOVANI', cil });
+      // Uložit do AsyncStorage
+      await ukladaniDat.ulozitNastaveniCilu({
+        cilOpakovani: cil,
+        cilDokoncenaCviceni: stav.nastaveniCilu.cilDokoncenaCviceni
+      });
+    },
+    nastavitCilDokoncenaCviceni: async (cil) => {
+      dispatch({ typ: 'NASTAVIT_CIL_DOKONCENA_CVICENI', cil });
+      // Uložit do AsyncStorage
+      await ukladaniDat.ulozitNastaveniCilu({
+        cilOpakovani: stav.nastaveniCilu.cilOpakovani,
+        cilDokoncenaCviceni: cil
+      });
+    },
   };
 
   return <CviceniContext.Provider value={hodnota}>{children}</CviceniContext.Provider>;

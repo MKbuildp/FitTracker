@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { StatistikyKomponentaProps } from '../types/types';
 import { ZaznamVykonu } from '../../../types';
@@ -11,7 +11,8 @@ export const StatistikyKomponenta: React.FC<StatistikyKomponentaProps> = ({
   cviceni, 
   statistiky, 
   formatovatHodnotu,
-  zaznamy
+  zaznamy,
+  onDenniCilPress
 }) => {
   const { safeT } = useTranslation();
   
@@ -52,7 +53,21 @@ export const StatistikyKomponenta: React.FC<StatistikyKomponentaProps> = ({
   
   // Výpočet procent pro progress bar
   const skutecnaProcenta = cviceni.denniCil && obdobiStatistiky.dnesniVykon > 0
-    ? Math.round((obdobiStatistiky.dnesniVykon / cviceni.denniCil) * 100)
+    ? (() => {
+        if (cviceni.typMereni === 'opakovani') {
+          // Pro opakování: dnesniVykon / denniCil
+          return Math.round((obdobiStatistiky.dnesniVykon / cviceni.denniCil) * 100);
+        } else {
+          // Pro časovky: závisí na směrování
+          if (cviceni.smerovani === 'kratsi_lepsi') {
+            // Kratší je lepší: denniCil / dnesniVykon
+            return Math.round((cviceni.denniCil / obdobiStatistiky.dnesniVykon) * 100);
+          } else {
+            // Delší je lepší: dnesniVykon / denniCil
+            return Math.round((obdobiStatistiky.dnesniVykon / cviceni.denniCil) * 100);
+          }
+        }
+      })()
     : 0;
   const vizualniProcenta = Math.min(skutecnaProcenta, 100); // Progress bar max 100%
   
@@ -95,7 +110,11 @@ export const StatistikyKomponenta: React.FC<StatistikyKomponentaProps> = ({
             <Text style={styly.statistikaHodnota}>{formatovatHodnotu(obdobiStatistiky.dnesniVykon)}</Text>
           </View>
           
-          <View style={[styly.statistikaPolozkaVyrazna, { borderColor: cviceni.barva || '#9ca3af' }]}>
+          <TouchableOpacity 
+            style={[styly.statistikaPolozkaVyrazna, { borderColor: cviceni.barva || '#9ca3af' }]}
+            onPress={onDenniCilPress}
+            activeOpacity={0.7}
+          >
             <View style={styly.statistikaHeader}>
               <Ionicons name="trophy" size={16} color="#10b981" />
               <Text style={styly.statistikaNazevVetsi}>
@@ -105,7 +124,7 @@ export const StatistikyKomponenta: React.FC<StatistikyKomponentaProps> = ({
             <Text style={styly.statistikaHodnota}>
               {cviceni.denniCil ? formatovatHodnotu(cviceni.denniCil) : '-'}
             </Text>
-          </View>
+          </TouchableOpacity>
         </View>
 
         {/* Progress bar */}

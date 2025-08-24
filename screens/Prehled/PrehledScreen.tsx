@@ -7,6 +7,7 @@ import {
   PrazdnyStav,
   NastaveniModal,
   DenniAktivita,
+  NastaveniCiluModal,
 } from './components';
 import { KalendarHeader, KalendarTyden } from './components/Kalendar';
 import { TeckovanyVzor } from '../../components/PozadiVzory';
@@ -22,6 +23,7 @@ const PrehledScreen: React.FC = () => {
   const navigation = useNavigation<NavigationProp>();
   const { t } = useTranslation();
   const [jeNastaveniViditelne, setJeNastaveniViditelne] = useState(false);
+  const [jeNastaveniCiluViditelne, setJeNastaveniCiluViditelne] = useState(false);
 
   // Bezpečné nastavení callback funkce pro otevření nastavení
   useFocusEffect(
@@ -80,7 +82,10 @@ const PrehledScreen: React.FC = () => {
                 onDatumZmena={kalendarData.setVybranyDatum}
               />
               
-              <DenniAktivita data={kalendarData.denniData} />
+              <DenniAktivita 
+                data={kalendarData.denniData} 
+                onProgressPress={() => setJeNastaveniCiluViditelne(true)}
+              />
             </View>
           }
         />
@@ -89,6 +94,11 @@ const PrehledScreen: React.FC = () => {
       <NastaveniModal
         viditelne={jeNastaveniViditelne}
         onZavrit={() => setJeNastaveniViditelne(false)}
+      />
+      
+      <NastaveniCiluModal
+        viditelne={jeNastaveniCiluViditelne}
+        onZavrit={() => setJeNastaveniCiluViditelne(false)}
       />
     </>
   );

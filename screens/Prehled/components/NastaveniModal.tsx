@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from '../../../hooks/useTranslation';
-
+import { NastaveniCiluModal } from './NastaveniCiluModal';
 
 interface NastaveniModalProps {
   viditelne: boolean;
@@ -25,6 +25,7 @@ export const NastaveniModal: React.FC<NastaveniModalProps> = ({
   onZavrit,
 }) => {
   const { t, currentLanguage, setLanguage } = useTranslation();
+  const [zobrazitNastaveniCilu, setZobrazitNastaveniCilu] = useState(false);
 
   /**
    * Změna jazyka s potvrzením
@@ -43,80 +44,108 @@ export const NastaveniModal: React.FC<NastaveniModalProps> = ({
   };
 
   return (
-    <Modal
-      animationType="fade"
-      transparent={true}
-      visible={viditelne}
-      onRequestClose={onZavrit}
-    >
-      <TouchableWithoutFeedback onPress={onZavrit}>
-        <View style={styly.modalPozadi}>
-          <TouchableWithoutFeedback>
-            <View style={styly.modalObsah}>
-              <View style={styly.hlavicka}>
-                <Text style={styly.modalNadpis}>{t('settings.title')}</Text>
-                <TouchableOpacity onPress={onZavrit} style={styly.zavritTlacitko}>
-                  <Ionicons name="close" size={28} color="#6b7280" />
-                </TouchableOpacity>
-              </View>
-
-              <View style={styly.sekce}>
-                <Text style={styly.sekceNadpis}>{t('settings.language')}</Text>
-                <View style={styly.jazykTlacitka}>
-                  <TouchableOpacity
-                    style={[
-                      styly.jazykTlacitko,
-                      currentLanguage === 'cs' && styly.jazykTlacitkoAktivni,
-                    ]}
-                    onPress={() => handleLanguageChange('cs')}
-                    activeOpacity={0.7}
-                  >
-                    <Text style={styly.vlajka}>🇨🇿</Text>
-                    <Text
-                      style={[
-                        styly.jazykText,
-                        currentLanguage === 'cs' && styly.jazykTextAktivni,
-                      ]}
-                    >
-                      {t('settings.czech')}
-                    </Text>
-                  </TouchableOpacity>
-
-                  <TouchableOpacity
-                    style={[
-                      styly.jazykTlacitko,
-                      currentLanguage === 'en' && styly.jazykTlacitkoAktivni,
-                    ]}
-                    onPress={() => handleLanguageChange('en')}
-                    activeOpacity={0.7}
-                  >
-                    <Text style={styly.vlajka}>🇬🇧</Text>
-                    <Text
-                      style={[
-                        styly.jazykText,
-                        currentLanguage === 'en' && styly.jazykTextAktivni,
-                      ]}
-                    >
-                      {t('settings.english')}
-                    </Text>
+    <>
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={viditelne}
+        onRequestClose={onZavrit}
+      >
+        <TouchableWithoutFeedback onPress={onZavrit}>
+          <View style={styly.modalPozadi}>
+            <TouchableWithoutFeedback>
+              <View style={styly.modalObsah}>
+                <View style={styly.hlavicka}>
+                  <Text style={styly.modalNadpis}>{t('settings.title')}</Text>
+                  <TouchableOpacity onPress={onZavrit} style={styly.zavritTlacitko}>
+                    <Ionicons name="close" size={28} color="#6b7280" />
                   </TouchableOpacity>
                 </View>
-              </View>
 
-              <View style={styly.sekce}>
-                <Text style={styly.sekceNadpis}>{t('about.title')}</Text>
-                
-                <Text style={styly.appInfo}>FitTracker 1.0.0</Text>
-                
-                <View style={styly.popisKontejner}>
-                  <Text style={styly.popisText}>{t('about.appDescription')}</Text>
+                {/* Jazyk */}
+                <View style={styly.sekce}>
+                  <Text style={styly.sekceNadpis}>{t('settings.language')}</Text>
+                  <View style={styly.jazykTlacitka}>
+                    <TouchableOpacity
+                      style={[
+                        styly.jazykTlacitko,
+                        currentLanguage === 'cs' && styly.jazykTlacitkoAktivni,
+                      ]}
+                      onPress={() => handleLanguageChange('cs')}
+                      activeOpacity={0.7}
+                    >
+                      <Text style={styly.vlajka}>🇨🇿</Text>
+                      <Text
+                        style={[
+                          styly.jazykText,
+                          currentLanguage === 'cs' && styly.jazykTextAktivni,
+                        ]}
+                      >
+                        {t('settings.czech')}
+                      </Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                      style={[
+                        styly.jazykTlacitko,
+                        currentLanguage === 'en' && styly.jazykTlacitkoAktivni,
+                      ]}
+                      onPress={() => handleLanguageChange('en')}
+                      activeOpacity={0.7}
+                    >
+                      <Text style={styly.vlajka}>🇬🇧</Text>
+                      <Text
+                        style={[
+                          styly.jazykText,
+                          currentLanguage === 'en' && styly.jazykTextAktivni,
+                        ]}
+                      >
+                        {t('settings.english')}
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+
+                {/* Cíle pro progress bary */}
+                <View style={styly.sekce}>
+                  <Text style={styly.sekceNadpis}>{t('settings.progressGoals')}</Text>
+                  <TouchableOpacity
+                    style={styly.cilTlacitko}
+                    onPress={() => setZobrazitNastaveniCilu(true)}
+                    activeOpacity={0.7}
+                  >
+                    <View style={styly.cilTlacitkoObsah}>
+                      <Ionicons name="settings" size={20} color="#2563eb" />
+                      <Text style={styly.cilTlacitkoText}>
+                        {t('settings.configureGoals')}
+                      </Text>
+                      <Ionicons name="chevron-forward" size={20} color="#6b7280" />
+                    </View>
+                  </TouchableOpacity>
+                </View>
+
+                {/* O aplikaci */}
+                <View style={styly.sekce}>
+                  <Text style={styly.sekceNadpis}>{t('about.title')}</Text>
+                  
+                  <Text style={styly.appInfo}>FitTracker 1.0.0</Text>
+                  
+                  <View style={styly.popisKontejner}>
+                    <Text style={styly.popisText}>{t('about.appDescription')}</Text>
+                  </View>
                 </View>
               </View>
-            </View>
-          </TouchableWithoutFeedback>
-        </View>
-      </TouchableWithoutFeedback>
-    </Modal>
+            </TouchableWithoutFeedback>
+          </View>
+        </TouchableWithoutFeedback>
+      </Modal>
+
+      {/* Modální okno pro nastavení cílů */}
+      <NastaveniCiluModal
+        viditelne={zobrazitNastaveniCilu}
+        onZavrit={() => setZobrazitNastaveniCilu(false)}
+      />
+    </>
   );
 };
 
@@ -242,5 +271,29 @@ const styly = StyleSheet.create({
     color: '#374151',
     textAlign: 'center',
     marginBottom: 8,
+  },
+  cilTlacitko: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+    backgroundColor: '#f8fafc',
+  },
+  cilTlacitkoObsah: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flex: 1,
+  },
+  cilTlacitkoText: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: '#1f2937',
+    marginLeft: 10,
+    marginRight: 10,
   },
 }); 

@@ -117,7 +117,7 @@ export const DenniCilEditor: React.FC<{
                 <View style={styly.casSloupec}>
                   <TouchableOpacity 
                     style={styly.tlacitkoZmeny}
-                    onPress={() => zmenitSekundy(15)}
+                    onPress={() => zmenitSekundy(1)} // Změněno z 15 na 1
                   >
                     <Ionicons name="chevron-up" size={20} color="#6b7280" />
                   </TouchableOpacity>
@@ -128,7 +128,7 @@ export const DenniCilEditor: React.FC<{
                   
                   <TouchableOpacity 
                     style={styly.tlacitkoZmeny}
-                    onPress={() => zmenitSekundy(-15)}
+                    onPress={() => zmenitSekundy(-1)} // Změněno z -15 na -1
                     disabled={sekundy <= 0}
                   >
                     <Ionicons name="chevron-down" size={20} color={sekundy <= 0 ? '#9ca3af' : '#6b7280'} />

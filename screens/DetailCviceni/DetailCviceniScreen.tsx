@@ -36,6 +36,7 @@ const DetailCviceniScreen: React.FC = () => {
     formatovatHodnotu,
     smazatZaznamSPotvrzenim,
     vsechnaCviceni,
+    otevritNastaveniModal, // Nový handler
   } = useDetailCviceni();
 
   // Nastavení názvu a pravého tlačítka v headeru
@@ -78,6 +79,7 @@ const DetailCviceniScreen: React.FC = () => {
               statistiky={statistiky}
               formatovatHodnotu={formatovatHodnotu}
               zaznamy={zaznamy}
+              onDenniCilPress={otevritNastaveniModal} // Nový prop
             />
           </View>
 
