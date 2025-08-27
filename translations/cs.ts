@@ -38,6 +38,15 @@ export const cs = {
   'settings.completedExercisesGoalDescription': 'Nastavte si denní cíl pro počet dokončených cvičení (cvičení s alespoň jedním záznamem). Tento cíl se zobrazuje v modrém progress baru.',
   'settings.configureGoals': 'Konfigurovat cíle',
 
+  // Goals Modal
+  'goals.title': 'Nastavení cílů',
+  'goals.dailyRepetitionsGoal': 'Cíl denních opakování',
+  'goals.completedExercisesGoal': 'Cíl dokončených cvičení',
+  'goals.dailyRepetitionsDescription': 'Denní cíl pro celkový počet opakování všech cvičení',
+  'goals.completedExercisesDescription': 'Denní cíl pro počet dokončených cvičení',
+  'goals.repetitionsUnit': 'opakování',
+  'goals.exercisesUnit': 'cvičení',
+
   // About App
   'about.title': 'O aplikaci',
   'about.version': 'Verze',

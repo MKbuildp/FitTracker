@@ -128,7 +128,7 @@ export const NastaveniModal: React.FC<NastaveniModalProps> = ({
                 <View style={styly.sekce}>
                   <Text style={styly.sekceNadpis}>{t('about.title')}</Text>
                   
-                  <Text style={styly.appInfo}>FitTracker 1.0.0</Text>
+                  <Text style={styly.appInfo}>FitTracker 1.1.8</Text>
                   
                   <View style={styly.popisKontejner}>
                     <Text style={styly.popisText}>{t('about.appDescription')}</Text>

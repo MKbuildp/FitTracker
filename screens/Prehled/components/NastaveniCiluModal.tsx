@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useCviceni } from '../../../context/CviceniContext';
+import { useTranslation } from '../../../hooks/useTranslation';
 
 interface NastaveniCiluModalProps {
   viditelne: boolean;
@@ -20,7 +21,8 @@ export const NastaveniCiluModal: React.FC<NastaveniCiluModalProps> = ({
   viditelne,
   onZavrit,
 }) => {
-  const { nastaveniCilu, nastavitCilOpakovani, nastavitCilDokoncenaCviceni } = useCviceni();
+  const { nastaveniCilu, nastavitCileNajednou } = useCviceni();
+  const { t } = useTranslation();
   const [cilOpakovani, setCilOpakovani] = useState(nastaveniCilu.cilOpakovani);
   const [cilDokoncenaCviceni, setCilDokoncenaCviceni] = useState(nastaveniCilu.cilDokoncenaCviceni);
 
@@ -39,13 +41,10 @@ export const NastaveniCiluModal: React.FC<NastaveniCiluModalProps> = ({
    */
   const handleUlozit = async () => {
     try {
-      await Promise.all([
-        nastavitCilOpakovani(cilOpakovani),
-        nastavitCilDokoncenaCviceni(cilDokoncenaCviceni)
-      ]);
+      await nastavitCileNajednou(cilOpakovani, cilDokoncenaCviceni);
       onZavrit();
     } catch (error) {
-      Alert.alert('Chyba', 'Nepodařilo se uložit nastavení.');
+      Alert.alert(t('error.saveFailed'), t('error.saveFailed'));
     }
   };
 
@@ -69,7 +68,7 @@ export const NastaveniCiluModal: React.FC<NastaveniCiluModalProps> = ({
         <View style={styly.modal}>
           {/* Hlavička */}
           <View style={styly.hlavicka}>
-            <Text style={styly.nadpis}>Cíle pro progress bary</Text>
+            <Text style={styly.nadpis}>{t('goals.title')}</Text>
             <TouchableOpacity onPress={onZavrit}>
               <Ionicons name="close" size={24} color="#666" />
             </TouchableOpacity>
@@ -82,11 +81,11 @@ export const NastaveniCiluModal: React.FC<NastaveniCiluModalProps> = ({
             <View style={styly.polozka}>
               <View style={styly.polozkaHeader}>
                 <Ionicons name="repeat" size={20} color="#dc2626" />
-                <Text style={styly.polozkaTitle}>Cíl denních opakování</Text>
+                <Text style={styly.polozkaTitle}>{t('goals.dailyRepetitionsGoal')}</Text>
               </View>
               
               <Text style={styly.popis}>
-                Denní cíl pro celkový počet opakování všech cvičení
+                {t('goals.dailyRepetitionsDescription')}
               </Text>
               
               <View style={styly.ovladace}>
@@ -99,7 +98,7 @@ export const NastaveniCiluModal: React.FC<NastaveniCiluModalProps> = ({
                 
                 <View style={styly.hodnota}>
                   <Text style={styly.cislo}>{cilOpakovani}</Text>
-                  <Text style={styly.jednotka}>opakování</Text>
+                  <Text style={styly.jednotka}>{t('goals.repetitionsUnit')}</Text>
                 </View>
                 
                 <TouchableOpacity
@@ -115,11 +114,11 @@ export const NastaveniCiluModal: React.FC<NastaveniCiluModalProps> = ({
             <View style={styly.polozka}>
               <View style={styly.polozkaHeader}>
                 <Ionicons name="checkmark-circle" size={20} color="#3b82f6" />
-                <Text style={styly.polozkaTitle}>Cíl dokončených cvičení</Text>
+                <Text style={styly.polozkaTitle}>{t('goals.completedExercisesGoal')}</Text>
               </View>
               
               <Text style={styly.popis}>
-                Denní cíl pro počet dokončených cvičení
+                {t('goals.completedExercisesDescription')}
               </Text>
               
               <View style={styly.ovladace}>
@@ -132,7 +131,7 @@ export const NastaveniCiluModal: React.FC<NastaveniCiluModalProps> = ({
                 
                 <View style={styly.hodnota}>
                   <Text style={styly.cislo}>{cilDokoncenaCviceni}</Text>
-                  <Text style={styly.jednotka}>cvičení</Text>
+                  <Text style={styly.jednotka}>{t('goals.exercisesUnit')}</Text>
                 </View>
                 
                 <TouchableOpacity
@@ -149,11 +148,11 @@ export const NastaveniCiluModal: React.FC<NastaveniCiluModalProps> = ({
           {/* Tlačítka */}
           <View style={styly.tlacitka}>
             <TouchableOpacity style={styly.zrusit} onPress={handleZrusit}>
-              <Text style={styly.zrusitText}>Zrušit</Text>
+              <Text style={styly.zrusitText}>{t('common.cancel')}</Text>
             </TouchableOpacity>
             
             <TouchableOpacity style={styly.ulozit} onPress={handleUlozit}>
-              <Text style={styly.ulozitText}>Uložit</Text>
+              <Text style={styly.ulozitText}>{t('common.save')}</Text>
             </TouchableOpacity>
           </View>
         </View>

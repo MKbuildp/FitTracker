@@ -169,6 +169,7 @@ interface CviceniContextInterface {
   
   nastavitCilOpakovani: (cil: number) => Promise<void>;
   nastavitCilDokoncenaCviceni: (cil: number) => Promise<void>;
+  nastavitCileNajednou: (cilOpakovani: number, cilDokoncenaCviceni: number) => Promise<void>;
 }
 
 /** Kontext */
@@ -357,20 +358,32 @@ export const CviceniProvider: React.FC<{ children: React.ReactNode }> = ({ child
     nastaveniCilu: stav.nastaveniCilu,
     
     nastavitCilOpakovani: async (cil) => {
-      dispatch({ typ: 'NASTAVIT_CIL_OPAKOVANI', cil });
-      // Uložit do AsyncStorage
+      // Nejprve uložit do AsyncStorage s aktuálními hodnotami
       await ukladaniDat.ulozitNastaveniCilu({
         cilOpakovani: cil,
         cilDokoncenaCviceni: stav.nastaveniCilu.cilDokoncenaCviceni
       });
+      // Pak aktualizovat stav
+      dispatch({ typ: 'NASTAVIT_CIL_OPAKOVANI', cil });
     },
     nastavitCilDokoncenaCviceni: async (cil) => {
-      dispatch({ typ: 'NASTAVIT_CIL_DOKONCENA_CVICENI', cil });
-      // Uložit do AsyncStorage
+      // Nejprve uložit do AsyncStorage s aktuálními hodnotami
       await ukladaniDat.ulozitNastaveniCilu({
         cilOpakovani: stav.nastaveniCilu.cilOpakovani,
         cilDokoncenaCviceni: cil
       });
+      // Pak aktualizovat stav
+      dispatch({ typ: 'NASTAVIT_CIL_DOKONCENA_CVICENI', cil });
+    },
+    nastavitCileNajednou: async (cilOpakovani, cilDokoncenaCviceni) => {
+      // Uložit obě hodnoty současně do AsyncStorage
+      await ukladaniDat.ulozitNastaveniCilu({
+        cilOpakovani,
+        cilDokoncenaCviceni
+      });
+      // Pak aktualizovat stav - obě hodnoty najednou
+      dispatch({ typ: 'NASTAVIT_CIL_OPAKOVANI', cil: cilOpakovani });
+      dispatch({ typ: 'NASTAVIT_CIL_DOKONCENA_CVICENI', cil: cilDokoncenaCviceni });
     },
   };
 

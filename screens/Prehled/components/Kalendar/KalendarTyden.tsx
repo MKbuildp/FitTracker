@@ -4,6 +4,7 @@ import { Svg, Circle } from 'react-native-svg';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 import { DenniData } from '../../types/types';
 import { formatujDenTydne, jeDnes, jeStejenDen } from '../../utils/datumUtils';
+import { useTranslation } from '../../../../hooks/useTranslation';
 
 interface KalendarTydenProps {
   vybranyDatum: Date;
@@ -19,6 +20,7 @@ export const KalendarTyden: React.FC<KalendarTydenProps> = ({
   onDatumZmena,
   data
 }) => {
+  const { t } = useTranslation();
   // Kontrola, zda je další týden v budoucnosti
   const jeDalsiTydenVBudoucnosti = () => {
     const dnes = new Date();
@@ -170,7 +172,15 @@ export const KalendarTyden: React.FC<KalendarTydenProps> = ({
       <View style={styles.container}>
         {/* Hlavička se zkratkami dnů */}
         <View style={styles.hlavickaDny}>
-          {['Po', 'Út', 'St', 'Čt', 'Pá', 'So', 'Ne'].map((den, index) => (
+          {[
+            t('days.short.mon'), 
+            t('days.short.tue'), 
+            t('days.short.wed'), 
+            t('days.short.thu'), 
+            t('days.short.fri'), 
+            t('days.short.sat'), 
+            t('days.short.sun')
+          ].map((den, index) => (
             <View key={index} style={styles.denKontejner}>
               <Text style={styles.denTydneText}>{den}</Text>
             </View>

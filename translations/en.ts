@@ -8,6 +8,7 @@ export const en = {
   'nav.timers': 'Timers',
   'nav.addExercise': 'Add Exercise',
   'nav.exerciseDetail': 'Exercise Detail',
+  'nav.monthlyOverview': 'Monthly Overview',
 
   // Common
   'common.loading': 'Loading...',
@@ -37,6 +38,15 @@ export const en = {
   'settings.completedExercisesGoalDescription': 'Set your daily goal for the number of completed exercises (exercises with at least one record). This goal is displayed in the blue progress bar.',
   'settings.configureGoals': 'Configure Goals',
 
+  // Goals Modal
+  'goals.title': 'Goals Settings',
+  'goals.dailyRepetitionsGoal': 'Daily Repetitions Goal',
+  'goals.completedExercisesGoal': 'Completed Exercises Goal',
+  'goals.dailyRepetitionsDescription': 'Daily goal for total number of repetitions across all exercises',
+  'goals.completedExercisesDescription': 'Daily goal for number of completed exercises',
+  'goals.repetitionsUnit': 'repetitions',
+  'goals.exercisesUnit': 'exercises',
+
   // About App
   'about.title': 'About',
   'about.version': 'Version',
@@ -65,6 +75,8 @@ export const en = {
   'overview.empty.subtitle': 'Start by adding your first exercise',
   'overview.empty.action': 'Add Exercise',
   'overview.loadingStats': 'Loading statistics...',
+  'overview.completedExercises': 'Completed Exercises',
+  'overview.totalRepetitions': 'Total Repetitions',
 
   // Repetitions screen
   'repetitions.title': 'Repetitions',
@@ -167,6 +179,10 @@ export const en = {
   'motivation.wellDone': 'Well done!',
   'motivation.almostThere': 'Almost there!',
 
+  // Calendar
+  'calendar.month': 'Month',
+  'calendar.week': 'Week',
+
   // Days of week
   'days.short.mon': 'Mon',
   'days.short.tue': 'Tue',
@@ -218,6 +234,7 @@ export const en = {
   'period.thisYear': 'This Year',
   'period.lastYear': 'Last Year',
   'period.monthlyAverage': 'Monthly Average',
+  'period.monthlyStats': 'Monthly Statistics',
   'period.dailyAverage': 'Daily Average',
   'period.totalThisMonth': 'Total This Month',
   'period.totalThisYear': 'Total This Year',
