@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useCviceni } from '../../../context/CviceniContext';
 import { ZaznamPolozkaProps } from '../types/types';
 import { useTranslation } from '../../../hooks/useTranslation';
+import { responsiveComponents, responsiveTypography, responsiveSpacingValues } from '../../../src/styles/theme';
 
 /** Komponenta pro jeden záznam v historii */
 export const ZaznamPolozka: React.FC<ZaznamPolozkaProps> = React.memo(({ zaznam, cviceni }) => {
@@ -58,8 +59,8 @@ export const ZaznamPolozka: React.FC<ZaznamPolozkaProps> = React.memo(({ zaznam,
 const styly = StyleSheet.create({
   zaznamPolozka: {
     backgroundColor: 'white',
-    borderRadius: 8,
-    padding: 16,
+    borderRadius: responsiveSpacingValues.sm,
+    padding: responsiveSpacingValues.md,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -73,17 +74,17 @@ const styly = StyleSheet.create({
     flex: 1,
   },
   zaznamHodnota: {
-    fontSize: 18,
+    fontSize: responsiveTypography.subtitle.fontSize,
     fontWeight: '600',
     color: '#1f2937',
-    marginBottom: 4,
+    marginBottom: responsiveSpacingValues.xs,
   },
   zaznamDatum: {
-    fontSize: 12,
+    fontSize: responsiveTypography.caption.fontSize - 2, // Menší než caption
     color: '#6b7280',
   },
   smazatZaznamTlacitko: {
-    padding: 8,
+    padding: responsiveSpacingValues.sm,
     borderRadius: 6,
     backgroundColor: '#fef2f2',
   },

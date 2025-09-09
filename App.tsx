@@ -55,8 +55,17 @@ function HlavniTaby() {
 
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: '#2563eb',
-        tabBarInactiveTintColor: 'gray',
+        tabBarActiveTintColor: '#ffffff', // Bílá barva pro aktivní záložku
+        tabBarInactiveTintColor: '#ffffff', // Bílá barva pro neaktivní záložku
+        tabBarStyle: {
+          backgroundColor: '#2563eb', // Modré pozadí jako hlavička
+          borderTopWidth: 0, // Odstraníme horní hranu
+          elevation: 8, // Android stín
+          shadowColor: '#000',
+          shadowOffset: { width: 0, height: -2 },
+          shadowOpacity: 0.1,
+          shadowRadius: 4,
+        },
       })}
     >
       <Tab.Screen 
@@ -226,12 +235,18 @@ function AppContent() {
         <Stack.Screen 
           name="DetailCviceni" 
           component={DetailCviceniScreen}
-          options={{ title: '' }} // Dynamicky nastaveno v komponentě
+          options={{ 
+            title: '', // Dynamicky nastaveno v komponentě
+            headerBackVisible: false, // Odstraníme šipku zpět
+          }}
         />
         <Stack.Screen 
           name="MesicniPrehled" 
           component={MesicniPrehledScreen}
-          options={{ title: t('nav.monthlyOverview') }}
+          options={{ 
+            title: t('nav.monthlyOverview'),
+            headerBackVisible: false, // Odstraníme šipku zpět
+          }}
         />
         </Stack.Navigator>
       </NavigationContainer>

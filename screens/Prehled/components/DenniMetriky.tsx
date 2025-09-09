@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { DenniData } from '../types/types';
 import { useTranslation } from '../../../hooks/useTranslation';
+import { responsiveComponents, responsiveTypography, responsiveSpacingValues } from '../../../src/styles/theme';
 
 interface DenniMetrikyProps {
   data: DenniData;
@@ -72,8 +73,8 @@ const styly = StyleSheet.create({
   },
   metrika: {
     backgroundColor: 'white',
-    borderRadius: 12,
-    padding: 12,
+    borderRadius: responsiveComponents.cardBorderRadius,
+    padding: responsiveSpacingValues.sm,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.05,
@@ -83,11 +84,11 @@ const styly = StyleSheet.create({
   metrikaHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
-    marginBottom: 8,
+    gap: responsiveSpacingValues.sm,
+    marginBottom: responsiveSpacingValues.sm,
   },
   metrikaNadpis: {
-    fontSize: 14,
+    fontSize: responsiveTypography.caption.fontSize,
     fontWeight: '600',
     color: '#4b5563',
   },
@@ -97,12 +98,12 @@ const styly = StyleSheet.create({
     justifyContent: 'space-between',
   },
   metrikaHodnota: {
-    fontSize: 24,
+    fontSize: responsiveTypography.title.fontSize,
     fontWeight: 'bold',
     color: '#1f2937',
   },
   metrikaProcenta: {
-    fontSize: 16,
+    fontSize: responsiveTypography.body.fontSize,
     fontWeight: '600',
   },
 });

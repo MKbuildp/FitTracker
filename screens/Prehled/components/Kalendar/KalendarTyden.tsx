@@ -5,6 +5,7 @@ import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 import { DenniData } from '../../types/types';
 import { formatujDenTydne, jeDnes, jeStejenDen } from '../../utils/datumUtils';
 import { useTranslation } from '../../../../hooks/useTranslation';
+import { responsiveComponents, responsiveTypography, responsiveSpacingValues, responsiveSize, responsiveFontSize } from '../../../../src/styles/theme';
 
 interface KalendarTydenProps {
   vybranyDatum: Date;
@@ -222,36 +223,36 @@ const styles = StyleSheet.create({
   hlavickaDny: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingHorizontal: 16,
-    paddingVertical: 8,
+    paddingHorizontal: responsiveSpacingValues.md,
+    paddingVertical: responsiveSpacingValues.sm,
     borderBottomWidth: 1,
     borderBottomColor: '#e2e8f0',
   },
   tyden: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingHorizontal: 16,
-    paddingVertical: 12,
+    paddingHorizontal: responsiveSpacingValues.md,
+    paddingVertical: responsiveSpacingValues.sm,
   },
   denKontejner: {
     alignItems: 'center',
     width: Dimensions.get('window').width / 7 - 32/7,
-    paddingVertical: 4,
-    borderRadius: 8,
+    paddingVertical: responsiveSpacingValues.xs,
+    borderRadius: responsiveSpacingValues.sm,
   },
   vybranyDen: {
     backgroundColor: '#f1f5f9',
   },
   denTydneText: {
-    fontSize: 11,
+    fontSize: responsiveFontSize(15), // Nastaveno na stejnou hodnotu jako Měsíční přehled (15px)
     color: '#6b7280',
     fontWeight: '500',
   },
   cisloText: {
-    fontSize: 13,
+    fontSize: responsiveTypography.caption.fontSize - 1, // O něco menší než caption
     fontWeight: '600',
     color: '#1f2937',
-    marginTop: 4,
+    marginTop: responsiveSpacingValues.xs,
   },
   dnesText: {
     color: '#2563eb',

@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from '../../../hooks/useTranslation';
 import { DiagonalniVzor } from '../../../components/PozadiVzory';
+import { responsiveTypography, responsiveSpacingValues } from '../../../src/styles/theme';
 
 /** Komponenta pro zobrazení prázdného stavu (žádné časovky) */
 export const PrazdnyStav: React.FC = () => {
@@ -26,20 +27,20 @@ const styly = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#f8fafc',
-    paddingHorizontal: 32,
+    paddingHorizontal: responsiveSpacingValues.xl,
   },
   prazdnyNadpis: {
-    fontSize: 24,
+    fontSize: responsiveTypography.title.fontSize,
     fontWeight: 'bold',
     color: '#374151',
-    marginTop: 16,
-    marginBottom: 8,
+    marginTop: responsiveSpacingValues.md,
+    marginBottom: responsiveSpacingValues.sm,
   },
   prazdnyPopis: {
-    fontSize: 16,
+    fontSize: responsiveTypography.body.fontSize,
     color: '#6b7280',
     textAlign: 'center',
-    lineHeight: 24,
-    marginBottom: 32,
+    lineHeight: responsiveTypography.body.fontSize * 1.5,
+    marginBottom: responsiveSpacingValues.xl,
   },
 }); 

@@ -3,6 +3,7 @@ import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { NavigationProp } from '../types/types';
+import { responsiveSpacingValues } from '../../../src/styles/theme';
 
 interface HeaderAkceProps {
   onNastaveniPress: () => void;
@@ -37,10 +38,10 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingRight: 8,
+    paddingRight: responsiveSpacingValues.sm,
   },
   tlacitko: {
-    padding: 8,
-    marginLeft: 8,
+    padding: responsiveSpacingValues.sm,
+    marginLeft: responsiveSpacingValues.sm,
   },
 });

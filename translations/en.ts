@@ -26,6 +26,15 @@ export const en = {
   'common.no': 'No',
   'common.exerciseNotFound': 'Exercise not found',
 
+  // Calendar
+  'calendar.monday': 'Mo',
+  'calendar.tuesday': 'Tu',
+  'calendar.wednesday': 'We',
+  'calendar.thursday': 'Th',
+  'calendar.friday': 'Fr',
+  'calendar.saturday': 'Sa',
+  'calendar.sunday': 'Su',
+
   // Settings
   'settings.title': 'Settings',
   'settings.language': 'Language',

@@ -10,6 +10,7 @@ import {
   PrazdnyStav, 
   NacitaniStav
 } from './components';
+import { responsiveSpacingValues } from '../../src/styles/theme';
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -71,7 +72,7 @@ const styly = StyleSheet.create({
     backgroundColor: '#f8fafc',
   },
   seznam: {
-    padding: 16,
+    padding: responsiveSpacingValues.md,
     zIndex: 1,
   },
 });

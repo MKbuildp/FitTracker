@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useReducer, useEffect, useCallback } from 'react';
 import { Cviceni, ZaznamVykonu } from '../types';
 import { ukladaniDat } from '../utils/ukladaniDat';
+import { testovaciData } from '../utils/testovaciData';
 import { useLanguage } from './LanguageContext';
 
 /** Stav aplikace pro cvičení */
@@ -170,6 +171,10 @@ interface CviceniContextInterface {
   nastavitCilOpakovani: (cil: number) => Promise<void>;
   nastavitCilDokoncenaCviceni: (cil: number) => Promise<void>;
   nastavitCileNajednou: (cilOpakovani: number, cilDokoncenaCviceni: number) => Promise<void>;
+  
+  // Funkce pro testovací data (pro screenshoty)
+  nacistTestovaciData: () => Promise<void>;
+  smazatTestovaciData: () => Promise<void>;
 }
 
 /** Kontext */
@@ -384,6 +389,29 @@ export const CviceniProvider: React.FC<{ children: React.ReactNode }> = ({ child
       // Pak aktualizovat stav - obě hodnoty najednou
       dispatch({ typ: 'NASTAVIT_CIL_OPAKOVANI', cil: cilOpakovani });
       dispatch({ typ: 'NASTAVIT_CIL_DOKONCENA_CVICENI', cil: cilDokoncenaCviceni });
+    },
+    
+    // Funkce pro načtení testovacích dat (pro screenshoty)
+    nacistTestovaciData: async () => {
+      dispatch({ typ: 'NASTAVIT_NACITANI', nacita: true });
+      try {
+        await testovaciData.nacistTestovaciData();
+        await nacistData(); // Znovu načíst data
+        console.log('✅ Testovací data načtena pro screenshoty!');
+      } catch (error) {
+        console.error('Chyba při načítání testovacích dat:', error);
+      }
+    },
+    
+    // Funkce pro smazání testovacích dat
+    smazatTestovaciData: async () => {
+      try {
+        await testovaciData.smazatTestovaciData();
+        await nacistData(); // Znovu načíst data
+        console.log('🗑️ Testovací data smazána!');
+      } catch (error) {
+        console.error('Chyba při mazání testovacích dat:', error);
+      }
     },
   };
 

@@ -11,6 +11,7 @@ import {
   BarvyVyber,
   TlacitkaFormulare,
 } from './components';
+import { responsiveTypography, responsiveSpacingValues } from '../../src/styles/theme';
 
 /** Obrazovka pro přidání nového cvičení */
 const PridatCviceniScreen: React.FC = () => {
@@ -97,19 +98,19 @@ const styly = StyleSheet.create({
     backgroundColor: '#f8fafc',
   },
   obsah: {
-    padding: 16,
+    padding: responsiveSpacingValues.md,
   },
   nadpisObrazovky: {
-    fontSize: 28,
+    fontSize: responsiveTypography.languageTitle.fontSize,
     fontWeight: 'bold',
     color: '#1f2937',
-    marginBottom: 24,
+    marginBottom: responsiveSpacingValues.lg,
     textAlign: 'center',
   },
   oddelovac: {
     height: 1,
     backgroundColor: '#e5e7eb',
-    marginVertical: 16,
+    marginVertical: responsiveSpacingValues.md,
   },
 });
 

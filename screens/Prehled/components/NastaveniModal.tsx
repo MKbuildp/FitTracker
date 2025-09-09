@@ -11,6 +11,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from '../../../hooks/useTranslation';
 import { NastaveniCiluModal } from './NastaveniCiluModal';
+import { responsiveComponents, responsiveTypography, responsiveSpacingValues } from '../../../src/styles/theme';
 
 interface NastaveniModalProps {
   viditelne: boolean;
@@ -160,8 +161,8 @@ const styly = StyleSheet.create({
     width: '90%',
     maxHeight: '80%',
     backgroundColor: 'white',
-    borderRadius: 12,
-    padding: 20,
+    borderRadius: responsiveComponents.cardBorderRadius,
+    padding: responsiveSpacingValues.lg,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -175,10 +176,10 @@ const styly = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 24,
+    marginBottom: responsiveSpacingValues.lg,
   },
   modalNadpis: {
-    fontSize: 20,
+    fontSize: responsiveTypography.subtitle.fontSize,
     fontWeight: 'bold',
     color: '#1f2937',
     textAlign: 'center',
@@ -186,32 +187,32 @@ const styly = StyleSheet.create({
     marginLeft: 28, // Kompenzace pro zavírací tlačítko
   },
   zavritTlacitko: {
-    padding: 4,
+    padding: responsiveSpacingValues.xs,
   },
   sekce: {
-    paddingVertical: 16,
+    paddingVertical: responsiveSpacingValues.md,
     borderTopWidth: 1,
     borderTopColor: '#e5e7eb',
   },
   sekceNadpis: {
-    fontSize: 16,
+    fontSize: responsiveTypography.body.fontSize,
     fontWeight: '600',
     color: '#374151',
-    marginBottom: 16,
+    marginBottom: responsiveSpacingValues.md,
     textAlign: 'center', // Centrování nadpisů sekcí
   },
   jazykTlacitka: {
     flexDirection: 'row',
-    gap: 12,
+    gap: responsiveSpacingValues.sm,
   },
   jazykTlacitko: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    borderRadius: 8,
+    paddingVertical: responsiveSpacingValues.sm,
+    paddingHorizontal: responsiveSpacingValues.md,
+    borderRadius: responsiveSpacingValues.sm,
     borderWidth: 2,
     borderColor: '#e5e7eb',
     backgroundColor: '#f8fafc',
@@ -222,10 +223,10 @@ const styly = StyleSheet.create({
   },
   vlajka: {
     fontSize: 20,
-    marginRight: 8,
+    marginRight: responsiveSpacingValues.sm,
   },
   jazykText: {
-    fontSize: 16,
+    fontSize: responsiveTypography.body.fontSize,
     fontWeight: '500',
     color: '#6b7280',
   },
@@ -237,47 +238,47 @@ const styly = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 8,
+    paddingVertical: responsiveSpacingValues.sm,
     borderBottomWidth: 1,
     borderBottomColor: '#f3f4f6',
   },
   infoLabel: {
-    fontSize: 14,
+    fontSize: responsiveTypography.caption.fontSize,
     fontWeight: '500',
     color: '#6b7280',
     flex: 1,
   },
   infoHodnota: {
-    fontSize: 14,
+    fontSize: responsiveTypography.caption.fontSize,
     fontWeight: '600',
     color: '#1f2937',
     textAlign: 'right',
   },
   popisKontejner: {
-    marginTop: 12,
-    paddingTop: 12,
+    marginTop: responsiveSpacingValues.sm,
+    paddingTop: responsiveSpacingValues.sm,
     borderTopWidth: 1,
     borderTopColor: '#f3f4f6',
   },
   popisText: {
-    fontSize: 14,
+    fontSize: responsiveTypography.caption.fontSize,
     lineHeight: 20,
     color: '#4b5563',
     textAlign: 'center',
   },
   appInfo: {
-    fontSize: 16,
+    fontSize: responsiveTypography.body.fontSize,
     fontWeight: '600',
     color: '#374151',
     textAlign: 'center',
-    marginBottom: 8,
+    marginBottom: responsiveSpacingValues.sm,
   },
   cilTlacitko: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingVertical: 12,
-    paddingHorizontal: 16,
+    paddingVertical: responsiveSpacingValues.sm,
+    paddingHorizontal: responsiveSpacingValues.md,
     borderRadius: 10,
     borderWidth: 1,
     borderColor: '#e5e7eb',
@@ -290,7 +291,7 @@ const styly = StyleSheet.create({
     flex: 1,
   },
   cilTlacitkoText: {
-    fontSize: 16,
+    fontSize: responsiveTypography.body.fontSize,
     fontWeight: '500',
     color: '#1f2937',
     marginLeft: 10,

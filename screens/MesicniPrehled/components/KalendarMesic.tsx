@@ -4,6 +4,8 @@ import { Svg, Circle } from 'react-native-svg';
 import { DenniData } from '../../Prehled/types/types';
 import { formatujDenTydne, jeDnes, jeStejenDen } from '../../Prehled/utils/datumUtils';
 import { getDnyMesice } from '../utils/kalendarUtils';
+import { useTranslation } from '../../../hooks/useTranslation';
+import { responsiveSpacingValues, responsiveTypography, responsiveFontSize } from '../../../src/styles/theme';
 
 interface KalendarMesicProps {
   vybranyDatum: Date;
@@ -19,9 +21,10 @@ export const KalendarMesic: React.FC<KalendarMesicProps> = ({
   onDatumZmena,
   data
 }) => {
+  const { t } = useTranslation();
   // Konstanty pro layout
   const { width: screenWidth } = Dimensions.get('window');
-  const PADDING_HORIZONTAL = 16;
+  const PADDING_HORIZONTAL = responsiveSpacingValues.md;
   const dostupnaSirka = screenWidth - (PADDING_HORIZONTAL * 2);
   const denSirka = dostupnaSirka / 7;
 
@@ -148,7 +151,15 @@ export const KalendarMesic: React.FC<KalendarMesicProps> = ({
     <View style={styles.container}>
       {/* Hlavička se zkratkami dnů */}
       <View style={styles.hlavickaDny}>
-        {['Po', 'Út', 'St', 'Čt', 'Pá', 'So', 'Ne'].map((den, index) => (
+        {[
+          t('calendar.monday'),
+          t('calendar.tuesday'),
+          t('calendar.wednesday'),
+          t('calendar.thursday'),
+          t('calendar.friday'),
+          t('calendar.saturday'),
+          t('calendar.sunday')
+        ].map((den, index) => (
           <View key={index} style={styles.denKontejner}>
             <Text style={styles.denTydneText}>{den}</Text>
           </View>
@@ -201,38 +212,38 @@ const styles = StyleSheet.create({
   hlavickaDny: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingHorizontal: 16,
-    paddingVertical: 8,
+    paddingHorizontal: responsiveSpacingValues.md,
+    paddingVertical: responsiveSpacingValues.sm,
     borderBottomWidth: 1,
     borderBottomColor: '#e2e8f0',
   },
   kalendar: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
+    paddingHorizontal: responsiveSpacingValues.md,
+    paddingVertical: responsiveSpacingValues.sm,
   },
   radek: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    marginBottom: 8,
+    marginBottom: responsiveSpacingValues.sm,
   },
   denKontejner: {
     alignItems: 'center',
     width: Dimensions.get('window').width / 7 - 32/7,
-    paddingVertical: 4,
+    paddingVertical: responsiveSpacingValues.xs,
   },
   prazdnyDen: {
     backgroundColor: 'transparent',
   },
   denTydneText: {
-    fontSize: 11,
+    fontSize: responsiveFontSize(15), // Zvětšeno o 15% z původních 13 (13 * 1.15 = 14.95 ≈ 15)
     color: '#6b7280',
     fontWeight: '500',
   },
   cisloText: {
-    fontSize: 13,
+    fontSize: responsiveTypography.caption.fontSize + 1, // Větší než caption
     fontWeight: '600',
     color: '#1f2937',
-    marginTop: 4,
+    marginTop: responsiveSpacingValues.xs,
   },
   dnesText: {
     color: '#2563eb',

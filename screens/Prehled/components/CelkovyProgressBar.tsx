@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from '../../../hooks/useTranslation';
 import { CelkovyProgressBarProps } from '../types/types';
 import { vypocitatCelkovyProgress } from '../utils/helpers';
+import { responsiveComponents, responsiveTypography, responsiveSpacingValues, responsiveSize } from '../../../src/styles/theme';
 
 /** Komponenta pro zobrazení celkového progressu všech cílů */
 export const CelkovyProgressBar: React.FC<CelkovyProgressBarProps> = ({ zaznamy, cviceni }) => {
@@ -140,8 +141,8 @@ export const CelkovyProgressBar: React.FC<CelkovyProgressBarProps> = ({ zaznamy,
 const styly = StyleSheet.create({
   kontejner: {
     backgroundColor: 'white',
-    borderRadius: 12,
-    marginBottom: 16,
+    borderRadius: responsiveComponents.cardBorderRadius,
+    marginBottom: responsiveSpacingValues.md,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.12,
@@ -156,21 +157,21 @@ const styly = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#e2e8f0',
-    padding: 12,
-    borderTopLeftRadius: 12,
-    borderTopRightRadius: 12,
+    padding: responsiveSpacingValues.sm,
+    borderTopLeftRadius: responsiveComponents.cardBorderRadius,
+    borderTopRightRadius: responsiveComponents.cardBorderRadius,
     borderBottomWidth: 1.2,
     borderBottomColor: '#2563eb',
   },
   obsah: {
-    paddingHorizontal: 16,
-    paddingBottom: 16,
-    paddingTop: 16,
+    paddingHorizontal: responsiveSpacingValues.md,
+    paddingBottom: responsiveSpacingValues.md,
+    paddingTop: responsiveSpacingValues.md,
   },
   hlavickaLeva: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    gap: responsiveSpacingValues.sm,
   },
   hlavickaPrava: {
     flexDirection: 'row',
@@ -178,17 +179,17 @@ const styly = StyleSheet.create({
     gap: 6,
   },
   nadpis: {
-    fontSize: 18,
+    fontSize: responsiveTypography.subtitle.fontSize,
     fontWeight: '600',
     color: '#374151',
   },
   pocetCilu: {
-    fontSize: 16,
+    fontSize: responsiveTypography.body.fontSize,
     fontWeight: '600',
     color: '#6b7280',
   },
   progressKontejner: {
-    marginBottom: 12,
+    marginBottom: responsiveSpacingValues.sm,
   },
   progressPozadi: {
     height: 12,
@@ -212,28 +213,28 @@ const styly = StyleSheet.create({
     borderRadius: 6,
   },
   procentaText: {
-    fontSize: 14,
+    fontSize: responsiveTypography.caption.fontSize,
     fontWeight: '600',
     textAlign: 'center',
     marginTop: 6,
   },
   detaily: {
-    gap: 8,
+    gap: responsiveSpacingValues.sm,
   },
   detailPolozka: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    gap: responsiveSpacingValues.sm,
   },
   detailText: {
-    fontSize: 15, // Zvětšeno o 15% z 13 na 15
+    fontSize: responsiveTypography.body.fontSize - 1, // O něco menší než body
     color: '#6b7280',
     flex: 1,
-    marginRight: 8, // Přidána mezera mezi textem a progress barem
+    marginRight: responsiveSpacingValues.sm, // Přidána mezera mezi textem a progress barem
   },
   miniProgress: {
-    width: 80, // Zvětšeno z 68 na 80 pro skutečných 1,8cm
-    minWidth: 80, // Zajistí minimální šířku
+    width: responsiveSize(80), // Responzivní šířka
+    minWidth: responsiveSize(80), // Zajistí minimální šířku
   },
   miniProgressPozadi: {
     height: 5, // Zvětšeno o 1px z 4 na 5
@@ -247,8 +248,8 @@ const styly = StyleSheet.create({
   },
   poharKontejner: {
     position: 'relative',
-    width: 23,
-    height: 23,
+    width: responsiveSize(23),
+    height: responsiveSize(23),
     alignItems: 'center',
     justifyContent: 'center',
   },

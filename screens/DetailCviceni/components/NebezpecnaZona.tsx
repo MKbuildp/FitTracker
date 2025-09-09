@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from '../../../hooks/useTranslation';
+import { responsiveTypography, responsiveSpacingValues } from '../../../src/styles/theme';
 
 /** Nebezpečná zóna pro smazání cvičení */
 export const NebezpecnaZona: React.FC<{
@@ -27,21 +28,21 @@ const styly = StyleSheet.create({
   nebezpecnaZona: {
     borderTopWidth: 1,
     borderTopColor: '#f3f4f6',
-    paddingTop: 16,
+    paddingTop: responsiveSpacingValues.md,
     alignItems: 'center',
   },
   smazatCviceniTlacitko: {
     flexDirection: 'row',
     backgroundColor: '#dc2626',
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    borderRadius: 8,
+    paddingVertical: responsiveSpacingValues.sm,
+    paddingHorizontal: responsiveSpacingValues.lg,
+    borderRadius: responsiveSpacingValues.sm,
     alignItems: 'center',
-    gap: 8,
+    gap: responsiveSpacingValues.sm,
   },
   smazatCviceniText: {
     color: 'white',
-    fontSize: 16,
+    fontSize: responsiveTypography.body.fontSize,
     fontWeight: '600',
   },
 }); 

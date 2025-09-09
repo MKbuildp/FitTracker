@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Cviceni } from '../../../types';
 import { useTranslation } from '../../../hooks/useTranslation';
+import { responsiveComponents, responsiveTypography, responsiveSpacingValues } from '../../../src/styles/theme';
 
 /** Komponenta pro editaci denního cíle cvičení */
 export const DenniCilEditor: React.FC<{
@@ -197,25 +198,25 @@ const styly = StyleSheet.create({
     marginBottom: 12,
   },
   aktualniCilText: {
-    fontSize: 14,
+    fontSize: responsiveTypography.caption.fontSize,
     fontWeight: '500',
     color: '#166534',
   },
   odstranCilTlacitko: {
-    padding: 4,
+    padding: responsiveSpacingValues.xs,
   },
 
   // Editace cíle
   editaceCileKontejner: {
     backgroundColor: '#f9fafb',
-    borderRadius: 8,
-    padding: 16,
+    borderRadius: responsiveSpacingValues.sm,
+    padding: responsiveSpacingValues.md,
   },
   editaceLabel: {
-    fontSize: 14,
+    fontSize: responsiveTypography.caption.fontSize,
     fontWeight: '500',
     color: '#374151',
-    marginBottom: 12,
+    marginBottom: responsiveSpacingValues.sm,
     textAlign: 'center',
   },
 
@@ -226,20 +227,20 @@ const styly = StyleSheet.create({
   hodnotaKontejner: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 16,
+    gap: responsiveSpacingValues.md,
   },
   hodnotaZobrazeni: {
     backgroundColor: 'white',
     borderWidth: 2,
     borderColor: '#2563eb',
-    borderRadius: 8,
-    paddingHorizontal: 20,
-    paddingVertical: 12,
+    borderRadius: responsiveSpacingValues.sm,
+    paddingHorizontal: responsiveSpacingValues.lg,
+    paddingVertical: responsiveSpacingValues.sm,
     minWidth: 80,
     alignItems: 'center',
   },
   hodnotaText: {
-    fontSize: 24,
+    fontSize: responsiveTypography.title.fontSize,
     fontWeight: 'bold',
     color: '#2563eb',
   },

@@ -10,6 +10,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { useCviceni } from '../../../context/CviceniContext';
 import { useTranslation } from '../../../hooks/useTranslation';
+import { responsiveComponents, responsiveTypography, responsiveSpacingValues } from '../../../src/styles/theme';
 
 interface NastaveniCiluModalProps {
   viditelne: boolean;
@@ -167,11 +168,11 @@ const styly = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
+    padding: responsiveSpacingValues.lg,
   },
   modal: {
     backgroundColor: 'white',
-    borderRadius: 12,
+    borderRadius: responsiveComponents.cardBorderRadius,
     width: '100%',
     maxWidth: 400,
     shadowColor: '#000',
@@ -184,36 +185,36 @@ const styly = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 20,
+    padding: responsiveSpacingValues.lg,
     borderBottomWidth: 1,
     borderBottomColor: '#f0f0f0',
   },
   nadpis: {
-    fontSize: 18,
+    fontSize: responsiveTypography.subtitle.fontSize,
     fontWeight: '600',
     color: '#333',
   },
   obsah: {
-    padding: 20,
+    padding: responsiveSpacingValues.lg,
   },
   polozka: {
-    marginBottom: 24,
+    marginBottom: responsiveSpacingValues.lg,
   },
   polozkaHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 8,
+    marginBottom: responsiveSpacingValues.sm,
   },
   polozkaTitle: {
-    fontSize: 16,
+    fontSize: responsiveTypography.body.fontSize,
     fontWeight: '500',
     color: '#333',
-    marginLeft: 8,
+    marginLeft: responsiveSpacingValues.sm,
   },
   popis: {
-    fontSize: 14,
+    fontSize: responsiveTypography.caption.fontSize,
     color: '#666',
-    marginBottom: 16,
+    marginBottom: responsiveSpacingValues.md,
   },
   ovladace: {
     flexDirection: 'row',
@@ -221,63 +222,63 @@ const styly = StyleSheet.create({
     justifyContent: 'center',
   },
   tlacitkoMinus: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: responsiveComponents.actionButtonSize,
+    height: responsiveComponents.actionButtonSize,
+    borderRadius: responsiveComponents.actionButtonSize / 2,
     backgroundColor: '#ef4444',
     justifyContent: 'center',
     alignItems: 'center',
   },
   tlacitkoPlus: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: responsiveComponents.actionButtonSize,
+    height: responsiveComponents.actionButtonSize,
+    borderRadius: responsiveComponents.actionButtonSize / 2,
     backgroundColor: '#22c55e',
     justifyContent: 'center',
     alignItems: 'center',
   },
   hodnota: {
     alignItems: 'center',
-    marginHorizontal: 40,
+    marginHorizontal: responsiveComponents.actionButtonSize,
   },
   cislo: {
-    fontSize: 28,
+    fontSize: responsiveTypography.title.fontSize + 4, // O něco větší než title
     fontWeight: '700',
     color: '#333',
   },
   jednotka: {
-    fontSize: 12,
+    fontSize: responsiveTypography.caption.fontSize - 2, // Menší než caption
     color: '#666',
     marginTop: 2,
   },
   tlacitka: {
     flexDirection: 'row',
-    gap: 12,
-    padding: 20,
+    gap: responsiveSpacingValues.sm,
+    padding: responsiveSpacingValues.lg,
     borderTopWidth: 1,
     borderTopColor: '#f0f0f0',
   },
   zrusit: {
     flex: 1,
-    paddingVertical: 12,
-    borderRadius: 8,
+    paddingVertical: responsiveSpacingValues.sm,
+    borderRadius: responsiveSpacingValues.sm,
     backgroundColor: '#f3f4f6',
     alignItems: 'center',
   },
   ulozit: {
     flex: 1,
-    paddingVertical: 12,
-    borderRadius: 8,
+    paddingVertical: responsiveSpacingValues.sm,
+    borderRadius: responsiveSpacingValues.sm,
     backgroundColor: '#3b82f6',
     alignItems: 'center',
   },
   zrusitText: {
-    fontSize: 16,
+    fontSize: responsiveTypography.body.fontSize,
     fontWeight: '500',
     color: '#666',
   },
   ulozitText: {
-    fontSize: 16,
+    fontSize: responsiveTypography.body.fontSize,
     fontWeight: '500',
     color: '#fff',
   },

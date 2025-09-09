@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { StatistikyKomponentaProps } from '../types/types';
 import { ZaznamVykonu } from '../../../types';
 import { useTranslation } from '../../../hooks/useTranslation';
+import { responsiveComponents, responsiveTypography, responsiveSpacingValues } from '../../../src/styles/theme';
 
 
 /** Komponenta pro zobrazení aktuálního přehledu cvičení (pracovní název: aktualni_prehled) */
@@ -189,15 +190,15 @@ const styly = StyleSheet.create({
   },
   statistikyRadek: {
     flexDirection: 'row',
-    gap: 8,
+    gap: responsiveSpacingValues.sm,
     marginBottom: 0, // Odstraněno - mezeru řeší progressBarKontejner marginTop
   },
 
   statistikaPolozkaVyrazna: {
     flex: 1,
     backgroundColor: '#f8fafc',
-    borderRadius: 8,
-    padding: 8,
+    borderRadius: responsiveSpacingValues.sm,
+    padding: responsiveSpacingValues.sm,
     borderWidth: 1.2,
     borderColor: '#9ca3af',
   },
@@ -205,25 +206,25 @@ const styly = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 8,
+    marginBottom: responsiveSpacingValues.sm,
     gap: 5.4,
   },
 
   statistikaNazevVetsi: {
-    fontSize: 14.52, // Zvětšeno o 10% z 13.2 na 14.52
+    fontSize: responsiveTypography.caption.fontSize * 1.1, // Zvětšeno o 10% (14px → 15.4px)
     color: '#6b7280',
     fontWeight: '500',
   },
   statistikaHodnota: {
-    fontSize: 18,
+    fontSize: responsiveTypography.subtitle.fontSize * 1.1, // Zvětšeno o 10% (18px → 19.8px)
     fontWeight: 'bold',
     color: '#1e40af',
     textAlign: 'center',
   },
 
   progressBarKontejner: {
-    marginTop: 16, // 16px = ~3mm mezera mezi okny a progress barem
-    paddingHorizontal: 4,
+    marginTop: responsiveSpacingValues.md, // 16px = ~3mm mezera mezi okny a progress barem
+    paddingHorizontal: responsiveSpacingValues.xs,
   },
   progressBarPozadi: {
     height: 6, // Zmenšeno o 3px (9 - 3 = 6)
@@ -236,9 +237,9 @@ const styly = StyleSheet.create({
     borderRadius: 3,
   },
   progressBarText: {
-    fontSize: 12,
+    fontSize: responsiveTypography.caption.fontSize - 2, // Menší než caption
     color: '#6b7280',
     textAlign: 'center',
-    marginTop: 4,
+    marginTop: responsiveSpacingValues.xs,
   },
 }); 

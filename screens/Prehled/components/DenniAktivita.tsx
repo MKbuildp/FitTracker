@@ -4,6 +4,7 @@ import { Svg, Circle } from 'react-native-svg';
 import { DenniData } from '../types/types';
 import { useTranslation } from '../../../hooks/useTranslation';
 import { useCviceni } from '../../../context/CviceniContext';
+import { responsiveComponents, responsiveTypography, responsiveSpacingValues, responsiveSize } from '../../../src/styles/theme';
 
 interface DenniAktivitaProps {
   data: DenniData;
@@ -16,8 +17,8 @@ export const DenniAktivita: React.FC<DenniAktivitaProps> = ({ data, onProgressPr
   const { nastaveniCilu } = useCviceni();
 
   // Velikost SVG
-  const size = 100;
-  const strokeWidth = 6;
+  const size = responsiveSize(100);
+  const strokeWidth = responsiveSize(6);
   const center = size / 2;
 
   // Poloměry pro jednotlivé kruhy s mezerami
@@ -160,7 +161,7 @@ export const DenniAktivita: React.FC<DenniAktivitaProps> = ({ data, onProgressPr
 const styly = StyleSheet.create({
   kontejner: {
     backgroundColor: 'white',
-    padding: 12,
+    padding: responsiveSpacingValues.sm,
     width: '95%',
     alignSelf: 'center',
   },
@@ -169,7 +170,7 @@ const styly = StyleSheet.create({
     alignItems: 'center',
   },
   kruhKontejner: {
-    marginRight: 12,
+    marginRight: responsiveSpacingValues.sm,
   },
   metriky: {
     flex: 1,
@@ -189,12 +190,12 @@ const styly = StyleSheet.create({
     borderRadius: 4,
   },
   metrikaHodnota: {
-    fontSize: 16,
+    fontSize: responsiveTypography.body.fontSize,
     fontWeight: 'bold',
     marginLeft: 'auto',
   },
   metrikaPopisek: {
-    fontSize: 14,
+    fontSize: responsiveTypography.body.fontSize, // Zvětšeno z caption (14px) na body (16px)
     color: '#1f2937',
     flex: 1,
   },

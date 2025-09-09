@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from '../../../../hooks/useTranslation';
+import { responsiveComponents, responsiveTypography, responsiveSpacingValues, responsiveFontSize } from '../../../../src/styles/theme';
 
 interface KalendarHeaderProps {
   vybranyDatum: Date;
@@ -58,7 +59,7 @@ export const KalendarHeader: React.FC<KalendarHeaderProps> = ({
     <View style={styles.container}>
       <View style={styles.navigace}>
         <TouchableOpacity onPress={predchoziTyden} style={styles.tlacitko}>
-          <Ionicons name="chevron-back" size={24} color="#1f2937" />
+          <Ionicons name="chevron-back" size={28} color="#1f2937" />
         </TouchableOpacity>
         
         <View style={styles.datumKontejner}>
@@ -75,7 +76,7 @@ export const KalendarHeader: React.FC<KalendarHeaderProps> = ({
         >
           <Ionicons 
             name="chevron-forward" 
-            size={24} 
+            size={28} 
             color={jeDalsiTydenVBudoucnosti() ? "#9ca3af" : "#1f2937"} 
           />
         </TouchableOpacity>
@@ -87,18 +88,18 @@ export const KalendarHeader: React.FC<KalendarHeaderProps> = ({
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-    paddingVertical: 8,  // Zmenšeno z 12 na 8
-    paddingHorizontal: 16,
+    paddingVertical: responsiveSpacingValues.sm,  // Zmenšeno z 12 na 8
+    paddingHorizontal: responsiveSpacingValues.md,
   },
   navigace: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    height: 32,  // Pevná výška pro konzistentní velikost
+    height: 38,  // Zvětšeno z 32 na 38 (cca 19% nárůst)
   },
   tlacitko: {
-    padding: 4,  // Zmenšeno z 8 na 4
-    borderRadius: 8,
+    padding: responsiveSpacingValues.xs,  // Zmenšeno z 8 na 4
+    borderRadius: responsiveSpacingValues.sm,
   },
   tlacitkoDeaktivovane: {
     opacity: 0.5,
@@ -109,7 +110,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   datumText: {
-    fontSize: 18,
+    fontSize: responsiveFontSize(21), // Zvětšeno o 15% z původních 18 (18 * 1.15 = 20.7 ≈ 21)
     fontWeight: '600',
     color: '#1f2937',
   },

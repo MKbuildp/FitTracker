@@ -48,7 +48,7 @@ export interface DetailStatistiky {
 
 export interface StatistikyKomponentaProps {
   cviceni: Cviceni;
-  statistiky: StatistikyCviceni;
+  statistiky: DetailStatistiky;
   formatovatHodnotu: (hodnota: number) => string;
   zaznamy: ZaznamVykonu[];
   onDenniCilPress: () => void; // Nový prop pro kliknutí na denní cíl
@@ -72,4 +72,5 @@ export interface UseDetailCviceniReturn {
   formatovatHodnotu: (hodnota: number) => string;
   smazatZaznamSPotvrzenim: (zaznamId: string) => void;
   vsechnaCviceni: Cviceni[];
+  otevritNastaveniModal: () => void; // Nová funkce pro otevření nastavení modalu
 } 

@@ -10,6 +10,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { useLanguage } from '../../context/LanguageContext';
 import { SupportedLanguage } from '../../translations';
+import { responsiveTypography, responsiveSpacingValues } from '../../src/styles/theme';
 
 /** Obrazovka pro první výběr jazyka */
 const LanguageSelectionScreen: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
@@ -93,42 +94,42 @@ const styly = StyleSheet.create({
   obsah: {
     flex: 1,
     justifyContent: 'center',
-    paddingHorizontal: 32,
+    paddingHorizontal: responsiveSpacingValues.xl,
   },
   header: {
     alignItems: 'center',
-    marginBottom: 48,
+    marginBottom: responsiveSpacingValues.xxl,
   },
   nadpis: {
-    fontSize: 28,
+    fontSize: responsiveTypography.languageTitle.fontSize,
     fontWeight: 'bold',
     color: '#1f2937',
-    marginTop: 24,
+    marginTop: responsiveSpacingValues.lg,
     textAlign: 'center',
   },
   nadpisEn: {
-    fontSize: 20,
+    fontSize: responsiveTypography.languageSubtitle.fontSize,
     fontWeight: '600',
     color: '#6b7280',
-    marginTop: 8,
+    marginTop: responsiveSpacingValues.sm,
     textAlign: 'center',
   },
   popis: {
-    fontSize: 16,
+    fontSize: responsiveTypography.languageDescription.fontSize,
     color: '#6b7280',
     textAlign: 'center',
-    marginTop: 16,
+    marginTop: responsiveSpacingValues.md,
     lineHeight: 24,
   },
   jazykyKontejner: {
-    gap: 16,
+    gap: responsiveSpacingValues.md,
   },
   jazykTlacitko: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#ffffff',
-    padding: 20,
-    borderRadius: 16,
+    padding: responsiveSpacingValues.lg,
+    borderRadius: responsiveSpacingValues.md,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
@@ -140,27 +141,27 @@ const styly = StyleSheet.create({
   },
   vlajka: {
     fontSize: 32,
-    marginRight: 16,
+    marginRight: responsiveSpacingValues.md,
   },
   jazykInfo: {
     flex: 1,
   },
   jazykNazev: {
-    fontSize: 18,
+    fontSize: responsiveTypography.languageButton.fontSize,
     fontWeight: '600',
     color: '#1f2937',
   },
   jazykPopis: {
-    fontSize: 14,
+    fontSize: responsiveTypography.languageButtonDescription.fontSize,
     color: '#6b7280',
     marginTop: 2,
   },
   footer: {
-    marginTop: 48,
+    marginTop: responsiveSpacingValues.xxl,
     alignItems: 'center',
   },
   footerText: {
-    fontSize: 14,
+    fontSize: responsiveTypography.languageButtonDescription.fontSize,
     color: '#9ca3af',
     textAlign: 'center',
     lineHeight: 20,

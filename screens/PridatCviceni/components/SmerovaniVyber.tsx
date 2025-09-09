@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { SmerovaniProps } from '../types/types';
 import { Smerovani } from '../../../types';
 import { useTranslation } from '../../../hooks/useTranslation';
+import { responsiveTypography, responsiveSpacingValues } from '../../../src/styles/theme';
 
 /** Komponenta pro výběr směrování (pouze pro časová cvičení) */
 const SmerovaniVyber: React.FC<SmerovaniProps> = ({ 
@@ -61,31 +62,31 @@ const SmerovaniVyber: React.FC<SmerovaniProps> = ({
 
 const styly = StyleSheet.create({
   kontejner: {
-    marginBottom: 20,
+    marginBottom: responsiveSpacingValues.lg,
   },
   nadpisKontejner: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 8,
-    gap: 8,
+    marginBottom: responsiveSpacingValues.sm,
+    gap: responsiveSpacingValues.sm,
   },
   nadpis: {
-    fontSize: 16,
+    fontSize: responsiveTypography.body.fontSize,
     fontWeight: '600',
     color: '#374151',
   },
   moznostiRadek: {
     flexDirection: 'row',
-    gap: 12,
+    gap: responsiveSpacingValues.sm,
   },
   moznost: {
     flex: 1,
     backgroundColor: '#ffffff',
     borderWidth: 1,
     borderColor: '#d1d5db',
-    borderRadius: 8,
-    padding: 12,
+    borderRadius: responsiveSpacingValues.sm,
+    padding: responsiveSpacingValues.sm,
     alignItems: 'center',
   },
   moznostVybrana: {
@@ -93,7 +94,7 @@ const styly = StyleSheet.create({
     backgroundColor: '#eff6ff',
   },
   moznostNazev: {
-    fontSize: 14,
+    fontSize: responsiveTypography.caption.fontSize,
     fontWeight: '500',
     color: '#111827',
     textAlign: 'center',

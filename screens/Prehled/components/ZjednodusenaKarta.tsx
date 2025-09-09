@@ -5,6 +5,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Svg, Circle } from 'react-native-svg';
 import { Cviceni, ZaznamVykonu, RootStackParamList } from '../../../types';
 import { useTranslation } from '../../../hooks/useTranslation';
+import { responsiveComponents, responsiveTypography, responsiveSpacingValues, responsiveSize, responsiveFontSize } from '../../../src/styles/theme';
 
 /** Typ pro navigaci */
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
@@ -41,8 +42,8 @@ const formatovatHodnotu = (hodnota: number, typ: 'opakovani' | 'cas'): string =>
 
 /** Kruhový progresbar pro cíle */
 const MiniProgresbar = React.memo<{ procenta: number; barva: string }>(({ procenta, barva }) => {
-  const velikost = 36;
-  const sirkaCary = 5;
+  const velikost = responsiveSize(40); // Zvětšeno o 10% z 36 na 40 (36 * 1.1 = 39.6 ≈ 40)
+  const sirkaCary = responsiveSize(5.5); // Zvětšeno o 10% z 5 na 5.5
   const polomer = (velikost - sirkaCary) / 2;
   const obvod = 2 * Math.PI * polomer;
   
@@ -140,9 +141,10 @@ export const ZjednodusenaKarta = React.memo<ZjednodusenaKartaProps>(({
         <View style={styly.hlavicka}>
           <Ionicons 
             name={cviceni.typMereni === 'cas' ? 'timer' : 'repeat'} 
-            size={16} 
+            size={20} 
             color={cviceni.barva || '#6b7280'} 
           />
+          <View style={styly.spacer} />
           <MiniProgresbar procenta={procenta} barva={barvaGrafu} />
         </View>
         
@@ -165,12 +167,12 @@ ZjednodusenaKarta.displayName = 'ZjednodusenaKarta';
 const styly = StyleSheet.create({
   karta: {
     backgroundColor: 'white',
-    borderRadius: 8,
-    padding: 12,
-    marginBottom: 8,
+    borderRadius: responsiveSpacingValues.sm,
+    padding: responsiveSpacingValues.sm,
+    marginBottom: responsiveSpacingValues.sm,
     width: '30.67%',
-    marginHorizontal: 4,
-    minHeight: 100,
+    marginHorizontal: responsiveSpacingValues.xs,
+    minHeight: responsiveSize(100),
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.05,
@@ -181,7 +183,7 @@ const styly = StyleSheet.create({
   barevnyPruh: {
     height: 3,
     borderRadius: 1.5,
-    marginBottom: 8,
+    marginBottom: responsiveSpacingValues.sm,
   },
   obsah: {
     flex: 1,
@@ -190,38 +192,41 @@ const styly = StyleSheet.create({
   hlavicka: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    marginTop: 4,
+    justifyContent: 'space-between', // Vráceno zpět na 'space-between'
+    marginTop: responsiveSpacingValues.xs,
+  },
+  spacer: {
+    flex: 0.7, // Toto vytvoří kontrolovanou mezeru - progress bar bude posunut doleva
   },
   pocetZaznamu: {
-    fontSize: 14,
+    fontSize: responsiveTypography.caption.fontSize,
     fontWeight: '600',
     color: '#059669',
   },
   nazev: {
-    fontSize: 13,
+    fontSize: responsiveFontSize(15), // Zvětšeno z 14px na 15px
     fontWeight: '500',
     color: '#1f2937',
     lineHeight: 18,
-    marginBottom: 4,
+    marginBottom: responsiveSpacingValues.xs,
   },
   vykonRadek: {
     alignItems: 'flex-start',
-    marginTop: 4,
+    marginTop: responsiveSpacingValues.xs,
   },
   vykonText: {
-    fontSize: 10,
+    fontSize: responsiveFontSize(13), // Zvětšeno na 13px
     color: '#6b7280',
     textAlign: 'left',
   },
   vykonHodnota: {
-    fontSize: 10,
+    fontSize: responsiveFontSize(13), // Zvětšeno na 13px
     fontWeight: '600',
     color: '#1e40af',
   },
   procentaText: {
     position: 'absolute',
-    fontSize: 9,
+    fontSize: responsiveTypography.caption.fontSize - 5, // Nejmenší text
     fontWeight: '600',
     textAlign: 'center',
   },

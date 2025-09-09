@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet, Switch } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { TypMereni } from '../../../types';
 import { useTranslation } from '../../../hooks/useTranslation';
+import { responsiveComponents, responsiveTypography, responsiveSpacingValues } from '../../../src/styles/theme';
 
 interface DenniCilVyberProps {
   typMereni: TypMereni;
@@ -201,29 +202,29 @@ const DenniCilVyber: React.FC<DenniCilVyberProps> = ({
 
 const styly = StyleSheet.create({
   sekce: {
-    marginBottom: 24,
+    marginBottom: responsiveSpacingValues.lg,
   },
   nadpisKontejner: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 8,
-    gap: 8,
+    marginBottom: responsiveSpacingValues.sm,
+    gap: responsiveSpacingValues.sm,
   },
   popisek: {
-    fontSize: 16,
+    fontSize: responsiveTypography.body.fontSize,
     fontWeight: '600',
     color: '#374151',
   },
   pomocnyText: {
-    fontSize: 14,
+    fontSize: responsiveTypography.caption.fontSize,
     color: '#6b7280',
     textAlign: 'center',
-    marginBottom: 12,
+    marginBottom: responsiveSpacingValues.sm,
   },
   switchKontejner: {
     alignItems: 'center',
-    marginBottom: 16,
+    marginBottom: responsiveSpacingValues.md,
   },
 
   // Nový layout s řádkem
@@ -231,17 +232,17 @@ const styly = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 12,
-    marginBottom: 16,
+    gap: responsiveSpacingValues.sm,
+    marginBottom: responsiveSpacingValues.md,
   },
   hodnotaPole: {
     flex: 0.6,
     backgroundColor: 'white',
     borderWidth: 2,
     borderColor: '#2563eb',
-    borderRadius: 8,
-    paddingHorizontal: 16,
-    paddingVertical: 12,
+    borderRadius: responsiveSpacingValues.sm,
+    paddingHorizontal: responsiveSpacingValues.md,
+    paddingVertical: responsiveSpacingValues.sm,
     alignItems: 'center',
   },
   hodnotaPoleNeaktivni: {
@@ -249,7 +250,7 @@ const styly = StyleSheet.create({
     borderColor: '#d1d5db',
   },
   hodnotaText: {
-    fontSize: 16,
+    fontSize: responsiveTypography.body.fontSize,
     fontWeight: '600',
     color: '#2563eb',
   },
@@ -351,25 +352,25 @@ const styly = StyleSheet.create({
   // Společné pro tlačítka změny
   tlacitkoZmeny: {
     backgroundColor: '#f3f4f6',
-    borderRadius: 8,
-    padding: 8,
+    borderRadius: responsiveSpacingValues.sm,
+    padding: responsiveSpacingValues.sm,
     alignItems: 'center',
     justifyContent: 'center',
-    minWidth: 40,
-    minHeight: 40,
+    minWidth: responsiveComponents.actionButtonSize,
+    minHeight: responsiveComponents.actionButtonSize,
   },
 
   // Tlačítko uložit
   ulozitTlacitko: {
     backgroundColor: '#2563eb',
-    borderRadius: 8,
-    paddingHorizontal: 24,
-    paddingVertical: 12,
+    borderRadius: responsiveSpacingValues.sm,
+    paddingHorizontal: responsiveSpacingValues.lg,
+    paddingVertical: responsiveSpacingValues.sm,
     alignItems: 'center',
-    marginTop: 16,
+    marginTop: responsiveSpacingValues.md,
   },
   ulozitText: {
-    fontSize: 16,
+    fontSize: responsiveTypography.body.fontSize,
     fontWeight: '600',
     color: 'white',
   },

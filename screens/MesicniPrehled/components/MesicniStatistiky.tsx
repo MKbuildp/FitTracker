@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { DenniData } from '../../Prehled/types/types';
 import { useTranslation } from '../../../hooks/useTranslation';
+import { responsiveComponents, responsiveTypography, responsiveSpacingValues } from '../../../src/styles/theme';
 
 interface MesicniStatistikyProps {
   data: DenniData[];
@@ -90,40 +91,40 @@ export const MesicniStatistiky: React.FC<MesicniStatistikyProps> = ({ data }) =>
 const styles = StyleSheet.create({
   kontejner: {
     backgroundColor: 'white',
-    paddingHorizontal: 16,
-    paddingVertical: 20,
+    paddingHorizontal: responsiveSpacingValues.md,
+    paddingVertical: responsiveSpacingValues.lg,
     borderTopWidth: 1,
     borderTopColor: '#e2e8f0',
   },
   nadpis: {
-    fontSize: 18,
+    fontSize: responsiveTypography.subtitle.fontSize,
     fontWeight: '600',
     color: '#1f2937',
-    marginBottom: 16,
+    marginBottom: responsiveSpacingValues.md,
   },
   statistiky: {
-    gap: 16,
+    gap: responsiveSpacingValues.md,
   },
   statistika: {
     backgroundColor: '#f8fafc',
-    borderRadius: 12,
-    padding: 16,
+    borderRadius: responsiveComponents.cardBorderRadius,
+    padding: responsiveSpacingValues.md,
   },
   statistikaHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 12,
-    marginBottom: 8,
+    gap: responsiveSpacingValues.sm,
+    marginBottom: responsiveSpacingValues.sm,
   },
   ikonaKontejner: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
+    width: responsiveComponents.actionButtonSize,
+    height: responsiveComponents.actionButtonSize,
+    borderRadius: responsiveComponents.actionButtonSize / 2,
     alignItems: 'center',
     justifyContent: 'center',
   },
   statistikaNadpis: {
-    fontSize: 16,
+    fontSize: responsiveTypography.body.fontSize,
     fontWeight: '500',
     color: '#4b5563',
     flex: 1,
@@ -134,12 +135,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   statistikaHodnota: {
-    fontSize: 24,
+    fontSize: responsiveTypography.title.fontSize,
     fontWeight: 'bold',
     color: '#1f2937',
   },
   statistikaProcenta: {
-    fontSize: 16,
+    fontSize: responsiveTypography.body.fontSize,
     fontWeight: '600',
   },
 });

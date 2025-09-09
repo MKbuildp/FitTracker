@@ -11,6 +11,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { ZaznamVykonu, Cviceni } from '../../../types';
 import { useTranslation } from '../../../hooks/useTranslation';
+import { responsiveComponents, responsiveTypography, responsiveSpacingValues } from '../../../src/styles/theme';
 
 /** Props pro HistorieModal */
 interface HistorieModalProps {
@@ -140,8 +141,8 @@ const styly = StyleSheet.create({
     width: '90%',
     maxHeight: '70%',
     backgroundColor: 'white',
-    borderRadius: 12,
-    padding: 20,
+    borderRadius: responsiveComponents.cardBorderRadius,
+    padding: responsiveSpacingValues.lg,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -155,23 +156,23 @@ const styly = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: responsiveSpacingValues.lg,
   },
   modalNadpis: {
-    fontSize: 20,
+    fontSize: responsiveTypography.title.fontSize,
     fontWeight: 'bold',
     color: '#1f2937',
   },
   zavritTlacitko: {
-    padding: 4,
+    padding: responsiveSpacingValues.xs,
   },
   historiePolozka: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#f8fafc',
-    borderRadius: 8,
-    padding: 12,
+    borderRadius: responsiveSpacingValues.sm,
+    padding: responsiveSpacingValues.sm,
     borderWidth: 1,
     borderColor: '#e5e7eb',
   },
@@ -179,34 +180,34 @@ const styly = StyleSheet.create({
     flex: 1,
   },
   historieHodnota: {
-    fontSize: 16,
+    fontSize: responsiveTypography.body.fontSize,
     fontWeight: 'bold',
     color: '#1e40af',
-    marginBottom: 4,
+    marginBottom: responsiveSpacingValues.xs,
   },
   historieDatum: {
-    fontSize: 12,
+    fontSize: responsiveTypography.caption.fontSize - 2, // Menší než caption
     color: '#6b7280',
   },
   smazatTlacitko: {
-    padding: 8,
+    padding: responsiveSpacingValues.sm,
   },
   separator: {
-    height: 8,
+    height: responsiveSpacingValues.sm,
   },
   zadneZaznamyKontejner: {
     alignItems: 'center',
-    paddingVertical: 32,
+    paddingVertical: responsiveSpacingValues.xl,
   },
   zadneZaznamyText: {
-    fontSize: 18,
+    fontSize: responsiveTypography.subtitle.fontSize,
     fontWeight: '600',
     color: '#1f2937',
-    marginTop: 16,
-    marginBottom: 8,
+    marginTop: responsiveSpacingValues.md,
+    marginBottom: responsiveSpacingValues.sm,
   },
   zadneZaznamyPopis: {
-    fontSize: 14,
+    fontSize: responsiveTypography.caption.fontSize,
     color: '#6b7280',
     textAlign: 'center',
   },

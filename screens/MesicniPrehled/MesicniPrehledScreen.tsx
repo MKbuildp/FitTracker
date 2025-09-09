@@ -5,6 +5,8 @@ import { useCviceni } from '../../context/CviceniContext';
 import { KalendarHeader, KalendarMesic, MesicniStatistiky } from './components';
 import { useKalendarData } from '../Prehled/hooks/useKalendarData';
 import { useMesicniData } from './hooks/useMesicniData';
+import { TabBar } from '../../components/TabBar';
+import { responsiveSpacingValues } from '../../src/styles/theme';
 
 /**
  * Obrazovka pro měsíční přehled cvičení
@@ -34,9 +36,12 @@ const MesicniPrehledScreen: React.FC = () => {
         
         <MesicniStatistiky data={mesicniData.mesicniData} />
         
-        {/* Přidáme padding na konec pro lepší scroll */}
+        {/* Přidáme padding na konec pro lepší scroll a prostor pro TabBar */}
         <View style={styles.bottomPadding} />
       </ScrollView>
+      
+      {/* Floating TabBar pro navigaci mezi hlavními záložkami */}
+      <TabBar pozice="floating" />
     </View>
   );
 };
@@ -50,7 +55,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   bottomPadding: {
-    height: 24,
+    height: responsiveSpacingValues.xl + responsiveSpacingValues.md, // Padding pro TabBar přilepený ke spodku
   },
 });
 

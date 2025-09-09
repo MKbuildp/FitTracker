@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useTranslation } from '../../../hooks/useTranslation';
 import { TlacitkaProps } from '../types/types';
+import { responsiveTypography, responsiveSpacingValues } from '../../../src/styles/theme';
 
 /** Komponenta pro tlačítka formuláře (Vymazat/Uložit) */
 const TlacitkaFormulare: React.FC<TlacitkaProps> = ({ 
@@ -27,19 +28,19 @@ const TlacitkaFormulare: React.FC<TlacitkaProps> = ({
 
 const styly = StyleSheet.create({
   tlacitkaKontejner: {
-    marginTop: 32,
+    marginTop: responsiveSpacingValues.xl,
   },
   ulozitTlacitko: {
     backgroundColor: '#2563eb',
-    borderRadius: 8,
-    padding: 16,
+    borderRadius: responsiveSpacingValues.sm,
+    padding: responsiveSpacingValues.md,
     alignItems: 'center',
   },
   tlacitkoNeaktivni: {
     backgroundColor: '#9ca3af',
   },
   ulozitText: {
-    fontSize: 16,
+    fontSize: responsiveTypography.body.fontSize,
     fontWeight: '600',
     color: 'white',
   },

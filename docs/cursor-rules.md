@@ -603,4 +603,158 @@ Tento postup shrnuje všechny kroky potřebné k prvnímu úspěšnému sestaven
     *   **Externí testeři:** Pro pozvání veřejných testerů (až 10 000) musí váš první build projít krátkou **Beta App Review**. Po schválení můžete vytvořit veřejný odkaz a sdílet ho.
 
 ### Další aktualizace:
-Pro každou další verzi aplikace stačí v `app.json` zvýšit `buildNumber` (např. na `2`), provést `git push` a spustit stejný build a upload proces. Nový build automaticky nahradí ten starý v TestFlightu. 
+Pro každou další verzi aplikace stačí v `app.json` zvýšit `buildNumber` (např. na `2`), provést `git push` a spustit stejný build a upload proces. Nový build automaticky nahradí ten starý v TestFlightu.
+
+## KLÍČOVÉ PRAVIDLO 16: Responzivní rozložení pro mobilní aplikace a hry
+
+### Pravidlo: Povinné responzivní design pro všechny mobilní projekty
+Při vytváření jakékoliv mobilní aplikace nebo hry **VŽDY** implementuj responzivní design systém, který se přizpůsobí různým velikostem telefonů. Toto pravidlo je **povinné** pro všechny projekty.
+
+### Základní principy responzivního designu:
+
+#### 1. **Analýza současného stavu**
+- **VŽDY** začni identifikací všech pevných rozměrů v aplikaci
+- Najdi všechny `width`, `height`, `fontSize`, `padding`, `margin` s pevnými hodnotami
+- Identifikuj problematické komponenty, které se nebudou přizpůsobovat různým obrazovkám
+
+#### 2. **Vytvoření responzivních konstant v theme.ts**
+```typescript
+import { Dimensions } from 'react-native';
+
+// Základní rozměry obrazovky
+const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
+
+// Breakpointy pro různé velikosti telefonů
+const breakpoints = {
+  small: 375,   // iPhone SE, malé telefony
+  medium: 414,  // iPhone Plus, střední telefony  
+  large: 480    // Velké telefony, fold telefony
+};
+
+// Funkce pro určení velikosti obrazovky
+const getScreenSize = () => {
+  if (screenWidth <= breakpoints.small) return 'small';
+  if (screenWidth <= breakpoints.medium) return 'medium';
+  return 'large';
+};
+
+// Multiplikátory pro škálování
+const responsiveMultipliers = {
+  small: 0.85,
+  medium: 1.0,
+  large: 1.15
+};
+
+// Helper funkce pro responzivní velikosti
+const responsiveSize = (baseSize: number) => {
+  const multiplier = responsiveMultipliers[getScreenSize()];
+  return Math.round(baseSize * multiplier);
+};
+
+const responsiveFontSize = (baseFontSize: number) => {
+  const multiplier = responsiveMultipliers[getScreenSize()];
+  return Math.round(baseFontSize * multiplier);
+};
+
+const responsiveSpacing = (baseSpacing: number) => {
+  const multiplier = responsiveMultipliers[getScreenSize()];
+  return Math.round(baseSpacing * multiplier);
+};
+```
+
+#### 3. **Postupné nahrazování pevných rozměrů**
+- **Nahraď všechny pevné `height` a `width`** responzivními hodnotami
+- **Nahraď všechny pevné `fontSize`** responzivními hodnotami  
+- **Nahraď všechny pevné `padding` a `margin`** responzivními hodnotami
+- **Používej procentuální hodnoty** tam, kde je to vhodné (`width: '100%'`, `flex: 1`)
+
+#### 4. **Optimalizace typografie**
+- **Vytvoř responzivní typografii** s různými velikostmi pro různé obrazovky
+- **Zajisti čitelnost** na všech velikostech telefonů
+- **Testuj na malých obrazovkách** - text nesmí být příliš malý
+
+#### 5. **Finální testování**
+- **Testuj na různých velikostech telefonů** (simulátory, emulátory)
+- **Ověř funkčnost** všech komponent na různých obrazovkách
+- **Zkontroluj čitelnost** textů a tlačítek
+
+### Implementační postup:
+
+#### Krok 1: Příprava responzivního systému
+```typescript
+// src/styles/theme.ts
+export const responsiveComponents = {
+  buttonHeight: responsiveSize(50),
+  iconSize: responsiveSize(24),
+  actionButtonSize: responsiveSize(36),
+  onlineIndicatorSize: responsiveSize(12),
+  // ... další komponenty
+};
+
+export const responsiveTypography = {
+  title: { fontSize: responsiveFontSize(24) },
+  subtitle: { fontSize: responsiveFontSize(18) },
+  body: { fontSize: responsiveFontSize(16) },
+  caption: { fontSize: responsiveFontSize(14) },
+  button: { fontSize: responsiveFontSize(18) },
+  // ... další typografie
+};
+
+export const responsiveSpacingValues = {
+  xs: responsiveSpacing(4),
+  sm: responsiveSpacing(8),
+  md: responsiveSpacing(16),
+  lg: responsiveSpacing(24),
+  xl: responsiveSpacing(32),
+  // ... další spacing
+};
+```
+
+#### Krok 2: Nahrazení v komponentách
+```typescript
+// PŘED (špatně)
+const styles = StyleSheet.create({
+  button: {
+    height: 50,           // ❌ Pevná hodnota
+    fontSize: 18,         // ❌ Pevná hodnota
+    paddingHorizontal: 16 // ❌ Pevná hodnota
+  }
+});
+
+// PO (správně)
+const styles = StyleSheet.create({
+  button: {
+    height: responsiveComponents.buttonHeight,           // ✅ Responzivní
+    fontSize: responsiveTypography.button.fontSize,     // ✅ Responzivní
+    paddingHorizontal: responsiveSpacingValues.md       // ✅ Responzivní
+  }
+});
+```
+
+### Povinné kontroly:
+
+#### ✅ Checklist responzivního designu:
+- [ ] Všechny pevné rozměry nahrazeny responzivními hodnotami
+- [ ] Typografie se přizpůsobuje různým obrazovkám
+- [ ] Tlačítka a komponenty mají správné velikosti na všech telefonech
+- [ ] Text je čitelný na malých obrazovkách
+- [ ] Aplikace funguje správně na různých velikostech telefonů
+- [ ] Responzivní systém je centralizován v `theme.ts`
+
+### Výjimky a omezení:
+- **Žádné výjimky** - responzivní design je povinný pro všechny mobilní projekty
+- **Orientace:** Responzivní design se týká pouze portrétního módu (bez změny orientace)
+- **Platformy:** Pravidlo platí pro React Native, Expo, Flutter a další mobilní frameworky
+
+### Proč je to důležité:
+- **Uživatelská zkušenost:** Aplikace musí fungovat dobře na všech telefonech
+- **Tržní pokrytí:** Různé velikosti telefonů jsou běžné
+- **Profesionalita:** Responzivní design je standardem moderních aplikací
+- **Budoucí kompatibilita:** Nové modely telefonů budou mít různé velikosti obrazovek
+
+### Příklady problémů bez responzivního designu:
+- ❌ Text příliš malý na velkých telefonech
+- ❌ Tlačítka příliš velká na malých telefonech  
+- ❌ Komponenty se nevejdou na obrazovku
+- ❌ Špatná čitelnost na různých velikostech
+- ❌ Nevyužití prostoru na velkých obrazovkách 

@@ -5,6 +5,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Svg, Circle } from 'react-native-svg';
 import { Cviceni, ZaznamVykonu, RootStackParamList } from '../types';
 import { useTranslation } from '../hooks/useTranslation';
+import { responsiveComponents, responsiveTypography, responsiveSpacingValues } from '../src/styles/theme';
 
 /** Typ pro navigaci */
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
@@ -98,8 +99,8 @@ const vypocitatStatistiky = (cviceni: Cviceni, zaznamy: ZaznamVykonu[]): Statist
 
 /** Kruhový progresbar s procentuálním vyjádřením */
 const KruhovyProgresbar = React.memo<{ procenta: number; barva: string }>(({ procenta, barva }) => {
-  const velikost = 52;
-  const sirkaCary = 5;
+  const velikost = responsiveComponents.progressBarSize;
+  const sirkaCary = responsiveComponents.progressBarStrokeWidth;
   const polomer = (velikost - sirkaCary) / 2;
   const obvod = 2 * Math.PI * polomer;
   
@@ -180,7 +181,7 @@ export const CviceniKarta = React.memo<CviceniKartaProps>(({ cviceni, zaznamy, n
               }
             </Text>
             <View style={styly.statistikaPopisSIkonou}>
-              <Ionicons name="trophy" size={12} color="#10b981" />
+              <Ionicons name="trophy" size={14} color="#10b981" />
               <Text style={styly.statistikaPopis}>{t('stats.dailyGoal')}</Text>
             </View>
           </View>
@@ -195,7 +196,7 @@ export const CviceniKarta = React.memo<CviceniKartaProps>(({ cviceni, zaznamy, n
               <View style={styly.statistikaPopisSIkonou}>
                 <Ionicons 
                   name="today" 
-                  size={12} 
+                  size={14} 
                   color="#f97316" 
                 />
                 <Text style={styly.statistikaPopis}>
@@ -208,7 +209,7 @@ export const CviceniKarta = React.memo<CviceniKartaProps>(({ cviceni, zaznamy, n
           <View style={styly.statistika}>
             <Text style={styly.statistikaHodnota}>{statistiky.pocetZaznamuDnes}</Text>
             <View style={styly.statistikaPopisSIkonou}>
-              <Ionicons name="document-text" size={12} color="#3b82f6" />
+              <Ionicons name="document-text" size={14} color="#3b82f6" />
               <Text style={styly.statistikaPopis}>{t('stats.records')}</Text>
             </View>
           </View>
@@ -239,9 +240,9 @@ CviceniKarta.displayName = 'CviceniKarta';
 const styly = StyleSheet.create({
   karta: {
     backgroundColor: 'white',
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 12,
+    borderRadius: responsiveComponents.cardBorderRadius,
+    padding: responsiveComponents.cardPadding,
+    marginBottom: responsiveComponents.cardMarginBottom,
     flexDirection: 'row',
     alignItems: 'center',
     shadowColor: '#000',
@@ -254,7 +255,7 @@ const styly = StyleSheet.create({
     width: 4,
     height: '100%',
     borderRadius: 2,
-    marginRight: 12,
+    marginRight: responsiveSpacingValues.sm,
   },
   obsah: {
     flex: 1,
@@ -262,35 +263,35 @@ const styly = StyleSheet.create({
   hlavicka: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 8,
+    marginBottom: responsiveSpacingValues.sm,
     backgroundColor: '#f8fafc',
-    borderRadius: 8,
+    borderRadius: responsiveSpacingValues.sm,
     padding: 5.76,
     borderWidth: 1,
     borderColor: '#e5e7eb',
     width: '90%',
   },
   nazev: {
-    fontSize: 16,
+    fontSize: responsiveTypography.cardTitle.fontSize * 1.1, // Zvětšeno o 10% (16px → 18px)
     fontWeight: '600',
     color: '#1f2937',
     flex: 1,
   },
   statistikyRadek: {
     flexDirection: 'row',
-    gap: 12,
-    marginBottom: 4,
+    gap: responsiveSpacingValues.sm,
+    marginBottom: responsiveSpacingValues.xs,
   },
   statistika: {
     alignItems: 'center',
   },
   statistikaHodnota: {
-    fontSize: 14.6, // Zmenšeno o 5% (15.4 * 0.95 = 14.6)
+    fontSize: responsiveTypography.cardValue.fontSize * 1.15, // Zvětšeno o 15% (14.6px → 17px)
     color: '#1e40af',
     fontWeight: 'normal',
   },
   statistikaPopis: {
-    fontSize: 11.4, // Zmenšeno o 5% (12 * 0.95 = 11.4)
+    fontSize: responsiveTypography.cardDescription.fontSize * 1.15, // Zvětšeno o 15% (11.4px → 13px)
     color: '#6b7280',
     marginTop: 1,
   },
@@ -298,7 +299,7 @@ const styly = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 4,
+    gap: responsiveSpacingValues.xs,
     marginTop: 1,
   },
 
@@ -306,7 +307,7 @@ const styly = StyleSheet.create({
     alignItems: 'center',
   },
   ikonaPodProgressem: {
-    marginTop: 4,
+    marginTop: responsiveSpacingValues.xs,
   },
 
 }); 

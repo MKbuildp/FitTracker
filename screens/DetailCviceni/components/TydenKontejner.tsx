@@ -9,6 +9,7 @@ import {
   getPocetDniVMesici,
   getPlneniCiluProcenta
 } from '../../Prehled/utils/datumUtils';
+import { responsiveComponents, responsiveTypography, responsiveSpacingValues } from '../../../src/styles/theme';
 
 
 /** Komponenta pro zobrazení statistik a měsíčního přehledu cvičení */
@@ -522,13 +523,13 @@ const styly = StyleSheet.create({
   },
   statistikyRadek: {
     flexDirection: 'row',
-    gap: 8,
-    marginBottom: 8,
+    gap: responsiveSpacingValues.sm,
+    marginBottom: responsiveSpacingValues.sm,
   },
   statistikaPolozka: {
     flex: 1,
     backgroundColor: '#f8fafc',
-    borderRadius: 8,
+    borderRadius: responsiveSpacingValues.sm,
     padding: 7.2, // Zmenšeno o 10% (8 * 0.9 = 7.2)
     borderWidth: 1,
     borderColor: '#e5e7eb',
@@ -537,16 +538,16 @@ const styly = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 8,
+    marginBottom: responsiveSpacingValues.sm,
     gap: 5.94, // Zvětšeno o 10% z 5.4 na 5.94
   },
   statistikaNazev: {
-    fontSize: 13.07, // Zvětšeno o 10% z 11.88 na 13.07
+    fontSize: (responsiveTypography.caption.fontSize - 1) * 1.1, // Zvětšeno o 10% (13px → 14.3px)
     color: '#6b7280',
     fontWeight: '500',
   },
   statistikaHodnotaMensi: {
-    fontSize: 16.7, // Zvětšeno o 10% z 15.18 na 16.7
+    fontSize: responsiveTypography.body.fontSize * 1.1, // Zvětšeno o 10% (16px → 17.6px)
     fontWeight: 'bold',
     color: '#1e40af',
     textAlign: 'center',

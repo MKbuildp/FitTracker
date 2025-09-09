@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import BarvyVyber from '../../PridatCviceni/components/BarvyVyber';
 import { Cviceni } from '../../../types';
 import { useTranslation } from '../../../hooks/useTranslation';
+import { responsiveTypography, responsiveSpacingValues } from '../../../src/styles/theme';
 
 /** Komponenta pro editaci barvy cvičení */
 export const BarvyEditor: React.FC<{
@@ -31,17 +32,17 @@ export const BarvyEditor: React.FC<{
 const styly = StyleSheet.create({
   // Sekce
   sekce: {
-    marginBottom: 24,
+    marginBottom: responsiveSpacingValues.lg,
   },
   sekceNadpis: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 12,
-    gap: 8,
+    marginBottom: responsiveSpacingValues.sm,
+    gap: responsiveSpacingValues.sm,
   },
   sekceText: {
-    fontSize: 16,
+    fontSize: responsiveTypography.body.fontSize,
     fontWeight: '600',
     color: '#1f2937',
   },

@@ -14,6 +14,7 @@ import { BarvyEditor } from './BarvyEditor';
 import { NebezpecnaZona } from './NebezpecnaZona';
 import { useTranslation } from '../../../hooks/useTranslation';
 import { Ionicons } from '@expo/vector-icons';
+import { responsiveComponents, responsiveTypography, responsiveSpacingValues } from '../../../src/styles/theme';
 
 /** Modální okno pro nastavení cvičení */
 export const NastaveniModal: React.FC<{
@@ -87,8 +88,8 @@ const styly = StyleSheet.create({
     width: '90%',
     maxHeight: '80%',
     backgroundColor: 'white',
-    borderRadius: 12,
-    padding: 20,
+    borderRadius: responsiveComponents.cardBorderRadius,
+    padding: responsiveSpacingValues.lg,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -99,19 +100,19 @@ const styly = StyleSheet.create({
     elevation: 5,
   },
   modalNadpis: {
-    fontSize: 20,
+    fontSize: responsiveTypography.title.fontSize,
     fontWeight: 'bold',
     color: '#1f2937',
-    marginBottom: 24,
+    marginBottom: responsiveSpacingValues.lg,
     textAlign: 'center',
   },
   modalHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 20,
+    marginBottom: responsiveSpacingValues.lg,
   },
   zavritTlacitko: {
-    padding: 5,
+    padding: responsiveSpacingValues.xs,
   },
 }); 

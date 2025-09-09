@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { useTranslation } from '../../../hooks/useTranslation';
 import { KruhovyVzor } from '../../../components/PozadiVzory';
+import { responsiveTypography } from '../../../src/styles/theme';
 
 /** Komponenta pro zobrazení stavu načítání dat */
 export const NacitaniStav: React.FC = () => {
@@ -23,7 +24,7 @@ const styly = StyleSheet.create({
     backgroundColor: '#f8fafc',
   },
   nacitaniText: {
-    fontSize: 18,
+    fontSize: responsiveTypography.subtitle.fontSize,
     color: '#6b7280',
   },
 }); 

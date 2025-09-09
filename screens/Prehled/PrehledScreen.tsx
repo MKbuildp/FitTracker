@@ -11,9 +11,11 @@ import {
 } from './components';
 import { KalendarHeader, KalendarTyden } from './components/Kalendar';
 import { TeckovanyVzor } from '../../components/PozadiVzory';
+import { TestovaciDataTlacitko } from '../../components/TestovaciDataTlacitko';
 import { useCviceni } from '../../context/CviceniContext';
 import { useKalendarData } from './hooks/useKalendarData';
 import { NavigationProp } from './types/types';
+import { responsiveSpacingValues } from '../../src/styles/theme';
 
 /**
  * Shell komponenta pro obrazovku Přehled.
@@ -86,6 +88,9 @@ const PrehledScreen: React.FC = () => {
                 data={kalendarData.denniData} 
                 onProgressPress={() => setJeNastaveniCiluViditelne(true)}
               />
+              
+              {/* Testovací data tlačítka - pouze pro vývoj/screenshoty */}
+              <TestovaciDataTlacitko />
             </View>
           }
         />
@@ -117,7 +122,7 @@ const styly = StyleSheet.create({
     marginBottom: 8,
   },
   bottomPadding: {
-    height: 24,
+    height: responsiveSpacingValues.lg,
   },
 
 
@@ -128,7 +133,7 @@ const styly = StyleSheet.create({
     backgroundColor: '#f8fafc',
   },
   nacitaniText: {
-    fontSize: 18,
+    fontSize: responsiveSpacingValues.lg,
     color: '#6b7280',
   },
 });

@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useTranslation } from '../../../hooks/useTranslation';
+import { responsiveTypography, responsiveSpacingValues, responsiveFontSize } from '../../../src/styles/theme';
 
 interface KalendarHeaderProps {
   vybranyDatum: Date;
@@ -14,14 +16,22 @@ export const KalendarHeader: React.FC<KalendarHeaderProps> = ({
   vybranyDatum,
   onDatumZmena
 }) => {
-  // Formátování data pro zobrazení
+  const { t } = useTranslation();
+  
+  // Formátování data pro zobrazení s překlady
   const formatujDatum = (datum: Date): string => {
-    const mesicRok = datum.toLocaleDateString('cs-CZ', {
-      month: 'long',
-      year: 'numeric'
-    });
-    // První písmeno měsíce velké
-    return mesicRok.charAt(0).toUpperCase() + mesicRok.slice(1);
+    const mesic = datum.getMonth();
+    const rok = datum.getFullYear();
+    
+    // Mapování čísel měsíců na překladové klíče
+    const mesiceKlice = [
+      'months.january', 'months.february', 'months.march', 'months.april',
+      'months.may', 'months.june', 'months.july', 'months.august',
+      'months.september', 'months.october', 'months.november', 'months.december'
+    ];
+    
+    const nazevMesice = t(mesiceKlice[mesic]);
+    return `${nazevMesice} ${rok}`;
   };
 
   // Navigace na předchozí měsíc
@@ -53,7 +63,7 @@ export const KalendarHeader: React.FC<KalendarHeaderProps> = ({
     <View style={styles.container}>
       <View style={styles.navigace}>
         <TouchableOpacity onPress={predchoziMesic} style={styles.tlacitko}>
-          <Ionicons name="chevron-back" size={24} color="#1f2937" />
+          <Ionicons name="chevron-back" size={28} color="#1f2937" />
         </TouchableOpacity>
         
         <View style={styles.datumKontejner}>
@@ -70,7 +80,7 @@ export const KalendarHeader: React.FC<KalendarHeaderProps> = ({
         >
           <Ionicons 
             name="chevron-forward" 
-            size={24} 
+            size={28} 
             color={jeDalsiMesicVBudoucnosti() ? "#9ca3af" : "#1f2937"} 
           />
         </TouchableOpacity>
@@ -82,17 +92,18 @@ export const KalendarHeader: React.FC<KalendarHeaderProps> = ({
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-    paddingVertical: 12,
-    paddingHorizontal: 16,
+    paddingVertical: responsiveSpacingValues.sm,  // Převedeno na responzivní hodnoty
+    paddingHorizontal: responsiveSpacingValues.md,
   },
   navigace: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    height: 38,  // Zvětšeno pro lepší proporce s větším fontem a ikonami
   },
   tlacitko: {
-    padding: 8,
-    borderRadius: 8,
+    padding: responsiveSpacingValues.sm,
+    borderRadius: responsiveSpacingValues.sm,
   },
   tlacitkoDeaktivovane: {
     opacity: 0.5,
@@ -103,7 +114,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   datumText: {
-    fontSize: 18,
+    fontSize: responsiveFontSize(21), // Zvětšeno o 15% z původních 18 (18 * 1.15 = 20.7 ≈ 21)
     fontWeight: '600',
     color: '#1f2937',
   },

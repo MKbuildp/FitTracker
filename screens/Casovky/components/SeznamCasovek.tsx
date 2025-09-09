@@ -4,6 +4,7 @@ import { CasovkaPolozka } from './CasovkaPolozka';
 import { Cviceni, ZaznamVykonu } from '../../../types';
 import { CasovkyNavigationProp } from '../types/types';
 import { DiagonalniVzor } from '../../../components/PozadiVzory';
+import { responsiveSpacingValues } from '../../../src/styles/theme';
 
 /** Props pro SeznamCasovek komponentu */
 interface SeznamCasovekProps {
@@ -44,7 +45,7 @@ const styly = StyleSheet.create({
     backgroundColor: '#f8fafc',
   },
   seznam: {
-    padding: 16,
+    padding: responsiveSpacingValues.md,
     zIndex: 1,
   },
 }); 

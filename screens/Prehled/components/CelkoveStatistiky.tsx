@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { CelkoveStatistikyProps } from '../types/types';
 import { getDatyTydne } from '../utils/datumUtils';
 import { useTranslation } from '../../../hooks/useTranslation';
+import { responsiveComponents, responsiveTypography, responsiveSpacingValues } from '../../../src/styles/theme';
 
 /** Komponenta pro zobrazení celkových statistik */
 export const CelkoveStatistiky: React.FC<CelkoveStatistikyProps> = ({ zaznamy, cviceni }) => {
@@ -92,16 +93,16 @@ export const CelkoveStatistiky: React.FC<CelkoveStatistikyProps> = ({ zaznamy, c
 
 const styly = StyleSheet.create({
   sekce: {
-    marginBottom: 16,
+    marginBottom: responsiveSpacingValues.md,
   },
   statistikyGrid: {
     flexDirection: 'row',
-    gap: 12,
+    gap: responsiveSpacingValues.sm,
   },
   statistikaKarta: {
     flex: 1,
     backgroundColor: 'white',
-    borderRadius: 12,
+    borderRadius: responsiveComponents.cardBorderRadius,
     overflow: 'hidden',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -111,26 +112,26 @@ const styly = StyleSheet.create({
     borderWidth: 1.2,
   },
   barevnyHeader: {
-    paddingHorizontal: 8,
+    paddingHorizontal: responsiveSpacingValues.sm,
     paddingVertical: 5, // Sníženo z 8 na 5 pro nižší hlavičku
     alignItems: 'center',
     justifyContent: 'center',
     minHeight: 32, // Sníženo o 1/3 z 48 na 32
   },
   headerText: {
-    fontSize: 13,
+    fontSize: responsiveTypography.caption.fontSize - 1, // O něco menší než caption
     fontWeight: '600',
     color: 'white',
     textAlign: 'center',
     lineHeight: 16,
   },
   obsah: {
-    padding: 8,
+    padding: responsiveSpacingValues.sm,
     alignItems: 'center',
-    gap: 4,
+    gap: responsiveSpacingValues.xs,
   },
   statistikaCislo: {
-    fontSize: 20,
+    fontSize: responsiveTypography.title.fontSize - 4, // O něco menší než title
     fontWeight: 'bold',
     color: '#1f2937',
     marginTop: 0,
@@ -140,17 +141,17 @@ const styly = StyleSheet.create({
   trendKontejner: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 4,
-    gap: 4,
+    marginTop: responsiveSpacingValues.xs,
+    gap: responsiveSpacingValues.xs,
   },
   trendText: {
-    fontSize: 12,
+    fontSize: responsiveTypography.caption.fontSize - 2, // Menší než caption
     fontWeight: '600',
   },
   podstatistika: {
-    fontSize: 11,
+    fontSize: responsiveTypography.caption.fontSize - 3, // Nejmenší text
     color: '#6b7280',
-    marginTop: 4,
+    marginTop: responsiveSpacingValues.xs,
     textAlign: 'center',
   },
 }); 

@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { InfoRadekProps } from '../types/types';
 import { jeDnes, formatovatHodnotu } from '../utils/helpers';
 import { useTranslation } from '../../../hooks/useTranslation';
+import { responsiveTypography } from '../../../src/styles/theme';
 
 /** Komponenta pro zobrazení denní statistiky a cíle cvičení */
 export const InfoRadek: React.FC<InfoRadekProps> = ({ cviceni, zaznamy }) => {
@@ -37,18 +38,20 @@ const styly = StyleSheet.create({
     alignItems: 'center',
   },
   statistikaText: {
-    fontSize: 14,
+    fontSize: responsiveTypography.caption.fontSize * 1.15, // Zvětšeno o 15% (14px → 16px)
     color: '#6b7280',
   },
   statistikaHodnota: {
+    fontSize: responsiveTypography.caption.fontSize * 1.15, // Zvětšeno o 15% (14px → 16px)
     fontWeight: 'bold',
     color: '#1e40af', 
   },
   cilText: {
-    fontSize: 14,
+    fontSize: responsiveTypography.caption.fontSize * 1.15, // Zvětšeno o 15% (14px → 16px)
     color: '#6b7280',
   },
   cilHodnota: {
+    fontSize: responsiveTypography.caption.fontSize * 1.15, // Zvětšeno o 15% (14px → 16px)
     fontWeight: 'bold',
     color: '#1e40af',
   },

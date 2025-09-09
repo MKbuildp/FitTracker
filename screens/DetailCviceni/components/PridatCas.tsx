@@ -5,6 +5,7 @@ import { PridatCasProps } from '../types/types';
 import { HistorieModal } from './HistorieModal';
 import { RucniCasModal } from './RucniCasModal';
 import { useTranslation } from '../../../hooks/useTranslation';
+import { responsiveComponents, responsiveTypography, responsiveSpacingValues } from '../../../src/styles/theme';
 
 /** Kontejner pro přidávání záznamu času pomocí stopek */
 export const PridatCas: React.FC<PridatCasProps> = ({ onUlozit, style, cviceni, zaznamy, onSmazatZaznam }) => {
@@ -242,13 +243,13 @@ const styly = StyleSheet.create({
   },
   spodniTlacitka: {
     flexDirection: 'row',
-    gap: 8,
+    gap: responsiveSpacingValues.sm,
   },
   spodniTlacitko: {
     flex: 1,
     backgroundColor: '#f8fafc',
-    borderRadius: 8,
-    padding: 12,
+    borderRadius: responsiveSpacingValues.sm,
+    padding: responsiveSpacingValues.sm,
     borderWidth: 1,
     borderColor: '#e5e7eb',
     flexDirection: 'row',
@@ -257,7 +258,7 @@ const styly = StyleSheet.create({
     gap: 6,
   },
   spodniTlacitkoText: {
-    fontSize: 14,
+    fontSize: responsiveTypography.caption.fontSize,
     fontWeight: '600',
     color: '#374151',
   },
@@ -279,7 +280,7 @@ const styly = StyleSheet.create({
     padding: 0, // Odstraněn padding
   },
   casHodnota: {
-    fontSize: 29, // 36 * 0.8 = 28.8 ≈ 29
+    fontSize: responsiveTypography.title.fontSize + 5, // Větší než title
     fontWeight: 'bold',
     color: '#1f2937',
     fontFamily: 'monospace',
@@ -287,7 +288,7 @@ const styly = StyleSheet.create({
     padding: 0, // Odstraněn padding
   },
   casJednotka: {
-    fontSize: 14,
+    fontSize: responsiveTypography.caption.fontSize,
     color: '#6b7280',
     marginTop: 2, // Zmenšeno z 4 na 2 (poloviční mezera)
     margin: 0, // Odstraněn margin (kromě marginTop)

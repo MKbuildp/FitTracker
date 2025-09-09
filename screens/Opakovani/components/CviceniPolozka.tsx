@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { CviceniPolozkaProps } from '../types/types';
 import { KruhovyUkazatelPokroku } from './KruhovyUkazatelPokroku';
 import { InfoRadek } from './InfoRadek';
+import { responsiveComponents, responsiveTypography, responsiveSpacingValues } from '../../../src/styles/theme';
 
 /** Optimalizovaná komponenta pro jednu položku cvičení v seznamu */
 export const CviceniPolozka = React.memo<CviceniPolozkaProps>(({ cviceni, navigation, zaznamy }) => {
@@ -47,11 +48,11 @@ CviceniPolozka.displayName = 'CviceniPolozka';
 const styly = StyleSheet.create({
   polozka: {
     backgroundColor: 'white',
-    borderRadius: 12,
-    paddingVertical: 12,
-    paddingRight: 16,
-    paddingLeft: 20,
-    marginBottom: 16,
+    borderRadius: responsiveComponents.cardBorderRadius,
+    paddingVertical: responsiveSpacingValues.sm,
+    paddingRight: responsiveSpacingValues.md,
+    paddingLeft: responsiveSpacingValues.lg,
+    marginBottom: responsiveSpacingValues.md,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -62,17 +63,17 @@ const styly = StyleSheet.create({
     top: 0,
     bottom: 0,
     width: 5,
-    borderTopLeftRadius: 12,
-    borderBottomLeftRadius: 12,
+    borderTopLeftRadius: responsiveComponents.cardBorderRadius,
+    borderBottomLeftRadius: responsiveComponents.cardBorderRadius,
   },
   polozkaObsah: {
     flex: 1,
-    marginRight: 12,
+    marginRight: responsiveSpacingValues.sm,
   },
   nazevCviceni: {
-    fontSize: 18,
+    fontSize: responsiveTypography.subtitle.fontSize * 1.1, // Zvětšeno o 10% (18px → 20px)
     fontWeight: 'bold',
     color: '#1f2937',
-    marginBottom: 8,
+    marginBottom: responsiveSpacingValues.sm,
   },
 }); 

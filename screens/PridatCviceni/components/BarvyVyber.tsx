@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from '../../../hooks/useTranslation';
+import { responsiveComponents, responsiveTypography, responsiveSpacingValues } from '../../../src/styles/theme';
 
 /** Paleta 21 dobře rozlišitelných barev */
 const PALETA_BAREV_VYBER = [
@@ -109,45 +110,45 @@ const BarvyVyber: React.FC<BarvyVyberProps> = ({
 
 const styly = StyleSheet.create({
   sekce: {
-    marginBottom: 24,
+    marginBottom: responsiveSpacingValues.lg,
   },
   nadpisKontejner: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 8,
-    gap: 8,
+    marginBottom: responsiveSpacingValues.sm,
+    gap: responsiveSpacingValues.sm,
   },
   popisek: {
-    fontSize: 16,
+    fontSize: responsiveTypography.body.fontSize,
     fontWeight: '600',
     color: '#374151',
   },
   pomocnyText: {
-    fontSize: 14,
+    fontSize: responsiveTypography.caption.fontSize,
     color: '#6b7280',
     textAlign: 'center',
-    marginBottom: 16,
+    marginBottom: responsiveSpacingValues.md,
   },
   
   // Barvy
   barvyKontejner: {
     alignItems: 'center',
-    gap: 12,
+    gap: responsiveSpacingValues.sm,
   },
   barvyRadek: {
     flexDirection: 'row',
     justifyContent: 'center',
-    gap: 12,
+    gap: responsiveSpacingValues.sm,
   },
   barvaPolozka: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
+    width: responsiveComponents.actionButtonSize,
+    height: responsiveComponents.actionButtonSize,
+    borderRadius: responsiveComponents.actionButtonSize / 2,
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
-    maxWidth: 40,
+    maxWidth: responsiveComponents.actionButtonSize + responsiveSpacingValues.xs,
   },
 });
 

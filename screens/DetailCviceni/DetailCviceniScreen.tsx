@@ -17,8 +17,10 @@ import {
 } from './components';
 
 import { KruhovyVzor, DiagonalniVzor } from '../../components/PozadiVzory';
+import { TabBar } from '../../components/TabBar';
 import { useDetailCviceni } from './hooks/useDetailCviceni';
 import { useTranslation } from '../../hooks/useTranslation';
+import { responsiveSpacingValues } from '../../src/styles/theme';
 
 /** Shell komponenta pro obrazovku detailu cvičení */
 const DetailCviceniScreen: React.FC = () => {
@@ -113,6 +115,9 @@ const DetailCviceniScreen: React.FC = () => {
             />
           </View>
         </ScrollView>
+        
+        {/* TabBar pro navigaci mezi hlavními záložkami */}
+        <TabBar pozice="floating" />
       </View>
 
       <NastaveniModal
@@ -138,7 +143,7 @@ const styly = StyleSheet.create({
   },
   obsah: {
     paddingTop: 16,
-    paddingBottom: 16,
+    paddingBottom: 80, // Větší padding pro TabBar
     paddingHorizontal: 16,
     zIndex: 1,
   },
@@ -148,14 +153,14 @@ const styly = StyleSheet.create({
     alignItems: 'center',
   },
   chybaText: {
-    fontSize: 18,
+    fontSize: responsiveSpacingValues.lg,
     color: '#dc2626',
   },
   sekce: {
-    marginBottom: 16,
+    marginBottom: responsiveSpacingValues.md,
   },
   sekceNovyZaznam: {
-    marginBottom: 8,
+    marginBottom: responsiveSpacingValues.sm,
   },
 
 });

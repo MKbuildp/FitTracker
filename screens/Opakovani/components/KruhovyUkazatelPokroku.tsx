@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Svg, Circle } from 'react-native-svg';
 import { KruhovyUkazatelPokrokuProps } from '../types/types';
 import { jeDnes } from '../utils/helpers';
+import { responsiveSize } from '../../../src/styles/theme';
 
 /** Kruhový ukazatel pokroku pro denní cíl cvičení */
 export const KruhovyUkazatelPokroku: React.FC<KruhovyUkazatelPokrokuProps> = ({ cviceni, zaznamy }) => {
@@ -11,8 +12,8 @@ export const KruhovyUkazatelPokroku: React.FC<KruhovyUkazatelPokrokuProps> = ({ 
     return <Ionicons name="chevron-forward" size={24} color="#9ca3af" />;
   }
   
-  const velikost = 52;
-  const sirkaCary = 5;
+  const velikost = responsiveSize(52);
+  const sirkaCary = responsiveSize(5);
   const polomer = (velikost - sirkaCary) / 2;
   const obvod = 2 * Math.PI * polomer;
 

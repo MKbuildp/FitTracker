@@ -3,6 +3,7 @@ import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { FormularProps } from '../types/types';
 import { useTranslation } from '../../../hooks/useTranslation';
+import { responsiveTypography, responsiveSpacingValues } from '../../../src/styles/theme';
 
 /** Komponenta pro zadání názvu cvičení */
 export const FormularNazev: React.FC<FormularProps> = ({ nazev, onNazevChange }) => {
@@ -28,17 +29,17 @@ export const FormularNazev: React.FC<FormularProps> = ({ nazev, onNazevChange })
 
 const styly = StyleSheet.create({
   kontejner: {
-    marginBottom: 20,
+    marginBottom: responsiveSpacingValues.lg,
   },
   nadpisKontejner: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 8,
-    gap: 8,
+    marginBottom: responsiveSpacingValues.sm,
+    gap: responsiveSpacingValues.sm,
   },
   nadpis: {
-    fontSize: 16,
+    fontSize: responsiveTypography.body.fontSize,
     fontWeight: '600',
     color: '#374151',
   },
@@ -46,10 +47,10 @@ const styly = StyleSheet.create({
     backgroundColor: '#ffffff',
     borderWidth: 1,
     borderColor: '#d1d5db',
-    borderRadius: 8,
-    paddingHorizontal: 12,
-    paddingVertical: 12,
-    fontSize: 16,
+    borderRadius: responsiveSpacingValues.sm,
+    paddingHorizontal: responsiveSpacingValues.sm,
+    paddingVertical: responsiveSpacingValues.sm,
+    fontSize: responsiveTypography.body.fontSize,
     color: '#111827',
   },
 });

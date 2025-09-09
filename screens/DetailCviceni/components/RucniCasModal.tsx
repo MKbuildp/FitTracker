@@ -10,6 +10,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { Cviceni } from '../../../types';
 import { useTranslation } from '../../../hooks/useTranslation';
+import { responsiveComponents, responsiveTypography, responsiveSpacingValues } from '../../../src/styles/theme';
 
 /** Props pro RucniCasModal */
 interface RucniCasModalProps {
@@ -190,8 +191,8 @@ const styly = StyleSheet.create({
   modalObsah: {
     width: '90%',
     backgroundColor: 'white',
-    borderRadius: 12,
-    padding: 20,
+    borderRadius: responsiveComponents.cardBorderRadius,
+    padding: responsiveSpacingValues.lg,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -205,15 +206,15 @@ const styly = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 24,
+    marginBottom: responsiveSpacingValues.lg,
   },
   modalNadpis: {
-    fontSize: 20,
+    fontSize: responsiveTypography.title.fontSize,
     fontWeight: 'bold',
     color: '#1f2937',
   },
   zavritTlacitko: {
-    padding: 4,
+    padding: responsiveSpacingValues.xs,
   },
 
   casKontrolKontejner: {
@@ -250,13 +251,13 @@ const styly = StyleSheet.create({
     backgroundColor: '#f8fafc',
     borderWidth: 2,
     borderColor: '#e5e7eb',
-    borderRadius: 8,
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    marginBottom: 8,
+    borderRadius: responsiveSpacingValues.sm,
+    paddingHorizontal: responsiveSpacingValues.md,
+    paddingVertical: responsiveSpacingValues.sm,
+    marginBottom: responsiveSpacingValues.sm,
   },
   casHodnotaText: {
-    fontSize: 24,
+    fontSize: responsiveTypography.title.fontSize,
     fontWeight: 'bold',
     color: '#1f2937',
     fontFamily: 'monospace',
@@ -264,7 +265,7 @@ const styly = StyleSheet.create({
     minWidth: 40,
   },
   casSeparator: {
-    fontSize: 28,
+    fontSize: responsiveTypography.title.fontSize + 4, // Větší než title
     fontWeight: 'bold',
     color: '#6b7280',
     marginTop: 40,
@@ -275,16 +276,16 @@ const styly = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#2563eb',
-    borderRadius: 8,
-    padding: 12,
-    gap: 8,
+    borderRadius: responsiveSpacingValues.sm,
+    padding: responsiveSpacingValues.sm,
+    gap: responsiveSpacingValues.sm,
   },
   ulozitTlacitkoNeaktivni: {
     backgroundColor: '#e5e7eb',
   },
   ulozitText: {
     color: 'white',
-    fontSize: 16,
+    fontSize: responsiveTypography.body.fontSize,
     fontWeight: '600',
   },
   ulozitTextNeaktivni: {

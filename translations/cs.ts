@@ -26,6 +26,15 @@ export const cs = {
   'common.no': 'Ne',
   'common.exerciseNotFound': 'Cvičení nebylo nalezeno',
 
+  // Calendar
+  'calendar.monday': 'Po',
+  'calendar.tuesday': 'Út',
+  'calendar.wednesday': 'St',
+  'calendar.thursday': 'Čt',
+  'calendar.friday': 'Pá',
+  'calendar.saturday': 'So',
+  'calendar.sunday': 'Ne',
+
   // Settings
   'settings.title': 'Nastavení',
   'settings.language': 'Jazyk',

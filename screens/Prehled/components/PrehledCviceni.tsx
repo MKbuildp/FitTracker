@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { ZjednodusenaKarta } from './ZjednodusenaKarta';
 import { PrehledCviceniProps } from '../types/types';
 import { useTranslation } from '../../../hooks/useTranslation';
+import { responsiveSpacingValues } from '../../../src/styles/theme';
 
 /**
  * Komponenta pro zobrazení přehledu všech cvičení
@@ -50,7 +51,7 @@ const styly = StyleSheet.create({
   statistikyWrapper: {
     marginBottom: 0,
     zIndex: 1,
-    marginHorizontal: -16, // Kompenzace paddingu seznamu
+    marginHorizontal: -responsiveSpacingValues.md, // Kompenzace paddingu seznamu
   },
   flatList: {
     flex: 1,
@@ -64,14 +65,14 @@ const styly = StyleSheet.create({
     textAlign: 'center',
   },
   sekceHeader: {
-    marginBottom: 16,
-    paddingHorizontal: 16,
+    marginBottom: responsiveSpacingValues.md,
+    paddingHorizontal: responsiveSpacingValues.md,
     zIndex: 1,
   },
   seznam: {
     paddingTop: 0,
-    paddingBottom: 8,
-    paddingHorizontal: 16,
+    paddingBottom: responsiveSpacingValues.sm,
+    paddingHorizontal: responsiveSpacingValues.md,
   },
   radek: {
     justifyContent: 'flex-start',

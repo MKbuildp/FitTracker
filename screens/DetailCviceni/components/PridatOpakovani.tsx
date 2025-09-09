@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { PridatOpakovaniProps } from '../types/types';
 import { HistorieModal } from './HistorieModal';
 import { useTranslation } from '../../../hooks/useTranslation';
+import { responsiveComponents, responsiveTypography, responsiveSpacingValues } from '../../../src/styles/theme';
 
 /** Kontejner pro přidávání záznamu opakování pomocí počítadla */
 export const PridatOpakovani: React.FC<PridatOpakovaniProps> = ({ onUlozit, style, cviceni, zaznamy, onSmazatZaznam }) => {
@@ -201,12 +202,12 @@ const styly = StyleSheet.create({
   },
   spodniTlacitka: {
     flexDirection: 'row',
-    gap: 8,
+    gap: responsiveSpacingValues.sm,
   },
   spodniTlacitko: {
     flex: 1,
     backgroundColor: '#f8fafc',
-    borderRadius: 8,
+    borderRadius: responsiveSpacingValues.sm,
     padding: 10, // Zmenšeno z 12 na 10
     borderWidth: 1,
     borderColor: '#e5e7eb',
@@ -216,7 +217,7 @@ const styly = StyleSheet.create({
     gap: 6,
   },
   spodniTlacitkoText: {
-    fontSize: 14,
+    fontSize: responsiveTypography.caption.fontSize,
     fontWeight: '600',
     color: '#374151',
   },
@@ -238,7 +239,7 @@ const styly = StyleSheet.create({
     padding: 0, // Odstraněn padding
   },
   pocetHodnota: {
-    fontSize: 36,
+    fontSize: responsiveTypography.title.fontSize + 12, // Větší než title
     fontWeight: 'bold',
     color: '#1f2937',
     fontFamily: 'monospace',
@@ -246,7 +247,7 @@ const styly = StyleSheet.create({
     padding: 0, // Odstraněn padding
   },
   pocetJednotka: {
-    fontSize: 14,
+    fontSize: responsiveTypography.caption.fontSize,
     color: '#6b7280',
     marginTop: 1, // Zmenšeno z 2 na 1
     margin: 0, // Odstraněn margin (kromě marginTop)
