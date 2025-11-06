@@ -2,7 +2,7 @@
   "expo": {
     "name": "Quotidis",
     "slug": "activus",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./assets/fittracker-icon.png",
     "userInterfaceStyle": "light",
@@ -20,7 +20,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.mkbuildp.activus",
-      "buildNumber": "1",
+      "buildNumber": "20",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false,
         "NSMotionUsageDescription": "Aplikace potřebuje přístup k pohybovým datům pro zobrazení počtu kroků."
@@ -33,7 +33,7 @@
       },
       "edgeToEdgeEnabled": true,
       "package": "com.mkbuildp.activus",
-      "versionCode": 1,
+      "versionCode": 20,
       "minSdkVersion": 26,
       
       "permissions": [
