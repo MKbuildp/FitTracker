@@ -19,7 +19,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.mkbuildp.activus",
+      "bundleIdentifier": "com.mkbuildp.fittracker",
       "buildNumber": "20",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false,
@@ -32,7 +32,7 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.mkbuildp.activus",
+      "package": "com.mkbuildp.fittracker",
       "versionCode": 20,
       "minSdkVersion": 26,
       
@@ -44,7 +44,7 @@
         "com.google.android.gms.permission.AD_ID"
       ],
       "allowBackup": false,
-      "playStoreUrl": "https://play.google.com/store/apps/details?id=com.mkbuildp.activus"
+      "playStoreUrl": "https://play.google.com/store/apps/details?id=com.mkbuildp.fittracker"
     },
     "web": {
       "favicon": "./assets/favicon.png",
