@@ -35,8 +35,8 @@ const LanguageSelectionScreen: React.FC<{ onComplete: () => void }> = ({ onCompl
         {/* Header s ikonou */}
         <View style={styly.header}>
           <Ionicons name="globe-outline" size={80} color="#2563eb" />
-                  <Text style={styly.nadpis}>Vítejte v FitTracker</Text>
-        <Text style={styly.nadpisEn}>Welcome to FitTracker</Text>
+                  <Text style={styly.nadpis}>Vítejte v Quotidis</Text>
+        <Text style={styly.nadpisEn}>Welcome to Quotidis</Text>
           <Text style={styly.popis}>
             Vyberte si jazyk aplikace{'\n'}
             Choose your app language

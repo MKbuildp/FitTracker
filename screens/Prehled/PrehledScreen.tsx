@@ -8,10 +8,10 @@ import {
   NastaveniModal,
   DenniAktivita,
   NastaveniCiluModal,
+  KrokyKarta,
 } from './components';
 import { KalendarHeader, KalendarTyden } from './components/Kalendar';
 import { TeckovanyVzor } from '../../components/PozadiVzory';
-import { TestovaciDataTlacitko } from '../../components/TestovaciDataTlacitko';
 import { useCviceni } from '../../context/CviceniContext';
 import { useKalendarData } from './hooks/useKalendarData';
 import { NavigationProp } from './types/types';
@@ -89,8 +89,7 @@ const PrehledScreen: React.FC = () => {
                 onProgressPress={() => setJeNastaveniCiluViditelne(true)}
               />
               
-              {/* Testovací data tlačítka - pouze pro vývoj/screenshoty */}
-              <TestovaciDataTlacitko />
+              <KrokyKarta />
             </View>
           }
         />

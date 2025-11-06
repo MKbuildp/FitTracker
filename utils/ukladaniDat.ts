@@ -4,7 +4,8 @@ import { Cviceni, ZaznamVykonu } from '../types';
 const KLICE = {
   CVICENI: 'cviceni',
   ZAZNAMY: 'zaznamy',
-  NASTAVENI_CILU: 'nastaveni_cilu'
+  NASTAVENI_CILU: 'nastaveni_cilu',
+  NASTAVENI_NOTIFIKACI: 'nastaveni_notifikaci'
 };
 
 /** Utility for data storage and loading */
@@ -108,6 +109,45 @@ export const ukladaniDat = {
       return {
         cilOpakovani: 50,
         cilDokoncenaCviceni: 3
+      };
+    }
+  },
+
+  /** Save notification settings */
+  async ulozitNastaveniNotifikaci(nastaveni: { 
+    povolene: boolean; 
+    casPripominky: string[];
+  }): Promise<void> {
+    try {
+      const nastaveniJson = JSON.stringify(nastaveni);
+      await AsyncStorage.setItem(KLICE.NASTAVENI_NOTIFIKACI, nastaveniJson);
+    } catch (error) {
+      console.error('Error saving notification settings:', error);
+    }
+  },
+
+  /** Load notification settings */
+  async nacistNastaveniNotifikaci(): Promise<{ 
+    povolene: boolean; 
+    casPripominky: string[];
+  }> {
+    try {
+      const nastaveniJson = await AsyncStorage.getItem(KLICE.NASTAVENI_NOTIFIKACI);
+      if (!nastaveniJson) {
+        // Výchozí hodnoty
+        return {
+          povolene: false,
+          casPripominky: ['08:00', '18:00']
+        };
+      }
+      
+      return JSON.parse(nastaveniJson);
+    } catch (error) {
+      console.error('Error loading notification settings:', error);
+      // Výchozí hodnoty při chybě
+      return {
+        povolene: false,
+        casPripominky: ['08:00', '18:00']
       };
     }
   },

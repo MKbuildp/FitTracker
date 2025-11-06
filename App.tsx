@@ -17,6 +17,7 @@ import { SystemBars } from 'react-native-edge-to-edge';
 
 import { CviceniProvider, useCviceni } from './context/CviceniContext';
 import { LanguageProvider, useLanguage } from './context/LanguageContext';
+import { NotificationProvider } from './context/NotificationContext';
 
 
 // Importy obrazovek
@@ -283,9 +284,11 @@ export default function App() {
     <SafeAreaProvider>
       <SystemBars style="light" />
       <LanguageProvider>
-        <CviceniProvider>
-          <AppContent />
-        </CviceniProvider>
+        <NotificationProvider>
+          <CviceniProvider>
+            <AppContent />
+          </CviceniProvider>
+        </NotificationProvider>
       </LanguageProvider>
     </SafeAreaProvider>
     </GestureHandlerRootView>

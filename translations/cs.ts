@@ -1,5 +1,5 @@
 /**
- * Czech translations for FitTracker
+ * Czech translations for Quotidis
  */
 export const cs = {
   // Navigation
@@ -60,14 +60,14 @@ export const cs = {
   'about.title': 'O aplikaci',
   'about.version': 'Verze',
   'about.description': 'Popis',
-  'about.appName': 'FitTracker',
-  'about.appDescription': 'Aplikace pro sledování cvičení s podporou opakování a časových cvičení.',
+  'about.appName': 'Quotidis',
+  'about.appDescription': 'Aplikace nejen pro sledování cvičení s podporou opakování a časových cvičení.',
   'about.buildInfo': 'Informace o sestavení',
   'about.platform': 'Platforma',
   'about.expoVersion': 'Expo SDK',
 
   // Welcome modal
-  'welcome.title': 'Vítejte ve FitTracker!',
+  'welcome.title': 'Vítejte v Quotidis!',
   'welcome.description': 'Váš nový osobní asistent pro sledování cvičení. Začněte přidáním prvního cvičení.',
   'welcome.continue': 'Pokračovat',
 
@@ -281,4 +281,24 @@ export const cs = {
   'backup.successMessage': 'Data byla úspěšně obnovena.',
   'backup.errorMessage': 'Nepodařilo se obnovit data.',
   'backup.noFile': 'Nebyl vybrán žádný soubor zálohy.',
+
+  // Notifications
+  'notifications.title': 'Notifikace',
+  'notifications.enabled': 'Povolit notifikace',
+  'notifications.enabledDescription': 'Zapněte notifikace pro připomenutí k cvičení.',
+  'notifications.configure': 'Konfigurovat notifikace',
+  'notifications.reminderTimes': 'Časy připomínek',
+  'notifications.reminderTimesDescription': 'Nastavte časy, kdy chcete dostávat připomínky k cvičení.',
+  'notifications.hours': 'Hodiny',
+  'notifications.minutes': 'Minuty',
+  'notifications.selectTime': 'Vyberte čas',
+  'notifications.addReminder': 'Přidat připomínku',
+  'notifications.maxRemindersReached': 'Maximální počet připomínek',
+  'notifications.maxRemindersMessage': 'Můžete nastavit maximálně 5 připomínek denně.',
+  'notifications.minRemindersRequired': 'Minimální počet připomínek',
+  'notifications.minRemindersMessage': 'Musíte mít alespoň jednu připomínku.',
+  'notifications.invalidTime': 'Neplatný čas',
+  'notifications.invalidTimeMessage': 'Zadejte čas ve formátu HH:mm (např. 08:00 nebo 18:30).',
+  'notifications.permissionDenied': 'Oprávnění zamítnuto',
+  'notifications.permissionDeniedMessage': 'Pro fungování notifikací potřebujeme vaše oprávnění. Můžete ho povolit v nastavení zařízení.',
 }; 

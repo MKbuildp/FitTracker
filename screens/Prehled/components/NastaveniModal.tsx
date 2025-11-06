@@ -11,6 +11,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from '../../../hooks/useTranslation';
 import { NastaveniCiluModal } from './NastaveniCiluModal';
+import { NastaveniNotifikaciModal } from './NastaveniNotifikaciModal';
 import { responsiveComponents, responsiveTypography, responsiveSpacingValues } from '../../../src/styles/theme';
 
 interface NastaveniModalProps {
@@ -27,6 +28,7 @@ export const NastaveniModal: React.FC<NastaveniModalProps> = ({
 }) => {
   const { t, currentLanguage, setLanguage } = useTranslation();
   const [zobrazitNastaveniCilu, setZobrazitNastaveniCilu] = useState(false);
+  const [zobrazitNastaveniNotifikaci, setZobrazitNastaveniNotifikaci] = useState(false);
 
   /**
    * Změna jazyka s potvrzením
@@ -125,11 +127,29 @@ export const NastaveniModal: React.FC<NastaveniModalProps> = ({
                   </TouchableOpacity>
                 </View>
 
+                {/* Notifikace */}
+                <View style={styly.sekce}>
+                  <Text style={styly.sekceNadpis}>{t('notifications.title')}</Text>
+                  <TouchableOpacity
+                    style={styly.cilTlacitko}
+                    onPress={() => setZobrazitNastaveniNotifikaci(true)}
+                    activeOpacity={0.7}
+                  >
+                    <View style={styly.cilTlacitkoObsah}>
+                      <Ionicons name="notifications" size={20} color="#2563eb" />
+                      <Text style={styly.cilTlacitkoText}>
+                        {t('notifications.configure')}
+                      </Text>
+                      <Ionicons name="chevron-forward" size={20} color="#6b7280" />
+                    </View>
+                  </TouchableOpacity>
+                </View>
+
                 {/* O aplikaci */}
                 <View style={styly.sekce}>
                   <Text style={styly.sekceNadpis}>{t('about.title')}</Text>
                   
-                  <Text style={styly.appInfo}>FitTracker 1.1.8</Text>
+                  <Text style={styly.appInfo}>Quotidis 1.0.0</Text>
                   
                   <View style={styly.popisKontejner}>
                     <Text style={styly.popisText}>{t('about.appDescription')}</Text>
@@ -145,6 +165,12 @@ export const NastaveniModal: React.FC<NastaveniModalProps> = ({
       <NastaveniCiluModal
         viditelne={zobrazitNastaveniCilu}
         onZavrit={() => setZobrazitNastaveniCilu(false)}
+      />
+
+      {/* Modální okno pro nastavení notifikací */}
+      <NastaveniNotifikaciModal
+        viditelne={zobrazitNastaveniNotifikaci}
+        onZavrit={() => setZobrazitNastaveniNotifikaci(false)}
       />
     </>
   );

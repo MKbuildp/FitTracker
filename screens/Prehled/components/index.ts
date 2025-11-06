@@ -6,3 +6,4 @@ export * from './NastaveniModal';
 export * from './NastaveniCiluModal';
 export * from './HeaderAkce';
 export * from './DenniAktivita';
+export * from './KrokyKarta';

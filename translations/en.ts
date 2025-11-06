@@ -1,5 +1,5 @@
 /**
- * English translations for FitTracker
+ * English translations for Quotidis
  */
 export const en = {
   // Navigation
@@ -60,14 +60,14 @@ export const en = {
   'about.title': 'About',
   'about.version': 'Version',
   'about.description': 'Description',
-  'about.appName': 'FitTracker',
+  'about.appName': 'Quotidis',
   'about.appDescription': 'Exercise tracking app with support for repetitions and time-based exercises.',
   'about.buildInfo': 'Build Information',
   'about.platform': 'Platform',
   'about.expoVersion': 'Expo SDK',
 
   // Welcome modal
-  'welcome.title': 'Welcome to FitTracker!',
+  'welcome.title': 'Welcome to Quotidis!',
   'welcome.description': 'Your new personal fitness tracking assistant. Start by adding your first exercise.',
   'welcome.continue': 'Continue',
 
@@ -281,4 +281,24 @@ export const en = {
   'backup.successMessage': 'Data has been successfully restored.',
   'backup.errorMessage': 'Failed to restore data.',
   'backup.noFile': 'No backup file selected.',
+
+  // Notifications
+  'notifications.title': 'Notifications',
+  'notifications.enabled': 'Enable notifications',
+  'notifications.enabledDescription': 'Turn on notifications to receive exercise reminders.',
+  'notifications.configure': 'Configure notifications',
+  'notifications.reminderTimes': 'Reminder times',
+  'notifications.reminderTimesDescription': 'Set times when you want to receive exercise reminders.',
+  'notifications.hours': 'Hours',
+  'notifications.minutes': 'Minutes',
+  'notifications.selectTime': 'Select time',
+  'notifications.addReminder': 'Add reminder',
+  'notifications.maxRemindersReached': 'Maximum reminders reached',
+  'notifications.maxRemindersMessage': 'You can set up to 5 reminders per day.',
+  'notifications.minRemindersRequired': 'Minimum reminders required',
+  'notifications.minRemindersMessage': 'You must have at least one reminder.',
+  'notifications.invalidTime': 'Invalid time',
+  'notifications.invalidTimeMessage': 'Enter time in HH:mm format (e.g., 08:00 or 18:30).',
+  'notifications.permissionDenied': 'Permission denied',
+  'notifications.permissionDeniedMessage': 'We need your permission to send notifications. You can enable it in device settings.',
 }; 
