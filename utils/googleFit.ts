@@ -66,3 +66,4 @@ export const getGoogleFitStepsRange = async (
 };
 
 
+

@@ -171,3 +171,4 @@ Přidat překlady do `translations/cs.ts` a `translations/en.ts`:
 **Doporučení**: Začít s **Možností B** (globální), později rozšířit na **Možnost A** pokud bude potřeba.
 
 
+

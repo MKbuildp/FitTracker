@@ -1,4 +1,4 @@
-const { withAndroidManifest, withAppBuildGradle } = require('@expo/config-plugins');
+const { withAndroidManifest, withAppBuildGradle } = require('expo/config-plugins');
 
 /**
  * Expo Config Plugin pro Android Health Connect
@@ -51,9 +51,22 @@ const withHealthConnect = (config) => {
     return config;
   });
 
-  // Přidání Health Connect SDK do build.gradle
+  // Přidání Health Connect SDK a minSdkVersion do build.gradle
   config = withAppBuildGradle(config, (config) => {
     const buildGradle = config.modResults.contents;
+    
+    // Nastavení minSdkVersion na 26
+    if (!buildGradle.includes('minSdkVersion')) {
+      const defaultConfigMatch = buildGradle.match(/defaultConfig\s*\{/);
+      if (defaultConfigMatch) {
+        const insertIndex = buildGradle.indexOf('\n', defaultConfigMatch.index + defaultConfigMatch[0].length);
+        const minSdkLine = '        minSdkVersion 26\n';
+        config.modResults.contents = 
+          buildGradle.slice(0, insertIndex) + 
+          minSdkLine + 
+          buildGradle.slice(insertIndex);
+      }
+    }
     
     // Přidání závislosti Health Connect SDK
     if (!buildGradle.includes('androidx.health.connect:connect-client')) {
@@ -62,9 +75,9 @@ const withHealthConnect = (config) => {
         const insertIndex = buildGradle.indexOf('}', dependenciesMatch.index);
         const healthConnectDependency = '    implementation "androidx.health.connect:connect-client:1.1.0-alpha07"\n';
         config.modResults.contents = 
-          buildGradle.slice(0, insertIndex) + 
+          config.modResults.contents.slice(0, insertIndex) + 
           healthConnectDependency + 
-          buildGradle.slice(insertIndex);
+          config.modResults.contents.slice(insertIndex);
       }
     }
 
