@@ -3,14 +3,11 @@
  * 
  * Health Connect je moderní platforma pro zdravotní a fitness data na Androidu.
  * Nahrazuje Google Fit API (které končí 30.6.2025).
- * 
- * POZNÁMKA: Pro plnou funkčnost Health Connect je potřeba:
- * 1. Bare workflow nebo custom development build
- * 2. Nativní modul pro komunikaci s Health Connect SDK
- * 3. Health Connect aplikace nainstalovaná na zařízení (Android 9+)
  */
 
-import { Platform } from 'react-native';
+import { Platform, NativeModules } from 'react-native';
+
+const { HealthConnectModule } = NativeModules;
 
 export interface HealthConnectSteps {
   steps: number;
@@ -40,13 +37,16 @@ export enum HealthConnectPermission {
  * - Android 9-13: musí být nainstalováno z Play Store
  */
 export const isHealthConnectAvailable = async (): Promise<boolean> => {
-  if (Platform.OS !== 'android') {
+  if (Platform.OS !== 'android' || !HealthConnectModule) {
     return false;
   }
   
-  // TODO: Implementovat kontrolu přes nativní modul
-  // Vyžaduje nativní implementaci pro kontrolu, zda je Health Connect nainstalováno
-  return false;
+  try {
+    return await HealthConnectModule.isAvailable();
+  } catch (error) {
+    console.error('Health Connect check error:', error);
+    return false;
+  }
 };
 
 /**
@@ -58,12 +58,26 @@ export const isHealthConnectAvailable = async (): Promise<boolean> => {
 export const requestHealthConnectPermissions = async (
   permissions: HealthConnectPermission[]
 ): Promise<HealthConnectPermissionResult> => {
-  // TODO: Implementovat přes nativní modul
-  // Health Connect SDK: HealthConnect.getOrCreateClient()
-  return {
-    granted: false,
-    deniedPermissions: permissions,
-  };
+  if (!HealthConnectModule) {
+    return {
+      granted: false,
+      deniedPermissions: permissions,
+    };
+  }
+  
+  try {
+    const granted = await HealthConnectModule.requestPermissions();
+    return {
+      granted,
+      deniedPermissions: granted ? undefined : permissions,
+    };
+  } catch (error) {
+    console.error('Health Connect permission error:', error);
+    return {
+      granted: false,
+      deniedPermissions: permissions,
+    };
+  }
 };
 
 /**
@@ -73,9 +87,30 @@ export const requestHealthConnectPermissions = async (
  * @returns Počet kroků za daný den nebo null pokud není dostupné
  */
 export const getHealthConnectSteps = async (date: Date): Promise<HealthConnectSteps | null> => {
-  // TODO: Implementovat přes nativní modul
-  // Health Connect SDK: StepsRecord.readRecords()
-  return null;
+  if (!HealthConnectModule) {
+    return null;
+  }
+  
+  try {
+    const dateMillis = date.getTime();
+    const steps = await HealthConnectModule.getDailySteps(dateMillis);
+    
+    const startOfDay = new Date(date);
+    startOfDay.setHours(0, 0, 0, 0);
+    
+    const endOfDay = new Date(date);
+    endOfDay.setHours(23, 59, 59, 999);
+    
+    return {
+      steps: Math.round(steps),
+      date,
+      startTime: startOfDay,
+      endTime: endOfDay,
+    };
+  } catch (error) {
+    console.error('Health Connect get steps error:', error);
+    return null;
+  }
 };
 
 /**
@@ -104,6 +139,7 @@ export const writeHealthConnectSteps = async (
   // Health Connect SDK: StepsRecord.insertRecords()
   return false;
 };
+
 
 
 

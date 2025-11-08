@@ -55,10 +55,25 @@ export async function naplanovatPripominky(
       continue;
     }
 
-    // Vytvoříme notifikaci s opakováním každý den
-    const trigger: Notifications.DailyTriggerInput = {
-      hour: hodiny,
-      minute: minuty,
+    // Vypočítáme datum pro první notifikaci
+    const ted = new Date();
+    const dnesniCas = new Date();
+    dnesniCas.setHours(hodiny, minuty, 0, 0);
+
+    let prvniNotifikace: Date;
+
+    if (dnesniCas > ted) {
+      // Čas je dnes v budoucnosti - naplánujeme na dnes
+      prvniNotifikace = dnesniCas;
+    } else {
+      // Čas už dnes prošel - naplánujeme na zítřek
+      prvniNotifikace = new Date(dnesniCas);
+      prvniNotifikace.setDate(prvniNotifikace.getDate() + 1);
+    }
+
+    // Použijeme DateTriggerInput s opakováním - spolehlivější v production buildu
+    const trigger: Notifications.DateTriggerInput = {
+      date: prvniNotifikace,
       repeats: true,
     };
 

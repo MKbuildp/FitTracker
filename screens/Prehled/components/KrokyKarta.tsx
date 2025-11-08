@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useSteps } from '../../../hooks/useSteps';
 import { responsiveComponents, responsiveTypography, responsiveSpacingValues } from '../../../src/styles/theme';
@@ -26,9 +26,16 @@ export const KrokyKarta: React.FC = () => {
           {isLoading ? (
             <Text style={styly.statistikaCislo}>—</Text>
           ) : !isAvailable ? (
-            <Text style={styly.nepodporovanoText}>Nepodporováno</Text>
+            <View style={styly.nepodporovanoKontejner}>
+              <Text style={styly.nepodporovanoText}>Nepodporováno</Text>
+              <Text style={styly.nepodporovanoPopis}>
+                {Platform.OS === 'android' 
+                  ? 'Vyžaduje Health Connect modul' 
+                  : 'Není dostupné na této platformě'}
+              </Text>
+            </View>
           ) : error ? (
-            <Text style={styly.chybaText}>Chyba</Text>
+            <Text style={styly.chybaText}>{error}</Text>
           ) : (
             <Text style={styly.statistikaCislo}>
               {formatovatKroky(steps)}
@@ -88,10 +95,19 @@ const styly = StyleSheet.create({
     color: '#ef4444',
     fontWeight: '500',
   },
+  nepodporovanoKontejner: {
+    alignItems: 'center',
+    gap: responsiveSpacingValues.xxs,
+  },
   nepodporovanoText: {
     fontSize: responsiveTypography.caption.fontSize,
     color: '#6b7280',
     fontWeight: '500',
+  },
+  nepodporovanoPopis: {
+    fontSize: responsiveTypography.caption.fontSize - 2,
+    color: '#9ca3af',
+    textAlign: 'center',
   },
 });
 
