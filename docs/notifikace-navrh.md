@@ -172,3 +172,6 @@ Přidat překlady do `translations/cs.ts` a `translations/en.ts`:
 
 
 
+
+
+

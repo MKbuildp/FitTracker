@@ -28,15 +28,11 @@ const withHealthConnect = (config) => {
       }
     });
 
-    // Přidání Health Connect provider
-    if (!manifest.application) {
-      manifest.application = [{}];
+    // Přidání Health Connect provider queries (musí být na úrovni manifest, ne application)
+    if (!manifest.queries) {
+      manifest.queries = [{}];
     }
-    const application = manifest.application[0];
-    if (!application['queries']) {
-      application['queries'] = [{}];
-    }
-    const queries = application['queries'][0];
+    const queries = manifest.queries[0];
     if (!queries.package) {
       queries.package = [];
     }
@@ -51,36 +47,52 @@ const withHealthConnect = (config) => {
     return config;
   });
 
-  // Přidání Health Connect SDK a minSdkVersion do build.gradle
+  // Přidání Health Connect SDK do build.gradle
+  // Poznámka: minSdkVersion je nastaveno přes expo-build-properties plugin
   config = withAppBuildGradle(config, (config) => {
-    const buildGradle = config.modResults.contents;
-    
-    // Nastavení minSdkVersion na 26
-    if (!buildGradle.includes('minSdkVersion')) {
-      const defaultConfigMatch = buildGradle.match(/defaultConfig\s*\{/);
-      if (defaultConfigMatch) {
-        const insertIndex = buildGradle.indexOf('\n', defaultConfigMatch.index + defaultConfigMatch[0].length);
-        const minSdkLine = '        minSdkVersion 26\n';
-        config.modResults.contents = 
-          buildGradle.slice(0, insertIndex) + 
-          minSdkLine + 
-          buildGradle.slice(insertIndex);
-      }
-    }
+    let buildGradle = config.modResults.contents;
     
     // Přidání závislosti Health Connect SDK
     if (!buildGradle.includes('androidx.health.connect:connect-client')) {
+      // Hledáme dependencies blok
       const dependenciesMatch = buildGradle.match(/dependencies\s*\{/);
       if (dependenciesMatch) {
-        const insertIndex = buildGradle.indexOf('}', dependenciesMatch.index);
-        const healthConnectDependency = '    implementation "androidx.health.connect:connect-client:1.1.0-alpha07"\n';
-        config.modResults.contents = 
-          config.modResults.contents.slice(0, insertIndex) + 
-          healthConnectDependency + 
-          config.modResults.contents.slice(insertIndex);
+        // Najdeme konec dependencies bloku pomocí počítání závorek
+        let braceCount = 1;
+        let dependenciesStart = dependenciesMatch.index + dependenciesMatch[0].length;
+        let dependenciesEnd = -1;
+        
+        for (let i = dependenciesStart; i < buildGradle.length; i++) {
+          if (buildGradle[i] === '{') braceCount++;
+          if (buildGradle[i] === '}') {
+            braceCount--;
+            if (braceCount === 0) {
+              dependenciesEnd = i;
+              break;
+            }
+          }
+        }
+        
+        if (dependenciesEnd > 0) {
+          // Najdeme poslední řádek před uzavírací závorkou
+          let lastNewline = dependenciesEnd;
+          for (let i = dependenciesEnd - 1; i >= dependenciesStart; i--) {
+            if (buildGradle[i] === '\n') {
+              lastNewline = i;
+              break;
+            }
+          }
+          
+          const healthConnectDependency = '    implementation "androidx.health.connect:connect-client:1.1.0-alpha07"\n';
+          buildGradle = 
+            buildGradle.slice(0, lastNewline + 1) + 
+            healthConnectDependency + 
+            buildGradle.slice(lastNewline + 1);
+        }
       }
     }
-
+    
+    config.modResults.contents = buildGradle;
     return config;
   });
 
